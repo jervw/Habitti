@@ -1,3 +1,3 @@
 # Habitti
 
-Santeri on tyhäm
+Jere on tyhäm
