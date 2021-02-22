@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        app:title="@string/settings"
+        app:iconSpaceReserved="false">
+
+    <ListPreference
+        app:key="theme"
+        app:title="Theme"
+        app:iconSpaceReserved="false"
+        app:entries="@array/themes"
+        app:entryValues="@array/colorValues" />
+
+    <SwitchPreferenceCompat
+        app:key="notifications"
+        app:iconSpaceReserved="false"
+        app:title="Enable notifications"/>
+
+    <Preference
+        app:key="feedback"
+        app:title="Send feedback"
+        app:iconSpaceReserved="false"
+        app:summary="Report technical issues or suggest new features"/>
+
+
+    </PreferenceCategory>
+</PreferenceScreen>
