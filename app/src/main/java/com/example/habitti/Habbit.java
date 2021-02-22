@@ -14,6 +14,10 @@ public class Habbit {
         this.dateCreated = new DateTime();
 
     }
+    public String getHabbitName() {
+        return this.habbitName;
+    }
+
     public DateTime getDateCreated() {
         return this.dateCreated;
     }

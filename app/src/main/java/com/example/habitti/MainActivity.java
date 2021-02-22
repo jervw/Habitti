@@ -11,8 +11,11 @@ import org.joda.time.DateTime;
 import org.joda.time.Days;
 
 import android.view.MenuItem;
+import android.widget.ListView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         //Create new Date from current date and subtract one day.
         DateTime sDate = new DateTime();
@@ -42,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_nav);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MainFragment()).commit();
+
+
 
 
     }
