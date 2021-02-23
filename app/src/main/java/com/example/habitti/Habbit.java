@@ -4,14 +4,16 @@ import org.joda.time.DateTime;
 
 public class Habbit {
     private String habbitName;
+    private int imageId;
     DateTime dateCreated;
     private double overallScore = 0;
     private double scoreMultiplier = 1.0;
 
 
-    public Habbit(String name) {
+    public Habbit(String name, int imageId) {
         this.habbitName = name;
         this.dateCreated = new DateTime();
+        this.imageId = imageId;
 
     }
     public String getHabbitName() {
@@ -20,6 +22,10 @@ public class Habbit {
 
     public DateTime getDateCreated() {
         return this.dateCreated;
+    }
+
+    public int getImageId() {
+        return this.imageId;
     }
 
     public void addScoreMultiplier() {

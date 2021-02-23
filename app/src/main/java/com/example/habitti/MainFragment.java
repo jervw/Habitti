@@ -20,15 +20,15 @@ public class MainFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        final ArrayList<HabbitsView> arrayList = new ArrayList<HabbitsView>();
+        //final ArrayList<HabbitsView> arrayList = new ArrayList<HabbitsView>();
 
 
-        Habbit tupakointi = new Habbit("tupakointi");
-        Habbit alkoholi = new Habbit("alkoholi");
-        arrayList.add(new HabbitsView(R.drawable.ic_baseline_settings_24, tupakointi.getHabbitName(), "Scores: " + tupakointi.getOverallScore(), "Day streak: 2"));
-        arrayList.add(new HabbitsView(R.drawable.ic_baseline_settings_24, alkoholi.getHabbitName(), "10", "200"));
+        GlobalModel.getInstance().addHabbit(new Habbit("tupakointi",R.drawable.smoking ));
 
-        HabbitsViewAdapter habbitsArrayAdapter = new HabbitsViewAdapter(getActivity(), arrayList);
+        //arrayList.add(new HabbitsView(R.drawable.ic_baseline_settings_24, GlobalModel.getInstance().tupakointi.getHabbitName(), "Scores: " + tupakointi.getOverallScore(), "Day streak: 2"));
+        //arrayList.add(new HabbitsView(R.drawable.ic_baseline_settings_24, alkoholi.getHabbitName(), "10", "200"));
+
+        HabbitsViewAdapter habbitsArrayAdapter = new HabbitsViewAdapter(getActivity(), GlobalModel.getInstance().getHabbitsView());
 
         ListView habbitsListView = (ListView) rootView.findViewById(R.id.listViewHabbits);
 

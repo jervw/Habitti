@@ -27,9 +27,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Create new Date from current date and subtract one day.
-        DateTime sDate = new DateTime();
+        /*DateTime sDate = new DateTime();
         sDate = sDate.minusDays(1);
-
         Habbit habit = new Habbit("tupakointi");
         Log.d("Tag", habit.getDateCreated().toString());
 
@@ -40,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             habit.addScoreMultiplier();
             habit.addDailyScore();
             Log.d("Tag", "Scores: " + habit.getOverallScore());
-        }
+        } */
 
 
 
