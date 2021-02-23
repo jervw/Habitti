@@ -2,6 +2,8 @@ package com.example.habitti;
 
 import org.joda.time.DateTime;
 
+import java.util.Date;
+
 public class Habbit {
     private String habbitName;
     private int imageId;
@@ -20,8 +22,8 @@ public class Habbit {
         return this.habbitName;
     }
 
-    public DateTime getDateCreated() {
-        return this.dateCreated;
+    public Date getDateCreated() {
+        return this.dateCreated.toDate();
     }
 
     public int getImageId() {

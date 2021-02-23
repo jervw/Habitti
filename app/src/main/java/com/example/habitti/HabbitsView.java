@@ -1,19 +1,23 @@
 package com.example.habitti;
 
+import java.util.Date;
+
 public class HabbitsView {
 
     private int ivHabbitImageId;
     private String mHabbitName;
     private String mHabbitScores;
     private String mHabbitDaysStreak;
+    private Date dateCreated;
 
 
     // create constructor to set the values for all the parameters of the each single view
-    public HabbitsView(int ivHabbitImageId, String mHabbitName, String mHabbitScores, String mHabbitDaysStreak) {
+    public HabbitsView(int ivHabbitImageId, String mHabbitName, String mHabbitScores, String mHabbitDaysStreak, Date dateCreated) {
         this.ivHabbitImageId = ivHabbitImageId;
         this.mHabbitName = mHabbitName;
         this.mHabbitScores = mHabbitScores;
         this.mHabbitDaysStreak = mHabbitDaysStreak;
+        this.dateCreated = dateCreated;
     }
 
     // getter method for returning the ID of the imageview
@@ -34,5 +38,9 @@ public class HabbitsView {
     // getter method for returning the days of the habbit
     public String getmHabbitDaysStreak() {
         return mHabbitDaysStreak;
+    }
+
+    public Date getDateCreated() {
+        return this.dateCreated;
     }
 }

@@ -1,10 +1,12 @@
 package com.example.habitti;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 
@@ -33,6 +35,15 @@ public class MainFragment extends Fragment {
         ListView habbitsListView = (ListView) rootView.findViewById(R.id.listViewHabbits);
 
         habbitsListView.setAdapter(habbitsArrayAdapter);
+
+        habbitsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> AdapterView, View view, int i, long l) {
+                Intent showDetails = new Intent(getActivity(), HabbitDetails.class);
+                showDetails.putExtra("EXTRA", i);
+                startActivity(showDetails);
+            }
+        });
         return rootView;
     }
 

@@ -23,7 +23,7 @@ public class GlobalModel {
         addListView(habbit);
     }
 
-    public ArrayList<Habbit> GetHabbits() {
+    public ArrayList<Habbit> GetHabbitsList() {
         return this.habbits;
     }
 
@@ -32,7 +32,10 @@ public class GlobalModel {
     }
 
     public void addListView(Habbit habbit) {
-        habbitsView.add(new HabbitsView(habbit.getImageId(), habbit.getHabbitName(), "Scores: " + habbit.getOverallScore(), "Day streak: 2"));
+        habbitsView.add(new HabbitsView(habbit.getImageId(), habbit.getHabbitName(), "Scores: " + habbit.getOverallScore(), "Day streak: 2", habbit.getDateCreated()));
+    }
 
+    public HabbitsView getHabbit(int i) {
+        return habbitsView.get(i);
     }
 }
