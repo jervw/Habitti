@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -17,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_nav);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MainFragment()).commit();
@@ -24,10 +24,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-       // getMenuInflater().inflate(R.menu.top_bar);
+        getMenuInflater().inflate(R.menu.app_bar, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
 
     private  BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -36,22 +35,20 @@ public class MainActivity extends AppCompatActivity {
             Fragment selectedFragment=null;
             switch (item.getItemId())
             {
-                case R.id.habits:
-                    selectedFragment = new MainFragment();
-                    break;
                 case R.id.calendar:
                     selectedFragment = new CalendarFragment();
+                    break;
+                case R.id.habits:
+                    selectedFragment = new MainFragment();
                     break;
                 case R.id.settings:
                     selectedFragment = new SettingsFragment();
                     break;
             }
-            if (selectedFragment != null){
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
-                return true;
-            }
-            return false;
-
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
+            return true;
         }
+
+
     };
 }
