@@ -35,4 +35,6 @@ public class MainFragment extends Fragment {
         habbitsListView.setAdapter(habbitsArrayAdapter);
         return rootView;
     }
+
+
 }
