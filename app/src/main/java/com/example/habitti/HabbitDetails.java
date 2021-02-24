@@ -37,5 +37,7 @@ public class HabbitDetails extends AppCompatActivity {
         detailsHabbitImage.setImageResource(GlobalModel.getInstance().getHabbit(i).getIvHabbitImageIdImageId());
         detailsHabbitDateCreated.setText("Date created: " + dateCreated);
         detailsHabbitDaysStreak.setText(GlobalModel.getInstance().getHabbit(i).getmHabbitDaysStreak());
+        detailsHabbitScores.setText(GlobalModel.getInstance().getHabbit(i).getmHabbitScores());
+        detailsHabbitMultiplier.setText("Current score multiplier: " + Double.toString(GlobalModel.getInstance().getHabbit(i).getScoreMultiplier()));
     }
 }

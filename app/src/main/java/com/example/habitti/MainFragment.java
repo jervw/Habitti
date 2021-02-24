@@ -25,7 +25,8 @@ public class MainFragment extends Fragment {
         //final ArrayList<HabbitsView> arrayList = new ArrayList<HabbitsView>();
 
 
-        GlobalModel.getInstance().addHabbit(new Habbit("tupakointi",R.drawable.smoking ));
+        GlobalModel.getInstance().addHabbit(new Habbit("tupakointi",R.drawable.habit_1 ));
+        GlobalModel.getInstance().addHabbit(new Habbit("Alkoholi", R.drawable.habit_3));
 
         //arrayList.add(new HabbitsView(R.drawable.ic_baseline_settings_24, GlobalModel.getInstance().tupakointi.getHabbitName(), "Scores: " + tupakointi.getOverallScore(), "Day streak: 2"));
         //arrayList.add(new HabbitsView(R.drawable.ic_baseline_settings_24, alkoholi.getHabbitName(), "10", "200"));

@@ -22,8 +22,8 @@ public class Habbit {
         return this.habbitName;
     }
 
-    public Date getDateCreated() {
-        return this.dateCreated.toDate();
+    public DateTime getDateCreated() {
+        return this.dateCreated;
     }
 
     public int getImageId() {
@@ -40,6 +40,10 @@ public class Habbit {
 
     public void addDailyScore() {
         this.overallScore = this.overallScore + (this.scoreMultiplier * 100);
+    }
+
+    public double getScoreMultiplier() {
+        return this.scoreMultiplier;
     }
 
     public double getOverallScore() {
