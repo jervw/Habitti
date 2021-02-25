@@ -3,11 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:title="Add new habit"
+        android:id="@+id/buttonAddNewHabbit"
         android:icon="@drawable/ic_baseline_add_circle_outline_24"
+        android:onClick="buttonClickNewHabbit"
         android:orderInCategory="100"
-
-        app:showAsAction="ifRoom"
-        />
+        android:title="Add new habit"
+        app:showAsAction="ifRoom" />
 
 </menu>

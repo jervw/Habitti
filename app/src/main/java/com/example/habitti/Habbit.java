@@ -2,6 +2,8 @@ package com.example.habitti;
 
 import org.joda.time.DateTime;
 
+import java.util.Date;
+
 public class Habbit {
     private String habbitName;
     private int imageId;
@@ -38,6 +40,10 @@ public class Habbit {
 
     public void addDailyScore() {
         this.overallScore = this.overallScore + (this.scoreMultiplier * 100);
+    }
+
+    public double getScoreMultiplier() {
+        return this.scoreMultiplier;
     }
 
     public double getOverallScore() {

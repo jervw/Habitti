@@ -1,7 +1,11 @@
 package com.example.habitti;
 
 
+import android.content.SharedPreferences;
+
 import java.util.ArrayList;
+
+import static android.content.Context.MODE_PRIVATE;
 
 //Singleton-class
 public class GlobalModel {
@@ -23,7 +27,7 @@ public class GlobalModel {
         addListView(habbit);
     }
 
-    public ArrayList<Habbit> GetHabbits() {
+    public ArrayList<Habbit> GetHabbitsList() {
         return this.habbits;
     }
 
@@ -32,7 +36,16 @@ public class GlobalModel {
     }
 
     public void addListView(Habbit habbit) {
-        habbitsView.add(new HabbitsView(habbit.getImageId(), habbit.getHabbitName(), "Scores: " + habbit.getOverallScore(), "Day streak: 2"));
+        dateCounter dateCounter = new dateCounter();
+        habbitsView.add(new HabbitsView(habbit.getImageId(), habbit.getHabbitName(), "Scores: " + habbit.getOverallScore(), "Days streak:" + dateCounter.compareDays(habbit.getDateCreated()), habbit.getDateCreated().toDate(), habbit.getScoreMultiplier()));
+    }
 
+    public HabbitsView getHabbit(int i) {
+        return habbitsView.get(i);
+    }
+
+    public void deleteHabbit(int i) {
+        habbitsView.remove(i);
+        habbits.remove(i);
     }
 }

@@ -7,6 +7,7 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
+import android.content.Intent;
 import android.app.Notification;
 
 import android.app.NotificationChannel;
@@ -17,7 +18,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_nav);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MainFragment()).commit();
@@ -43,6 +44,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.top_bar, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+    public boolean buttonClickNewHabbit(MenuItem item) {
+        Intent intent = new Intent(this, AddNewHabbits.class);
+        startActivity(intent);
+        return true;
     }
 
 
