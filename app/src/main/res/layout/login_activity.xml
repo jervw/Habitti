@@ -7,16 +7,43 @@
     tools:context=".LoginActivity">
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="148dp"
-        android:layout_height="122dp"
-        android:layout_marginTop="88dp"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toEndOf="@+id/button"
+        android:id="@+id/imageViewCharacter"
+        android:layout_width="223dp"
+        android:layout_height="201dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="40dp"
+        app:layout_constraintEnd_toStartOf="@+id/btnChangeClothes"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextSingUpName"
-        app:srcCompat="@drawable/profile"
-        tools:srcCompat="@drawable/profile" />
+        app:srcCompat="@drawable/char_7"
+        tools:srcCompat="@drawable/char_7" />
+
+    <ImageView
+        android:id="@+id/imageViewHairs"
+        android:layout_width="223dp"
+        android:layout_height="201dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="40dp"
+        app:layout_constraintEnd_toStartOf="@+id/btnChangeHairs"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextSingUpName"
+        app:srcCompat="?attr/selectableItemBackground"
+        tools:srcCompat="?attr/selectableItemBackgroundBorderless" />
+
+    <ImageView
+        android:id="@+id/imageViewClothes"
+        android:layout_width="223dp"
+        android:layout_height="201dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="40dp"
+        app:layout_constraintEnd_toStartOf="@+id/btnChangeClothes"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextSingUpName"
+        app:srcCompat="?attr/selectableItemBackground"
+        tools:srcCompat="?attr/selectableItemBackgroundBorderless" />
 
     <EditText
         android:id="@+id/editTextSingUpName"
@@ -38,38 +65,36 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         android:text="NEXT"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.363" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewCharacter"
+        app:layout_constraintVertical_bias="0.707" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnChangeClothes"
         android:layout_width="52dp"
         android:layout_height="60dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="126dp"
-        android:layout_marginBottom="123dp"
-        app:icon="@drawable/abc_vector_test"
-        app:layout_constraintBottom_toBottomOf="@+id/btnSingUp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editTextSingUpName"
-        app:layout_constraintVertical_bias="0.337" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="52dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="124dp"
         android:layout_marginEnd="36dp"
-        android:rotation="180"
+        android:scaleX="-1"
         app:icon="@drawable/abc_vector_test"
         app:layout_constraintBottom_toBottomOf="@+id/btnSingUp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editTextSingUpName"
-        app:layout_constraintVertical_bias="0.15" />
+        app:layout_constraintTop_toBottomOf="@+id/btnChangeHairs"
+        app:layout_constraintVertical_bias="0.145" />
+
+    <Button
+        android:id="@+id/btnChangeHairs"
+        android:layout_width="52dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="116dp"
+        android:layout_marginEnd="36dp"
+        android:scaleX="-1"
+        app:icon="@drawable/abc_vector_test"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editTextSingUpName" />
 
     <TextView
         android:id="@+id/textView2"
@@ -101,5 +126,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         app:layout_constraintVertical_bias="0.145" />
+
+    <Button
+        android:id="@+id/btnMale"
+        android:layout_width="68dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="28dp"
+        android:background="@android:color/transparent"
+        android:foreground="@drawable/male"
+        android:text="male"
+        app:layout_constraintBottom_toBottomOf="@+id/btnFemale"
+        app:layout_constraintEnd_toStartOf="@+id/btnFemale"
+        app:layout_constraintHorizontal_bias="0.967"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnFemale"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/btnFemale"
+        android:layout_width="68dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="120dp"
+        android:background="@android:color/transparent"
+        android:foreground="@drawable/female"
+        android:text="female"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewCharacter" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
