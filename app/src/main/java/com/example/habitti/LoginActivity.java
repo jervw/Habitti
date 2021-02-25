@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
         // CHARACTER CLOTHES:
         imageViewClothes = (ImageView) findViewById(R.id.imageViewClothes);
         btnChangeClothes = (Button) findViewById(R.id.btnChangeClothes);
-        clothesImages = new int[] {R.drawable.char_2, R.drawable.char_3};
+        clothesImages = new int[] {R.drawable.char_13, R.drawable.char_2, R.drawable.char_15, R.drawable.char_10, R.drawable.char_14};
 
         btnChangeClothes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
         // CHARACTER HAIRS:
         imageViewHairs = (ImageView) findViewById(R.id.imageViewHairs);
         btnChangeHairs = (Button) findViewById(R.id.btnChangeHairs);
-        hairsImages = new int[] {R.drawable.char_5, R.drawable.char_4, R.drawable.char_1};
+        hairsImages = new int[] {R.drawable.char_5, R.drawable.char_4, R.drawable.char_8, R.drawable.char_11, R.drawable.char_12, R.drawable.char_9};
 
         btnChangeHairs.setOnClickListener(new View.OnClickListener() {
             @Override
