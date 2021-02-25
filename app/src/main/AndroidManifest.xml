@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".HabbitDetails"></activity>
+        <activity android:name=".AddNewHabbits"></activity>
     </application>
 
 </manifest>

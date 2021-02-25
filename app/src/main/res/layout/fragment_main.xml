@@ -61,9 +61,11 @@
 
     <ListView
         android:id="@+id/listViewHabbits"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:tag="listView" />
+        android:tag="listView">
+
+    </ListView>
 
 </LinearLayout>
 
