@@ -1,7 +1,11 @@
 package com.example.habitti;
 
 
+import android.content.SharedPreferences;
+
 import java.util.ArrayList;
+
+import static android.content.Context.MODE_PRIVATE;
 
 //Singleton-class
 public class GlobalModel {
@@ -38,5 +42,10 @@ public class GlobalModel {
 
     public HabbitsView getHabbit(int i) {
         return habbitsView.get(i);
+    }
+
+    public void deleteHabbit(int i) {
+        habbitsView.remove(i);
+        habbits.remove(i);
     }
 }

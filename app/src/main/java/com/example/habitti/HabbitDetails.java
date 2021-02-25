@@ -1,5 +1,6 @@
 package com.example.habitti;
 
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.os.Bundle;
@@ -32,12 +33,21 @@ public class HabbitDetails extends AppCompatActivity {
         detailsHabbitMultiplier = findViewById(R.id.textViewDetailsHabbitMultiplier);
 
         String dateCreated = sdf.format(GlobalModel.getInstance().getHabbit(i).getDateCreated());
-        //" + GlobalModel.getInstance().getHabbit(i).getmHabbitDaysStreak();
         detailsHabbitName.setText(GlobalModel.getInstance().getHabbit(i).getmHabbitName());
         detailsHabbitImage.setImageResource(GlobalModel.getInstance().getHabbit(i).getIvHabbitImageIdImageId());
         detailsHabbitDateCreated.setText("Date created: " + dateCreated);
         detailsHabbitDaysStreak.setText(GlobalModel.getInstance().getHabbit(i).getmHabbitDaysStreak());
         detailsHabbitScores.setText(GlobalModel.getInstance().getHabbit(i).getmHabbitScores());
         detailsHabbitMultiplier.setText("Current score multiplier: " + Double.toString(GlobalModel.getInstance().getHabbit(i).getScoreMultiplier()));
+        }
+
+    public void buttonClickedDelete(View view) {
+        Bundle b = getIntent().getExtras();
+        int i = b.getInt("EXTRA");
+        GlobalModel.getInstance().deleteHabbit(i);
+        finish();
+
     }
+
+
 }
