@@ -6,6 +6,7 @@
         android:title="Add new habit"
         android:icon="@drawable/ic_baseline_add_circle_outline_24"
         android:orderInCategory="100"
+
         app:showAsAction="ifRoom"
         />
 
