@@ -1,15 +1,23 @@
 package com.example.habitti;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 public class LoginActivity extends AppCompatActivity {
+
+    // Tallentaminen:
+    private SharedPreferences sharedPrefs;
+    private String UserName = "UserName";
+    private final String UserNameKey = "LastUserName";
 
     private EditText SingUpName;
     private Button btnNext;
@@ -27,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     private int currentImageClothes;
     private int currentImageHairs;
 
+    public static final String EXTRA_MESSAGE = "com.example.habitti";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +49,11 @@ public class LoginActivity extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Vaihta käyttäjän nimi ja profiilikuva
+
+                // Nimen tallentaminen "shared preference.xml" tiedostoon:
+                sharedPrefs = getSharedPreferences("shared preference", Context.MODE_PRIVATE);
+                UserName = sharedPrefs.getString(UserNameKey, "0");
+
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
             }
@@ -96,5 +109,17 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    // Tallentaminen:
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("MY_APP", "onPause()");
+
+        SharedPreferences.Editor prefEditor = sharedPrefs.edit();
+        prefEditor.putString(UserNameKey, SingUpName.getText().toString());
+
+        prefEditor.commit();
     }
 }
