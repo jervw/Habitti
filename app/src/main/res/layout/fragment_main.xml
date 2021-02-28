@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:visibility="visible">
+
     <LinearLayout
         android:id="@+id/profile"
         android:layout_width="match_parent"
@@ -16,12 +19,38 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="45dp"
-                android:src="@drawable/profile" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                tools:context=".MainActivity">
+
+                <ImageView
+                    android:id="@+id/userCharacterImage"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="45dp"
+                    android:src="@drawable/profile" />
+
+                <ImageView
+                    android:id="@+id/userHairsImage"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="45dp"
+                    android:src="@drawable/profile" />
+
+                <ImageView
+                    android:id="@+id/userClothesImage"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="45dp"
+                    android:src="@drawable/profile" />
+
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/username"
@@ -32,6 +61,7 @@
                 android:textColor="#fff"
                 android:textSize="21sp"
                 android:textStyle="bold" />
+
 
         </LinearLayout>
 

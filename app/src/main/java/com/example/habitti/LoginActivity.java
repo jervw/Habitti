@@ -18,6 +18,12 @@ public class LoginActivity extends AppCompatActivity {
     private SharedPreferences sharedPrefs;
     private String UserName = "UserName";
     private final String UserNameKey = "LastUserName";
+    private int UserClothes;
+    private final String UserClothesKey = "LastUserClothes";
+    private int UserHairs;
+    private final String UserHairsKey = "LastUserHairs";
+    private int UserSex;
+    private final String UserSexKey = "LastUserSex";
 
     private EditText SingUpName;
     private Button btnNext;
@@ -34,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     int[] clothesImages;
     private int currentImageClothes;
     private int currentImageHairs;
+    private int currentCharacterSex;
 
     public static final String EXTRA_MESSAGE = "com.example.habitti";
 
@@ -54,6 +61,10 @@ public class LoginActivity extends AppCompatActivity {
                 sharedPrefs = getSharedPreferences("shared preference", Context.MODE_PRIVATE);
                 UserName = sharedPrefs.getString(UserNameKey, "0");
 
+                UserClothes = sharedPrefs.getInt(UserClothesKey, 0);
+                UserHairs = sharedPrefs.getInt(UserHairsKey, 0);
+                UserSex = sharedPrefs.getInt(UserSexKey, 0);
+
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
             }
@@ -68,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 imageViewCharacter.setImageResource(R.drawable.char_6);
+                currentCharacterSex = 1;
             }
         });
 
@@ -76,6 +88,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 imageViewCharacter.setImageResource(R.drawable.char_7);
+                currentCharacterSex = 0;
             }
         });
 
@@ -111,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    // Tallentaminen:
+    // SAVE DATA:
     @Override
     protected void onPause() {
         super.onPause();
@@ -119,6 +132,10 @@ public class LoginActivity extends AppCompatActivity {
 
         SharedPreferences.Editor prefEditor = sharedPrefs.edit();
         prefEditor.putString(UserNameKey, SingUpName.getText().toString());
+
+        prefEditor.putInt(UserClothesKey, currentImageClothes); // Tallentaa int currentImageClothes
+        prefEditor.putInt(UserHairsKey, currentImageHairs);
+        prefEditor.putInt(UserSexKey, currentCharacterSex);
 
         prefEditor.commit();
     }
