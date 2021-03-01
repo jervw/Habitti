@@ -23,7 +23,7 @@ public class HabbitsViewAdapter extends ArrayAdapter<HabbitsView>{
         View currentItemView = convertView;
 
         if (currentItemView == null) {
-            currentItemView = LayoutInflater.from(getContext()).inflate(R.layout.custom_list_view, parent, false);
+            currentItemView = LayoutInflater.from(getContext()).inflate(R.layout.custom_list_view2, parent, false);
         }
 
         HabbitsView currentNumberPosition = getItem(position);
@@ -34,9 +34,6 @@ public class HabbitsViewAdapter extends ArrayAdapter<HabbitsView>{
 
         TextView textViewHabbitName = currentItemView.findViewById(R.id.textViewHabbitName);
         textViewHabbitName.setText(currentNumberPosition.getmHabbitName());
-
-        TextView textViewHabbitLevel = currentItemView.findViewById(R.id.textViewLevel);
-        textViewHabbitLevel.setText(currentNumberPosition.getmHabbitScores());
 
         TextView textViewHabbitDaysStreak = currentItemView.findViewById(R.id.textViewDays);
         textViewHabbitDaysStreak.setText(currentNumberPosition.getmHabbitDaysStreak());
