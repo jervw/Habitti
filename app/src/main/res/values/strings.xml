@@ -9,6 +9,7 @@
     <string name="addNewHabbitTitle">Add new habit</string>
     <string name="chooseHabbit">Choose the new habit</string>
     <string-array name="habbits_array">
+        <item>Select</item>
         <item>No smoking</item>
         <item>No alcohol</item>
         <item>No sugar</item>
