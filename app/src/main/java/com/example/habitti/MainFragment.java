@@ -1,9 +1,11 @@
 package com.example.habitti;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +18,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.joda.JodaModule;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+
 public class MainFragment extends Fragment {
 
     private SharedPreferences sharedPrefHabbits;
     private final String sharedPreferenceName = "shared preference";
+    ObjectMapper objectMapper = new ObjectMapper();
 
     int[] clothesImages;
     int[] hairsImages;
@@ -32,35 +44,67 @@ public class MainFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        //saveHabbitData();
-        //loadHabbitData();
+        objectMapper.registerModule(new JodaModule());
 
+        GlobalModel.getInstance().addHabbit(new Habbit("Testailu", R.drawable.ic_baseline_settings_24));
+        loadHabbitData();
         updateUI();
 
         return rootView;
 
     }
 
-    /*private void saveHabbitData() {
-        sharedPrefHabbits = getActivity().getSharedPreferences("shared preference", Activity.MODE_PRIVATE);
+    private void saveHabbitData() {
+        sharedPrefHabbits = getActivity().getSharedPreferences(sharedPreferenceName, Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefHabbits.edit();
-        Gson gson = new Gson();
-        String jsonHabbits = gson.toJson(GlobalModel.getInstance().GetHabbitsList());
-        String jsonHabbitsView = gson.toJson(GlobalModel.getInstance().getHabbitsView());
-        editor.putString("Habbits list", jsonHabbits);
-        editor.putString("Habbits list view", jsonHabbitsView);
+        String jsonHabbits;
+        String jsonHabbitsView;
+
+        ArrayList<Habbit> habbits = new ArrayList<>();
+        try {
+            jsonHabbitsView = objectMapper.writeValueAsString(GlobalModel.getInstance().getHabbitsView());
+            editor.putString("Habbits list view", jsonHabbitsView);
+        } catch (Exception e) {
+
+        }
+        try {
+            jsonHabbits = objectMapper.writeValueAsString(GlobalModel.getInstance().getHabbitsList());
+            editor.putString("Habbits list", jsonHabbits);
+        } catch (Exception e) {
+
+        }
         editor.apply();
+        Log.d("Tag", "Saved");
     }
 
-    private void loadHabbitData() {
+    public void loadHabbitData() {
         sharedPrefHabbits = getActivity().getSharedPreferences(sharedPreferenceName, Activity.MODE_PRIVATE);
-    }*/
+
+        String jsonHabbits = sharedPrefHabbits.getString("Habbits list", null);
+        String jsonHabbitsView = sharedPrefHabbits.getString("Habbits list view", null);
+        //Type typeHabbits = new TypeToken<ArrayList<Habbit>>() {}.getType();
+        //Type typeHabbitsView = new TypeToken<ArrayList<HabbitsView>>() {}.getType();
+        try {
+            ArrayList<Habbit> habbit = objectMapper.readValue(jsonHabbits, ArrayList.class);
+            Log.d("Tag", habbit.toString());
+            GlobalModel.getInstance().replaceListHabbits(habbit);
+        } catch (Exception e) {
+        }
+        try {
+            ArrayList<HabbitsView> habbitsViews = objectMapper.readValue(jsonHabbitsView, ArrayList.class);
+            Log.d("Tag", habbitsViews.toString());
+            GlobalModel.getInstance().replaceListHabbitsList(habbitsViews);
+        } catch (Exception e) {
+        }
+
+    }
 
 
     private void updateUI() {
         HabbitsViewAdapter habbitsArrayAdapter = new HabbitsViewAdapter(getActivity(), GlobalModel.getInstance().getHabbitsView());
         habbitsListView = (ListView) rootView.findViewById(R.id.listViewHabbits);
         habbitsListView.setAdapter(habbitsArrayAdapter);
+        saveHabbitData();
 
 
         habbitsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -112,7 +156,12 @@ public class MainFragment extends Fragment {
     public void onResume() {
         super.onResume();
         updateUI();
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        saveHabbitData();
     }
 
 

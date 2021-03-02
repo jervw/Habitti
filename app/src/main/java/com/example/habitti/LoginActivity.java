@@ -138,5 +138,6 @@ public class LoginActivity extends AppCompatActivity {
         prefEditor.putInt(UserSexKey, currentCharacterSex);
 
         prefEditor.commit();
+
     }
 }
