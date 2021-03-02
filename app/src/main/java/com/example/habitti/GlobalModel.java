@@ -37,7 +37,7 @@ public class GlobalModel {
 
     public void addListView(Habbit habbit) {
         dateCounter dateCounter = new dateCounter();
-        habbitsView.add(new HabbitsView(habbit.getImageId(), habbit.getHabbitName(), "Scores: " + habbit.getOverallScore(), "Days streak:" + dateCounter.compareDays(habbit.getDateCreated()), habbit.getDateCreated().toDate(), habbit.getScoreMultiplier()));
+        habbitsView.add(new HabbitsView(habbit.getImageId(), habbit.getHabbitName(), "Scores: " + habbit.getOverallScore(), "" + dateCounter.compareDays(habbit.getDateCreated()), habbit.getDateCreated().toDate(), habbit.getScoreMultiplier()));
     }
 
     public HabbitsView getHabbit(int i) {
