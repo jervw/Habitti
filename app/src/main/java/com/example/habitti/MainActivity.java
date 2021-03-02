@@ -1,6 +1,7 @@
 package com.example.habitti;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -18,6 +19,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -26,31 +30,30 @@ import static com.example.habitti.Reminder.CHANNEL_1_ID;
 public class MainActivity extends AppCompatActivity {
     private NotificationManagerCompat notificationManager;
     private Reminder reminder;
+    Button addNewHabbitButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_nav);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MainFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MainFragment()).commit();
 
         reminder = new Reminder();
         notificationManager = NotificationManagerCompat.from(this);
+
+
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.top_bar, menu);
         return super.onCreateOptionsMenu(menu);
     }
-    public boolean buttonClickNewHabbit(MenuItem item) {
-        Intent intent = new Intent(this, AddNewHabbits.class);
-        startActivity(intent);
-        return true;
-    }
-
 
     private  BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -97,5 +100,21 @@ public class MainActivity extends AppCompatActivity {
             notificationManager.notify(1, notification);
             Log.i("app","notification sent");
         }
+    }
+
+    
+    public void onClickAddHabbit (View view){
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        View mView = getLayoutInflater().inflate(R.layout.new_habit_dialog, null);
+        builder.setTitle("Add new habit");
+        Spinner habbitSpinner = (Spinner) mView.findViewById(R.id.spinnerHabbits2);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(MainActivity.this, R.array.habbits_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        habbitSpinner.setAdapter(adapter);
+        /*Intent intent = new Intent(this, AddNewHabbits.class);
+        startActivity(intent);*/
+        builder.setView(mView);
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }
