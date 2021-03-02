@@ -26,6 +26,7 @@ public class AddHabitDialog extends AppCompatDialogFragment {
         final ImageView dialogImageView = (ImageView) view.findViewById(R.id.habitImage);
         dialogImageView.setImageResource(R.drawable.habit_1);
 
+
         builder.setView(view)
                 .setTitle("New habit")
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {

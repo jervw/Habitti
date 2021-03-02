@@ -21,11 +21,10 @@ import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import static com.example.habitti.Reminder.CHANNEL_1_ID;
-
 public class MainActivity extends AppCompatActivity {
+    public static final String CHANNEL_1_ID = "channel";
+
     private NotificationManagerCompat notificationManager;
-    private Reminder reminder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +35,9 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MainFragment()).commit();
 
-        reminder = new Reminder();
+        createNotificationChannel();
         notificationManager = NotificationManagerCompat.from(this);
+
     }
 
     @Override
@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         return true;
     }
-
 
     private  BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -81,7 +80,16 @@ public class MainActivity extends AppCompatActivity {
         AddHabitDialog habitDialog = new AddHabitDialog();
         habitDialog.show(getSupportFragmentManager(), "test dialog");
     }
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Log.i("app", "channel create");
+            NotificationChannel channel = new NotificationChannel(CHANNEL_1_ID, "Habit reminder", NotificationManager.IMPORTANCE_HIGH);
+            channel.setDescription("Description");
 
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+    }
 
     public void sendNotification(View view){
 
