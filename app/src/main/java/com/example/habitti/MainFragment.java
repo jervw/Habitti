@@ -1,9 +1,9 @@
 package com.example.habitti;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +16,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class MainFragment extends Fragment {
 
     private SharedPreferences sharedPrefHabbits;
     private final String sharedPreferenceName = "shared preference";
+
+    SaveLoad saveLoad = SaveLoad.getInstance();
 
     int[] clothesImages;
     int[] hairsImages;
@@ -31,15 +35,41 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        Log.d("TAG", "OnCreate");
 
-        //saveHabbitData();
-        //loadHabbitData();
+        //habbitsView = loadHabbitData();
+        //SaveLoad.getInstance().loadHabbitData(getActivity(), sharedPreferenceName);
 
         updateUI();
 
         return rootView;
 
     }
+
+    /*private void saveHabbitData() {
+        sharedPrefHabbits = getActivity().getSharedPreferences("shared preference", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPrefHabbits.edit();
+        Gson gson = new Gson();
+        //String jsonHabbits = gson.toJson(GlobalModel.getInstance().GetHabbitsList());
+        String json = gson.toJson(habbitsView);
+        editor.putString("Habbits list", json);
+        editor.apply();
+    }
+
+    private ArrayList loadHabbitData() {
+        sharedPrefHabbits = getActivity().getSharedPreferences("shared preference", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPrefHabbits.getString("Habbits list", null);
+        Type type = new TypeToken<ArrayList<Habbit>>() {}.getType();
+        habbitsView = gson.fromJson(json, type);
+
+        if (habbitsView == null) {
+            habbitsView = new ArrayList();
+        }
+
+        return habbits;
+    }*/
+
 
     /*private void saveHabbitData() {
         sharedPrefHabbits = getActivity().getSharedPreferences("shared preference", Activity.MODE_PRIVATE);
@@ -62,7 +92,6 @@ public class MainFragment extends Fragment {
         habbitsListView = (ListView) rootView.findViewById(R.id.listViewHabbits);
         habbitsListView.setAdapter(habbitsArrayAdapter);
 
-
         habbitsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> AdapterView, View view, int i, long l) {
@@ -74,7 +103,9 @@ public class MainFragment extends Fragment {
 
 
         // GET NAME FROM SHARED PREFERENCE.XML:
-        sharedPrefHabbits = this.getActivity().getSharedPreferences("shared preference", Context.MODE_PRIVATE);
+        //TextView textViewUserName = (TextView) rootView.findViewById(R.id.username);
+        //textViewUserName.setText(SaveLoad.getInstance().loadCharacterName(getActivity(), "LastUserName"));
+        sharedPrefHabbits = this.getActivity().getSharedPreferences("shared preference", MODE_PRIVATE);
         TextView textViewUserName = (TextView) rootView.findViewById(R.id.username);
         if (sharedPrefHabbits.contains("LastUserName")) {
             textViewUserName.setText(sharedPrefHabbits.getString("LastUserName", ""));
@@ -107,13 +138,17 @@ public class MainFragment extends Fragment {
         }
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
         updateUI();
-
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        //SaveLoad.getInstance().saveHabbitData(getActivity(), GlobalModel.getInstance().getHabbitsView(), "shared preference");
+        Log.d("MAIN", "OnPause");
+    }
 
 }
