@@ -5,7 +5,7 @@
     <item
         android:id="@+id/buttonAddNewHabbit"
         android:icon="@drawable/ic_baseline_add_circle_outline_24"
-        android:onClick="buttonClickNewHabbit"
+        android:onClick="onClickAddHabbit"
         android:orderInCategory="100"
         android:title="Add new habit"
         app:showAsAction="ifRoom" />

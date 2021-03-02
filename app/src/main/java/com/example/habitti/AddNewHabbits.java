@@ -6,13 +6,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.text.SimpleDateFormat;
 
 public class AddNewHabbits extends AppCompatActivity {
     TextView selection;
@@ -29,7 +26,7 @@ public class AddNewHabbits extends AppCompatActivity {
 
         selection = findViewById(R.id.textViewSelection);
         customHabbit = findViewById(R.id.editTextCustomHabbit);
-        spinnerHabbits = (Spinner) findViewById(R.id.spinnerHabbits);
+        spinnerHabbits = (Spinner) findViewById(R.id.spinnerHabbits2);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.habbits_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerHabbits.setAdapter(adapter);
@@ -81,7 +78,7 @@ public class AddNewHabbits extends AppCompatActivity {
         });
     }
 
-    public void onClickAddHabbit(View view) {
+    public void onClickAddHabbitsss(View view) {
         if (customHabbit.getText().toString().isEmpty() && spinnerSelectedText.equals("Add custom habit")) {
             selection.setText("Please add name for your habit");
         } else if (!customHabbit.getText().toString().isEmpty() && spinnerSelectedText.equals("Add custom habit")) {
