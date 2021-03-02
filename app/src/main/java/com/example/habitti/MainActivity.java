@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                     selectedFragment = new MainFragment();
                     break;
                 case R.id.calendar:
-                    selectedFragment = new CalendarFragment();
+                    openDialog();
                     break;
                 case R.id.settings:
                     selectedFragment = new SettingsFragment();
@@ -76,6 +76,11 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
+
+    public void openDialog(){
+        AddHabitDialog habitDialog = new AddHabitDialog();
+        habitDialog.show(getSupportFragmentManager(), "test dialog");
+    }
 
 
     public void sendNotification(View view){

@@ -10,8 +10,9 @@ public class Reminder extends Application {
 
     @Override
     public void onCreate() {
-        super.onCreate();
         createNotificationChannel();
+        super.onCreate();
+
     }
 
     private void createNotificationChannel() {
