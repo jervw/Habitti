@@ -28,6 +28,10 @@ import static com.example.habitti.Reminder.CHANNEL_1_ID;
 public class MainActivity extends AppCompatActivity {
     private NotificationManagerCompat notificationManager;
     private Reminder reminder;
+    //Used to make sure that dateCheck only runs once per app start
+    public static boolean firstCheckOfDay = true;
+
+    public static boolean developerMode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

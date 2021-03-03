@@ -46,6 +46,7 @@ public class MainFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
+
         //Load saved preferences and put them on screen
         loadHabbitData();
         updateUI();
@@ -71,6 +72,12 @@ public class MainFragment extends Fragment {
         Type typeHabbits = new TypeToken<Collection<Habbit>>() {
         }.getType();
         GlobalModel.getInstance().replaceListHabbits(gson.fromJson(jsonHabbits, typeHabbits));
+        //Go check if day has passed since last app start and give points accordingly
+        if (MainActivity.firstCheckOfDay == true) {
+            dateCheck dateCheck = new dateCheck(getActivity());
+            dateCheck.checkDate();
+            MainActivity.firstCheckOfDay = false;
+        }
     }
 
     private void updateUI() {
