@@ -32,10 +32,9 @@ public class HabbitDetails extends AppCompatActivity {
         detailsHabbitScores = findViewById(R.id.textViewDetailsHabbitScores);
         detailsHabbitMultiplier = findViewById(R.id.textViewDetailsHabbitMultiplier);
 
-        String dateCreated = sdf.format(GlobalModel.getInstance().getHabbitViewItem(i).getDateCreated());
         detailsHabbitName.setText(GlobalModel.getInstance().getHabbitViewItem(i).getmHabbitName());
         detailsHabbitImage.setImageResource(GlobalModel.getInstance().getHabbitViewItem(i).getIvHabbitImageIdImageId());
-        detailsHabbitDateCreated.setText("Date created: " + dateCreated);
+        detailsHabbitDateCreated.setText("Date created: " + GlobalModel.getInstance().getHabbitViewItem(i).getDateCreated());
         detailsHabbitDaysStreak.setText(GlobalModel.getInstance().getHabbitViewItem(i).getmHabbitDaysStreak());
         detailsHabbitScores.setText(GlobalModel.getInstance().getHabbitViewItem(i).getmHabbitScores());
         detailsHabbitMultiplier.setText("Current score multiplier: " + Double.toString(GlobalModel.getInstance().getHabbitViewItem(i).getScoreMultiplier()));

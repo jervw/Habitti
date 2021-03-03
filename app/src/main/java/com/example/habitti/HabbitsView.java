@@ -8,12 +8,12 @@ public class HabbitsView {
     private String mHabbitName;
     private String mHabbitScores;
     private String mHabbitDaysStreak;
-    private Date dateCreated;
+    private String dateCreated;
     private double scoreMultiplier;
 
 
     // create constructor to set the values for all the parameters of the each single view
-    public HabbitsView(int ivHabbitImageId, String mHabbitName, String mHabbitScores, String mHabbitDaysStreak, Date dateCreated, double scoreMultiplier) {
+    public HabbitsView(int ivHabbitImageId, String mHabbitName, String mHabbitScores, String mHabbitDaysStreak, String dateCreated, double scoreMultiplier) {
         this.ivHabbitImageId = ivHabbitImageId;
         this.mHabbitName = mHabbitName;
         this.mHabbitScores = mHabbitScores;
@@ -42,7 +42,7 @@ public class HabbitsView {
         return mHabbitDaysStreak;
     }
 
-    public Date getDateCreated() {
+    public String getDateCreated() {
         return this.dateCreated;
     }
 

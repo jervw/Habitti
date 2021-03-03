@@ -3,7 +3,14 @@ package com.example.habitti;
 
 import android.content.SharedPreferences;
 
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -39,9 +46,8 @@ public class GlobalModel {
         return this.habbitsView;
     }
 
-    public void addListView(Habbit habbit) {
-        dateCounter dateCounter = new dateCounter();
-        habbitsView.add(new HabbitsView(habbit.getImageId(), habbit.getHabbitName(), "Scores: " + habbit.getOverallScore(), "Days streak:" + dateCounter.compareDays(habbit.getDateCreated()), habbit.getDateCreated().toDate(), habbit.getScoreMultiplier()));
+    public void addListView(Habbit habbit){
+                habbitsView.add(new HabbitsView(habbit.getImageId(), habbit.getHabbitName(), "Scores: " + habbit.getOverallScore(), "Days streak:" + habbit.getDateCreated(), habbit.getDateCreated().toString(), habbit.getScoreMultiplier()));
     }
 
     public HabbitsView getHabbitViewItem(int i) {
@@ -58,12 +64,28 @@ public class GlobalModel {
     }
 
     public void replaceListHabbits(ArrayList<Habbit> habbit) {
-        this.habbitsTesting = habbit;
+        if (habbit == null) {
+
+        } else {
+            habbits.clear();
+        ArrayList<Habbit> habbits = habbit;
+        int index = 0;
+        while (index < habbits.size() ) {
+            addHabbit(habbits.get(index));
+            index++;
+        }
+        }
     }
 
-    public void replaceListHabbitsList(ArrayList<HabbitsView> habbitsView) {
-        this.habbitsViewsTesting = habbitsView;
+    /*public void replaceListHabbitsList(ArrayList<HabbitsView> habbitsView) {
+        ArrayList<HabbitsView> habbits = habbitsView;
+        int index = 0;
+        while (index < habbits.size() ) {
+            addHabbit(habbits.get(index));
+            index++;
     }
+
+     */
 
     //Gets all the habbits and gives them more multiplier and daily score
     public void dailyPointsAndMultipliers() {
@@ -73,5 +95,16 @@ public class GlobalModel {
             getHabbitItem(index).addDailyScore();
             index++;
         }
+    }
+
+    public int compareDays(DateTime habbitDate) {
+        DateTime currentDate = new DateTime();
+        return Days.daysBetween(habbitDate, currentDate).getDays();
+    }
+
+    public String getOwnDateCreatedAsString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String date = sdf.format(new Date());
+        return date;
     }
 }

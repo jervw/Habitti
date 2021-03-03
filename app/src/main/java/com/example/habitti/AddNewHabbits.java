@@ -1,6 +1,7 @@
 package com.example.habitti;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -88,8 +89,11 @@ public class AddNewHabbits extends AppCompatActivity {
             GlobalModel.getInstance().addHabbit(new Habbit(customHabbit.getText().toString(), imageId));
             finish();
         } else if (!spinnerSelectedText.isEmpty()) {
+            Log.d("Tag", spinnerSelectedText + imageId);
             GlobalModel.getInstance().addHabbit(new Habbit(spinnerSelectedText,imageId));
+
             finish();
         }
+
     }
 }
