@@ -35,6 +35,8 @@ public class MainFragment extends Fragment {
     private SharedPreferences sharedPrefHabbits;
     private final String sharedPreferenceName = "shared preference";
 
+    SaveLoad saveLoad = SaveLoad.getInstance();
+
     int[] clothesImages;
     int[] hairsImages;
 
@@ -45,7 +47,10 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        Log.d("TAG", "OnCreate");
 
+        //habbitsView = loadHabbitData();
+        //SaveLoad.getInstance().loadHabbitData(getActivity(), sharedPreferenceName);
 
         //Load saved preferences and put them on screen
         loadHabbitData();
@@ -95,7 +100,6 @@ public class MainFragment extends Fragment {
         saveHabbitData();
 
 
-        //Set listener to start new activity with information from selected habbit in listView
         habbitsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> AdapterView, View view, int i, long l) {
