@@ -1,7 +1,7 @@
 package com.example.habitti;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -12,14 +12,22 @@ import android.app.Notification;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.Calendar;
+import java.util.Date;
+
+import devs.mulham.horizontalcalendar.HorizontalCalendar;
+import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -37,14 +45,18 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MainFragment()).commit();
 
         createNotificationChannel();
-        notificationManager = NotificationManagerCompat.from(this);
     }
+
+
 
 /*    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.top_bar, menu);
         return super.onCreateOptionsMenu(menu);
     }*/
+
+
+
 
     private  BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -71,11 +83,13 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+
     public void openDialog(){
         AddHabitDialog habitDialog = new AddHabitDialog();
         habitDialog.show(getSupportFragmentManager(), "test dialog");
     }
     private void createNotificationChannel() {
+        notificationManager = NotificationManagerCompat.from(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Log.i("app", "channel create");
             NotificationChannel channel = new NotificationChannel(CHANNEL_1_ID, "Habit reminder", NotificationManager.IMPORTANCE_HIGH);
@@ -101,5 +115,6 @@ public class MainActivity extends AppCompatActivity {
             Log.i("app","notification sent");
         }
     }
+
 
 }

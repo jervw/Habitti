@@ -16,6 +16,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.util.Calendar;
+
+import devs.mulham.horizontalcalendar.HorizontalCalendar;
+import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
+
 public class MainFragment extends Fragment {
 
     private SharedPreferences sharedPrefHabbits;
@@ -35,10 +40,35 @@ public class MainFragment extends Fragment {
         //saveHabbitData();
         //loadHabbitData();
 
+        initializeCalendar();
         updateUI();
 
         return rootView;
 
+    }
+
+    private void initializeCalendar() {
+        /* starts before 1 month from now */
+        Calendar startDate = Calendar.getInstance();
+        startDate.add(Calendar.MONTH, -1);
+
+        /* ends after 1 month from now */
+        Calendar endDate = Calendar.getInstance();
+
+        HorizontalCalendar horizontalCalendar = new HorizontalCalendar.Builder(rootView, R.id.calendarView)
+                .range(startDate, endDate)
+                .datesNumberOnScreen(5)
+                .configure()
+                    .showTopText(false)
+                .end()
+                .build();
+
+        horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
+            @Override
+            public void onDateSelected(Calendar date, int position) {
+                //do something
+            }
+        });
     }
 
     /*private void saveHabbitData() {
@@ -57,7 +87,8 @@ public class MainFragment extends Fragment {
     }*/
 
 
-    private void updateUI() {
+
+    public void updateUI() {
         HabbitsViewAdapter habbitsArrayAdapter = new HabbitsViewAdapter(getActivity(), GlobalModel.getInstance().getHabbitsView());
         habbitsListView = (ListView) rootView.findViewById(R.id.listViewHabbits);
         habbitsListView.setAdapter(habbitsArrayAdapter);
@@ -73,7 +104,7 @@ public class MainFragment extends Fragment {
         });
 
 
-        // GET NAME FROM SHARED PREFERENCE.XML:
+      /*  // GET NAME FROM SHARED PREFERENCE.XML:
         sharedPrefHabbits = this.getActivity().getSharedPreferences("shared preference", Context.MODE_PRIVATE);
         TextView textViewUserName = (TextView) rootView.findViewById(R.id.username);
         if (sharedPrefHabbits.contains("LastUserName")) {
@@ -104,7 +135,8 @@ public class MainFragment extends Fragment {
             imageViewCharacter.setImageResource(R.drawable.char_6);
         } else if (i == 0) {
             imageViewCharacter.setImageResource(R.drawable.char_7);
-        }
+        }*/
+
     }
 
 
