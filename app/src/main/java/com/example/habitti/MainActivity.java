@@ -34,6 +34,7 @@ import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
 
 public class MainActivity extends AppCompatActivity {
     public static final String CHANNEL_1_ID = "channel";
+    public static Fragment selectedFragment=null;
 
     private NotificationManagerCompat notificationManager;
 
@@ -64,17 +65,17 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-            Fragment selectedFragment=null;
             switch (item.getItemId())
             {
                 case R.id.habits:
                     selectedFragment = new MainFragment();
                     break;
                 case R.id.calendar:
-                    openDialog();
+                    //openDialog();
                     break;
                 case R.id.settings:
                     selectedFragment = new SettingsFragment();
+                    Log.i("app","test" + selectedFragment);
                     break;
             }
             if (selectedFragment != null){
@@ -86,10 +87,14 @@ public class MainActivity extends AppCompatActivity {
     };
 
 
-    public void openDialog(){
+    public void openDialog(View view){
         AddHabitDialog habitDialog = new AddHabitDialog();
         habitDialog.show(getSupportFragmentManager(), "test dialog");
     }
+
+
+
+
     private void createNotificationChannel() {
         notificationManager = NotificationManagerCompat.from(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

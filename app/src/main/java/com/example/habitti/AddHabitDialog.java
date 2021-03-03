@@ -16,10 +16,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 public class AddHabitDialog extends AppCompatDialogFragment {
 
+    MainFragment mainFragment;
     int imageId;
     String spinnerSelectedText;
 
@@ -93,12 +96,18 @@ public class AddHabitDialog extends AppCompatDialogFragment {
                 .setPositiveButton("add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Log.d("app", "add habit");
                         GlobalModel.getInstance().addHabbit(new Habbit(textView.getText().toString(),imageId));
+                        FragmentManager fm = getFragmentManager();
+                        MainFragment fragm = (MainFragment)fm.findFragmentById(R.id.fragment_container);
+                        fragm.updateUI();
                     }
-                });
+                }
+                );
 
 
         return builder.create();
     }
+
+
+
 }

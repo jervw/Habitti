@@ -47,7 +47,7 @@ public class GlobalModel {
     }
 
     public void addListView(Habbit habbit){
-        habbitsView.add(new HabbitsView(habbit.getImageId(), habbit.getHabbitName(), "" + habbit.getOverallScore(), "" + habbit.getDateCreated(), habbit.getDateCreated().toString(), habbit.getScoreMultiplier()));
+        habbitsView.add(new HabbitsView(habbit.getImageId(), habbit.getHabbitName(), "" + habbit.getOverallScore(), "" + habbit.getDayStreak(), habbit.getDateCreated().toString(), habbit.getScoreMultiplier()));
     }
 
     public HabbitsView getHabbitViewItem(int i) {
@@ -76,7 +76,6 @@ public class GlobalModel {
         }
         }
     }
-
 
     //Gets all the habbits and gives them more multiplier and daily score
     public void dailyPointsAndMultipliers() {

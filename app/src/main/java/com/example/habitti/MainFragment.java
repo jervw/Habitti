@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -58,6 +60,7 @@ public class MainFragment extends Fragment {
         return rootView;
 
     }
+
 
     private void initializeCalendar() {
         /* starts before 1 month from now */
@@ -107,7 +110,7 @@ public class MainFragment extends Fragment {
         //GlobalModel.getInstance().replaceListHabbitsList(gson.fromJson(jsonHabbitsView, typeHabbitsView));
     }
 
-    private void updateUI() {
+    public void updateUI() {
         HabbitsViewAdapter habbitsArrayAdapter;
         if (GlobalModel.getInstance().getHabbitsView() == null) {
             habbitsArrayAdapter = new HabbitsViewAdapter(getActivity(), new ArrayList<HabbitsView>());
@@ -116,7 +119,9 @@ public class MainFragment extends Fragment {
         }
         habbitsListView = (ListView) rootView.findViewById(R.id.listViewHabbits);
         habbitsListView.setAdapter(habbitsArrayAdapter);
+    }
 
+/*
 
         habbitsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -159,8 +164,8 @@ public class MainFragment extends Fragment {
             imageViewCharacter.setImageResource(R.drawable.char_6);
         } else if (i == 0) {
             imageViewCharacter.setImageResource(R.drawable.char_7);
-        }
-    }
+        }*/
+
 
 
     @Override
@@ -169,10 +174,7 @@ public class MainFragment extends Fragment {
         updateUI();
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
+
 
 
 }

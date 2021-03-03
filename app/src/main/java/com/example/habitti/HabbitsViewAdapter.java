@@ -1,6 +1,5 @@
 package com.example.habitti;
 import android.app.Activity;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +7,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+
 import java.util.ArrayList;
 
 public class HabbitsViewAdapter extends ArrayAdapter<HabbitsView>{
@@ -23,7 +22,7 @@ public class HabbitsViewAdapter extends ArrayAdapter<HabbitsView>{
         View currentItemView = convertView;
 
         if (currentItemView == null) {
-            currentItemView = LayoutInflater.from(getContext()).inflate(R.layout.custom_list_view2, parent, false);
+            currentItemView = LayoutInflater.from(getContext()).inflate(R.layout.custom_list_view, parent, false);
         }
 
         HabbitsView currentNumberPosition = getItem(position);
