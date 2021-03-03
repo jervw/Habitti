@@ -2,28 +2,37 @@ package com.example.habitti;
 
 import org.joda.time.DateTime;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 public class Habbit {
     private String habbitName;
     private int imageId;
-    DateTime dateCreated;
+    private String dateCreated;
+    private int dayStreak;
     private double overallScore = 0;
     private double scoreMultiplier = 1.0;
 
-
     public Habbit(String name, int imageId) {
         this.habbitName = name;
-        this.dateCreated = new DateTime();
+        this.dateCreated = GlobalModel.getInstance().getOwnDateCreatedAsString();
         this.imageId = imageId;
+        this.dayStreak = 0;
 
     }
     public String getHabbitName() {
         return this.habbitName;
     }
 
-    public DateTime getDateCreated() {
+    public String getDateCreated() {
         return this.dateCreated;
+
     }
 
     public int getImageId() {
@@ -40,6 +49,7 @@ public class Habbit {
 
     public void addDailyScore() {
         this.overallScore = this.overallScore + (this.scoreMultiplier * 100);
+        this.dayStreak++;
     }
 
     public double getScoreMultiplier() {
@@ -48,5 +58,9 @@ public class Habbit {
 
     public double getOverallScore() {
         return (double)Math.round(this.overallScore * 10) / 10;
+    }
+
+    public int getDayStreak() {
+        return this.dayStreak;
     }
 }
