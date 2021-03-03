@@ -30,20 +30,17 @@
                 <ImageView
                     android:id="@+id/userCharacterImage"
                     android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/profile" />
+                    android:layout_height="100dp" />
 
                 <ImageView
                     android:id="@+id/userHairsImage"
                     android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/profile" />
+                    android:layout_height="100dp" />
 
                 <ImageView
                     android:id="@+id/userClothesImage"
                     android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/profile" />
+                    android:layout_height="100dp" />
 
             </RelativeLayout>
 
