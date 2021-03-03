@@ -34,7 +34,6 @@ public class MainFragment extends Fragment {
 
     private SharedPreferences sharedPrefHabbits;
     private final String sharedPreferenceName = "shared preference";
-    ObjectMapper objectMapper = new ObjectMapper();
 
     int[] clothesImages;
     int[] hairsImages;
@@ -47,6 +46,7 @@ public class MainFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
+        //Load saved preferences and put them on screen
         loadHabbitData();
         updateUI();
 
@@ -59,9 +59,7 @@ public class MainFragment extends Fragment {
         SharedPreferences.Editor editor = sharedPrefHabbits.edit();
         Gson gson = new Gson();
         String jsonHabbits = gson.toJson(GlobalModel.getInstance().getHabbitsList());
-        //String jsonHabbitsView = gson.toJson(GlobalModel.getInstance().getHabbitsView());
         editor.putString("Habbits list", jsonHabbits);
-        //editor.putString("Habbit list view", jsonHabbitsView);
         editor.apply();
         Log.d("Tag", "Saved");
     }
@@ -70,15 +68,15 @@ public class MainFragment extends Fragment {
         sharedPrefHabbits = getActivity().getSharedPreferences(sharedPreferenceName, Activity.MODE_PRIVATE);
         Gson gson = new Gson();
         String jsonHabbits = sharedPrefHabbits.getString("Habbits list", null);
-        //String jsonHabbitsView = sharedPrefHabbits.getString("Habbits list view", null);
         Type typeHabbits = new TypeToken<Collection<Habbit>>() {
         }.getType();
-        //Type typeHabbitsView = new TypeToken<Collection<HabbitsView>>() {}.getType();
         GlobalModel.getInstance().replaceListHabbits(gson.fromJson(jsonHabbits, typeHabbits));
-        //GlobalModel.getInstance().replaceListHabbitsList(gson.fromJson(jsonHabbitsView, typeHabbitsView));
     }
 
     private void updateUI() {
+        //Check if ArrayList from GlobalModel is set null by sharedPreferences
+        //If yes, create new ArrayList. If no get that ArrayList from GlobalModel. Put that ArrayList to ArrayAdapter
+        //Find listView by id and set ArrayAdapter to it. Then save current habbits from that ArrayList.
         HabbitsViewAdapter habbitsArrayAdapter;
         if (GlobalModel.getInstance().getHabbitsView() == null) {
             habbitsArrayAdapter = new HabbitsViewAdapter(getActivity(), new ArrayList<HabbitsView>());
@@ -90,6 +88,7 @@ public class MainFragment extends Fragment {
         saveHabbitData();
 
 
+        //Set listener to start new activity with information from selected habbit in listView
         habbitsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> AdapterView, View view, int i, long l) {

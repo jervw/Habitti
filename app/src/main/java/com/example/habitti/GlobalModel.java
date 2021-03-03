@@ -47,7 +47,7 @@ public class GlobalModel {
     }
 
     public void addListView(Habbit habbit){
-                habbitsView.add(new HabbitsView(habbit.getImageId(), habbit.getHabbitName(), "Scores: " + habbit.getOverallScore(), "Days streak:" + habbit.getDateCreated(), habbit.getDateCreated().toString(), habbit.getScoreMultiplier()));
+                habbitsView.add(new HabbitsView(habbit.getImageId(), habbit.getHabbitName(), "Scores: " + habbit.getOverallScore(), "Days streak:" + habbit.getDayStreak(), habbit.getDateCreated().toString(), habbit.getScoreMultiplier()));
     }
 
     public HabbitsView getHabbitViewItem(int i) {
@@ -95,11 +95,6 @@ public class GlobalModel {
             getHabbitItem(index).addDailyScore();
             index++;
         }
-    }
-
-    public int compareDays(DateTime habbitDate) {
-        DateTime currentDate = new DateTime();
-        return Days.daysBetween(habbitDate, currentDate).getDays();
     }
 
     public String getOwnDateCreatedAsString() {
