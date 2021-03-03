@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
-    // Tallentaminen:
     private SharedPreferences sharedPrefs;
     private String UserName = "UserName";
     private final String UserNameKey = "LastUserName";
@@ -44,10 +43,20 @@ public class LoginActivity extends AppCompatActivity {
 
     public static final String EXTRA_MESSAGE = "com.example.habitti";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
+
+
+        // GO TO THE MAIN FRAGMENT, IF THE NAME WAS ALREADY CREATED
+        sharedPrefs = this.getSharedPreferences("shared preference", MODE_PRIVATE);
+        if (sharedPrefs.contains("LastUserName")) {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+
         
         SingUpName = (EditText) findViewById(R.id.editTextSingUpName);
         btnNext = (Button) findViewById(R.id.btnSingUp);
@@ -57,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                // Nimen tallentaminen "shared preference.xml" tiedostoon:
+                // SAVE:
                 sharedPrefs = getSharedPreferences("shared preference", Context.MODE_PRIVATE);
                 UserName = sharedPrefs.getString(UserNameKey, "0");
 
@@ -121,8 +130,8 @@ public class LoginActivity extends AppCompatActivity {
                 imageViewHairs.setImageResource(hairsImages[currentImageHairs]);
             }
         });
-
     }
+
 
     // SAVE DATA:
     @Override
@@ -130,14 +139,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onPause();
         Log.d("MY_APP", "onPause()");
 
-        SharedPreferences.Editor prefEditor = sharedPrefs.edit();
-        prefEditor.putString(UserNameKey, SingUpName.getText().toString());
+        SaveLoad.getInstance().saveCharacterImages(this, SingUpName.getText().toString(), UserNameKey, currentImageClothes, UserClothesKey,
+                                    currentImageHairs, UserHairsKey, currentCharacterSex, UserSexKey);
 
-        prefEditor.putInt(UserClothesKey, currentImageClothes); // Tallentaa int currentImageClothes
-        prefEditor.putInt(UserHairsKey, currentImageHairs);
-        prefEditor.putInt(UserSexKey, currentCharacterSex);
-
-        prefEditor.commit();
-
+        Log.d("LOGIN", "OnPauseLoginActivity");
     }
 }
