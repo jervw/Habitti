@@ -49,7 +49,6 @@
                     android:layout_gravity="bottom"
                     android:layout_marginTop="1dp"
                     android:src="@drawable/profile" />
-
             </RelativeLayout>
 
 
@@ -65,7 +64,7 @@
             <TextView
                 android:id="@+id/username"
                 android:layout_width="191dp"
-                android:layout_height="76dp"
+                android:layout_height="52dp"
                 android:layout_marginRight="50dp"
                 android:layout_marginBottom="25dp"
                 android:gravity="left"
@@ -89,6 +88,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:layout_marginRight="30dp" />
+
+            <Button
+                android:id="@+id/ShopBtn"
+                android:layout_width="168dp"
+                android:layout_height="wrap_content"
+                android:text="Shop" />
 
         </LinearLayout>
     </LinearLayout>

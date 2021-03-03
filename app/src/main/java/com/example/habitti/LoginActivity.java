@@ -40,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     private int currentImageClothes;
     private int currentImageHairs;
     private int currentCharacterSex;
+    boolean devMode = false;
 
     public static final String EXTRA_MESSAGE = "com.example.habitti";
 
@@ -48,18 +49,34 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
-
+        Log.d("LOGIN", "OnCreate()");
 
         // GO TO THE MAIN FRAGMENT, IF THE NAME WAS ALREADY CREATED
         sharedPrefs = this.getSharedPreferences("shared preference", MODE_PRIVATE);
+        String name;
+
         if (sharedPrefs.contains("LastUserName")) {
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
+            name = sharedPrefs.getString("LastUserName", "");
+
+            if (!name.equals("")) {
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+
+            if (name.equals("")) {
+                Log.d("LOGIN", "What is your name?");
+            }
+
+            if (name.equals("...dev...")) {
+                Log.d("LOGIN", "dev mode");
+                devMode = true;
+            }
         }
 
         
         SingUpName = (EditText) findViewById(R.id.editTextSingUpName);
         btnNext = (Button) findViewById(R.id.btnSingUp);
+
 
         // NEXT BUTTON:
         btnNext.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +93,10 @@ public class LoginActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
+
+                //SAVE USER DATA:
+                SaveLoad.getInstance().saveCharacterImages(LoginActivity.this, SingUpName.getText().toString(), UserNameKey, currentImageClothes, UserClothesKey,
+                        currentImageHairs, UserHairsKey, currentCharacterSex, UserSexKey);
             }
         });
 
@@ -132,16 +153,9 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-
-    // SAVE DATA:
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d("MY_APP", "onPause()");
-
-        SaveLoad.getInstance().saveCharacterImages(this, SingUpName.getText().toString(), UserNameKey, currentImageClothes, UserClothesKey,
-                                    currentImageHairs, UserHairsKey, currentCharacterSex, UserSexKey);
-
-        Log.d("LOGIN", "OnPauseLoginActivity");
+        Log.d("LOGIN", "OnPause() LoginActivity");
     }
 }
