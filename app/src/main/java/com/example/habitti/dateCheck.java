@@ -14,7 +14,6 @@ import org.joda.time.format.DateTimeFormatter;
 public class dateCheck {
     private static Context context;
     private static ReadableInstant comparedDate;
-    private String pattern = "dd/MM/yyyy";
 
     public dateCheck(Context context) {
         this.context = context;
