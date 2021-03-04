@@ -1,13 +1,15 @@
 <resources>
     <string name="app_name">Habitti</string>
-    <string name="matti">Matti</string>
-    <string name="level_5">Level: 5</string>
     <string name="settings">Settings</string>
     <string name="username">Username</string>
     <string name="change">Change</string>
     <string name="buttonDeleteHabbit">Delete Habit</string>
     <string name="addNewHabbitTitle">Add new habit</string>
     <string name="chooseHabbit">Choose the new habit</string>
+    <string name="emptyField">No habit selected</string>
+    <string name="customHabbitHint">Enter your habit\'s name</string>
+    <string name="buttonCreateHabbit">Add selected habit</string>
+
     <string-array name="habbits_array">
         <item>No smoking</item>
         <item>No alcohol</item>
@@ -17,7 +19,4 @@
         <item>Drink water</item>
         <item>Add custom habit</item>
     </string-array>
-    <string name="emptyField">No habit selected</string>
-    <string name="customHabbitHint">Enter your habit\'s name</string>
-    <string name="buttonCreateHabbit">Add selected habit</string>
 </resources>
