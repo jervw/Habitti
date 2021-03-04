@@ -81,7 +81,7 @@ public class MainFragment extends Fragment {
         shopBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("MAIN", "Shop onClick()");
+                Log.d("MAIN FRAGMENT", "Shop onClick()");
                 Intent intent = new Intent(getActivity(), ShopPopUp.class);
                 getActivity().startActivity(intent);
             }
