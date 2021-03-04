@@ -52,6 +52,7 @@ public class dateCheck {
                     GlobalModel.getInstance().dailyPointsAndMultipliers();
                     days--;
                 }
+                GlobalModel.getInstance().getUserScoresFromHabbits();
             }
             //If the saved value is null (In first time running the app) add current date to to SharedPreferences to not make it null anymore
         } else {

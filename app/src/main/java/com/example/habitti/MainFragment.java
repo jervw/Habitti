@@ -89,8 +89,11 @@ public class MainFragment extends Fragment {
         sharedPrefHabbits = getActivity().getSharedPreferences(sharedPreferenceName, Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefHabbits.edit();
         Gson gson = new Gson();
+        Double userScoresD = GlobalModel.getInstance().getUserOverallScores();
+        String userScores = String.valueOf(userScoresD);
         String jsonHabbits = gson.toJson(GlobalModel.getInstance().getHabbitsList());
         editor.putString("Habbits list", jsonHabbits);
+        editor.putString("User Scores", userScores);
         editor.apply();
         Log.d("Tag", "Saved");
     }
@@ -98,10 +101,13 @@ public class MainFragment extends Fragment {
     public void loadHabbitData() {
         sharedPrefHabbits = getActivity().getSharedPreferences(sharedPreferenceName, Activity.MODE_PRIVATE);
         Gson gson = new Gson();
+        String userScores = sharedPrefHabbits.getString("User scores", "0");
+        double userScoresD = Double.parseDouble(userScores);
         String jsonHabbits = sharedPrefHabbits.getString("Habbits list", null);
         Type typeHabbits = new TypeToken<Collection<Habbit>>() {
         }.getType();
         GlobalModel.getInstance().replaceListHabbits(gson.fromJson(jsonHabbits, typeHabbits));
+        GlobalModel.getInstance().setUserOverallScores(userScoresD);
         //Go check if day has passed since last app start and give points accordingly
         if (MainActivity.firstCheckOfDay == true) {
             dateCheck.checkDate();

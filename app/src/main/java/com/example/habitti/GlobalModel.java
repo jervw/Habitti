@@ -22,6 +22,7 @@ public class GlobalModel {
     private ArrayList<HabbitsView> habbitsView = null;
     private ArrayList<Habbit> habbitsTesting = null;
     private ArrayList<HabbitsView> habbitsViewsTesting = null;
+    private double userOverallScores = 0;
 
     public  static GlobalModel getInstance() {
         return ourInstance;
@@ -108,13 +109,21 @@ public class GlobalModel {
         }
     }
 
-    public double getPlayerOverallScore() {
+    public void getUserScoresFromHabbits() {
         int index = 0;
         double overallScores = 0.0;
         while (index < habbits.size()) {
             overallScores = overallScores + getHabbitItem(index).getOverallScore();
             index++;
         }
-        return overallScores;
+        this.setUserOverallScores(overallScores);
+    }
+
+    public void setUserOverallScores(double scores) {
+        this.userOverallScores = scores;
+    }
+
+    public double getUserOverallScores() {
+        return this.userOverallScores;
     }
 }
