@@ -1,6 +1,5 @@
 package com.example.habitti;
 import android.app.Activity;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +7,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+
 import java.util.ArrayList;
 
 public class HabbitsViewAdapter extends ArrayAdapter<HabbitsView>{
@@ -34,9 +33,6 @@ public class HabbitsViewAdapter extends ArrayAdapter<HabbitsView>{
 
         TextView textViewHabbitName = currentItemView.findViewById(R.id.textViewHabbitName);
         textViewHabbitName.setText(currentNumberPosition.getmHabbitName());
-
-        TextView textViewHabbitLevel = currentItemView.findViewById(R.id.textViewLevel);
-        textViewHabbitLevel.setText(currentNumberPosition.getmHabbitScores());
 
         TextView textViewHabbitDaysStreak = currentItemView.findViewById(R.id.textViewDays);
         textViewHabbitDaysStreak.setText(currentNumberPosition.getmHabbitDaysStreak());
