@@ -40,9 +40,10 @@ public class LoginActivity extends AppCompatActivity {
     private int currentImageClothes;
     private int currentImageHairs;
     private int currentCharacterSex;
-    boolean devMode = false;
 
     public static final String EXTRA_MESSAGE = "com.example.habitti";
+
+    public static boolean developerMode;
 
 
     @Override
@@ -60,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
 
             if (!name.equals("")) {
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                developerMode = false;
                 startActivity(intent);
             }
 
@@ -69,7 +71,8 @@ public class LoginActivity extends AppCompatActivity {
 
             if (name.equals("...dev...")) {
                 Log.d("LOGIN", "dev mode");
-                devMode = true;
+                developerMode = true;
+
             }
         }
 

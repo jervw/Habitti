@@ -51,13 +51,26 @@ public class MainFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_main, container, false);
         Log.d("MAIN FRAGMENT", "OnCreate");
+        Button devButton = (Button) rootView.findViewById(R.id.buttonDevAddDay);
+        dateCheck dateCheck = new dateCheck(getActivity());
 
-        //habbitsView = loadHabbitData();
-        //SaveLoad.getInstance().loadHabbitData(getActivity(), sharedPreferenceName);
+       if (!LoginActivity.developerMode) {
+           devButton.setVisibility(View.GONE);
+       }
 
         //Load saved preferences and put them on screen
         loadHabbitData();
         updateUI();
+
+        devButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Tag", "devButton pressed");
+                dateCheck.devAddDay();
+                updateUI();
+                Log.d("Tag", "DevButton executed");
+            }
+        });
 
         Button shopBtn = (Button) rootView.findViewById(R.id.ShopBtn);
         shopBtn.setOnClickListener(new View.OnClickListener() {
@@ -91,7 +104,6 @@ public class MainFragment extends Fragment {
         GlobalModel.getInstance().replaceListHabbits(gson.fromJson(jsonHabbits, typeHabbits));
         //Go check if day has passed since last app start and give points accordingly
         if (MainActivity.firstCheckOfDay == true) {
-            dateCheck dateCheck = new dateCheck(getActivity());
             dateCheck.checkDate();
             MainActivity.firstCheckOfDay = false;
         }
@@ -155,7 +167,6 @@ public class MainFragment extends Fragment {
             imageViewCharacter.setImageResource(R.drawable.char_7);
         }
     }
-
 
     @Override
     public void onResume() {

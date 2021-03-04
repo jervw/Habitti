@@ -95,6 +95,13 @@
                 android:layout_height="wrap_content"
                 android:text="Shop" />
 
+            <Button
+                android:id="@+id/buttonDevAddDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dev Add Day"
+                tools:visibility="visible" />
+
         </LinearLayout>
     </LinearLayout>
 

@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     //Used to make sure that dateCheck only runs once per app start
     public static boolean firstCheckOfDay = true;
 
-    public static boolean developerMode = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
