@@ -12,6 +12,7 @@ import androidx.preference.PreferenceManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -19,6 +20,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
     public static Fragment selectedFragment=null;
 
     private NotificationManagerCompat notificationManager;
+    //Used to make sure that dateCheck only runs once per app start
+    public static boolean firstCheckOfDay = true;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,16 +52,18 @@ public class MainActivity extends AppCompatActivity {
         createNotificationChannel();
     }
 
-
-
     private  BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+            Fragment selectedFragment=null;
             switch (item.getItemId())
             {
                 case R.id.habits:
                     selectedFragment = new MainFragment();
+                    break;
+                case R.id.calendar:
+                    selectedFragment = new CalendarFragment();
                     break;
                 case R.id.settings:
                     selectedFragment = new SettingsFragment();
@@ -68,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
-
 
     public void openDialog(View view){
         AddHabitDialog habitDialog = new AddHabitDialog();
@@ -102,6 +109,4 @@ public class MainActivity extends AppCompatActivity {
             Log.i("app","notification sent");
         }
     }
-
-
 }

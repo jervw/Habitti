@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
+    public static boolean developerMode;
     private SharedPreferences sharedPrefs;
     private String UserName = "UserName";
     private final String UserNameKey = "LastUserName";
