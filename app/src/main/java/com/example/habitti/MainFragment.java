@@ -50,26 +50,26 @@ public class MainFragment extends Fragment {
     ListView habbitsListView;
     View rootView;
 
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        Log.d("MAIN FRAGMENT", "OnCreate");
-        Button devButton = (Button) rootView.findViewById(R.id.buttonDevAddDay);
         dateCheck dateCheck = new dateCheck(getActivity());
+        //Button devButton = (Button) rootView.findViewById(R.id.buttonDevAddDay);
 
-       if (!LoginActivity.developerMode) {
-           devButton.setVisibility(View.GONE);
-       }
+
+        if (!LoginActivity.developerMode) {
+            // TODO etsitään parempi paikka
+            //devButton.setVisibility(View.GONE);
+        }
+
 
         //Load saved preferences and put them on screen
         initializeCalendar();
         loadHabbitData();
         updateUI();
 
-        devButton.setOnClickListener(new View.OnClickListener() {
+/*        devButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("Tag", "devButton pressed");
@@ -77,7 +77,7 @@ public class MainFragment extends Fragment {
                 updateUI();
                 Log.d("Tag", "DevButton executed");
             }
-        });
+        });*/
 
         Button shopBtn = (Button) rootView.findViewById(R.id.ShopBtn);
         shopBtn.setOnClickListener(new View.OnClickListener() {
@@ -86,11 +86,12 @@ public class MainFragment extends Fragment {
                 Log.d("MAIN", "Shop onClick()");
                 Intent intent = new Intent(getActivity(), ShopPopUp.class);
                 getActivity().startActivity(intent);
-                //startActivity(new Intent(getActivity(), PopUp.class));
             }
         });
         return rootView;
     }
+
+
 
 
     private void initializeCalendar() {
@@ -147,7 +148,7 @@ public class MainFragment extends Fragment {
         }
     }
 
-    private void updateUI() {
+    public void updateUI() {
         //Check if ArrayList from GlobalModel is set null by sharedPreferences
         //If yes, create new ArrayList. If no get that ArrayList from GlobalModel. Put that ArrayList to ArrayAdapter
         //Find listView by id and set ArrayAdapter to it. Then save current habbits from that ArrayList.

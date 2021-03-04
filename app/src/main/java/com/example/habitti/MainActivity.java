@@ -12,6 +12,7 @@ import androidx.preference.PreferenceManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -19,6 +20,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -50,18 +52,6 @@ public class MainActivity extends AppCompatActivity {
         createNotificationChannel();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.top_bar, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-    public boolean buttonClickNewHabbit(MenuItem item) {
-        Intent intent = new Intent(this, AddNewHabbits.class);
-        startActivity(intent);
-        return true;
-    }
-
-
     private  BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -86,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
-
 
     public void openDialog(View view){
         AddHabitDialog habitDialog = new AddHabitDialog();

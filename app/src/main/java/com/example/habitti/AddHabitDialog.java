@@ -26,7 +26,6 @@ public class AddHabitDialog extends AppCompatDialogFragment {
     int imageId;
     String spinnerSelectedText;
 
-
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -82,8 +81,7 @@ public class AddHabitDialog extends AppCompatDialogFragment {
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
+            }});
 
         builder.setView(view)
                 .setTitle("New habit")
@@ -104,10 +102,6 @@ public class AddHabitDialog extends AppCompatDialogFragment {
                 }
                 );
 
-
         return builder.create();
     }
-
-
-
 }
