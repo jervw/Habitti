@@ -1,5 +1,7 @@
 package com.example.habitti;
 
+import android.util.Log;
+
 import org.joda.time.DateTime;
 
 import java.text.ParseException;
@@ -45,15 +47,17 @@ public class Habbit {
 
     public void resetScoreMultiplier() {
         this.scoreMultiplier = 1.0;
+        this.dayStreak = 0;
     }
 
     public void addDailyScore() {
         this.overallScore = this.overallScore + (this.scoreMultiplier * 100);
         this.dayStreak++;
+        Log.d("Tag", String.valueOf(this.overallScore));
     }
 
     public double getScoreMultiplier() {
-        return this.scoreMultiplier;
+        return (double)Math.round(this.scoreMultiplier * 10) / 10;
     }
 
     public double getOverallScore() {

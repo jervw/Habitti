@@ -2,6 +2,7 @@ package com.example.habitti;
 
 
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -21,6 +22,7 @@ public class GlobalModel {
     private ArrayList<HabbitsView> habbitsView = null;
     private ArrayList<Habbit> habbitsTesting = null;
     private ArrayList<HabbitsView> habbitsViewsTesting = null;
+    private double userOverallScores = 0;
 
     public  static GlobalModel getInstance() {
         return ourInstance;
@@ -47,7 +49,7 @@ public class GlobalModel {
     }
 
     public void addListView(Habbit habbit){
-        habbitsView.add(new HabbitsView(habbit.getImageId(), habbit.getHabbitName(), "" + habbit.getOverallScore(), "" + habbit.getDayStreak(), habbit.getDateCreated().toString(), habbit.getScoreMultiplier()));
+                habbitsView.add(new HabbitsView(habbit.getImageId(), habbit.getHabbitName(), "Scores: " + habbit.getOverallScore(), "Days streak:" + habbit.getDayStreak(), habbit.getDateCreated(), habbit.getScoreMultiplier()));
     }
 
     public HabbitsView getHabbitViewItem(int i) {
@@ -68,6 +70,7 @@ public class GlobalModel {
 
         } else {
             habbits.clear();
+            habbitsView.clear();
         ArrayList<Habbit> habbits = habbit;
         int index = 0;
         while (index < habbits.size() ) {
@@ -84,17 +87,43 @@ public class GlobalModel {
             getHabbitItem(index).addScoreMultiplier();
             getHabbitItem(index).addDailyScore();
             index++;
+            Log.d("Tag", "dailyPoints runned");
         }
-    }
-
-    public int compareDays(DateTime habbitDate) {
-        DateTime currentDate = new DateTime();
-        return Days.daysBetween(habbitDate, currentDate).getDays();
+        updateHabbitViewList();
     }
 
     public String getOwnDateCreatedAsString() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String date = sdf.format(new Date());
         return date;
+    }
+
+    //Used to update items in habbitsView array
+    public void updateHabbitViewList () {
+        int index = 0;
+        habbitsView.clear();
+        while (index < habbits.size()) {
+            habbitsView.add(new HabbitsView(getHabbitItem(index).getImageId(), getHabbitItem(index).getHabbitName(), "Scores: " + getHabbitItem(index).getOverallScore(), "Days streak: " + getHabbitItem(index).getDayStreak(),
+                    getHabbitItem(index).getDateCreated(), getHabbitItem(index).getScoreMultiplier()));
+            index++;
+        }
+    }
+
+    public void getUserScoresFromHabbits() {
+        int index = 0;
+        double overallScores = 0.0;
+        while (index < habbits.size()) {
+            overallScores = overallScores + getHabbitItem(index).getOverallScore();
+            index++;
+        }
+        this.setUserOverallScores(overallScores);
+    }
+
+    public void setUserOverallScores(double scores) {
+        this.userOverallScores = scores;
+    }
+
+    public double getUserOverallScores() {
+        return this.userOverallScores;
     }
 }

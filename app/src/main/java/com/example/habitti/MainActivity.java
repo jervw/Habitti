@@ -33,6 +33,10 @@ public class MainActivity extends AppCompatActivity {
     public static Fragment selectedFragment=null;
 
     private NotificationManagerCompat notificationManager;
+    //Used to make sure that dateCheck only runs once per app start
+    public static boolean firstCheckOfDay = true;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,16 +50,30 @@ public class MainActivity extends AppCompatActivity {
         createNotificationChannel();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.top_bar, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    public boolean buttonClickNewHabbit(MenuItem item) {
+        Intent intent = new Intent(this, AddNewHabbits.class);
+        startActivity(intent);
+        return true;
+    }
 
 
     private  BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+            Fragment selectedFragment=null;
             switch (item.getItemId())
             {
                 case R.id.habits:
                     selectedFragment = new MainFragment();
+                    break;
+                case R.id.calendar:
+                    selectedFragment = new CalendarFragment();
                     break;
                 case R.id.settings:
                     selectedFragment = new SettingsFragment();
@@ -102,6 +120,4 @@ public class MainActivity extends AppCompatActivity {
             Log.i("app","notification sent");
         }
     }
-
-
 }
