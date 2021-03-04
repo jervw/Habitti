@@ -9,6 +9,7 @@
     <string name="emptyField">No habit selected</string>
     <string name="customHabbitHint">Enter your habit\'s name</string>
     <string name="buttonCreateHabbit">Add selected habit</string>
+    <string name="level">Level: </string>
 
     <string-array name="habbits_array">
         <item>No smoking</item>

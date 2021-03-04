@@ -7,8 +7,11 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
 
+import android.app.FragmentContainer;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -33,7 +36,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class MainActivity extends AppCompatActivity {
     public static final String CHANNEL_1_ID = "channel";
     public static Fragment selectedFragment=null;
-
+    public static String currentFragment = "Main";
     private NotificationManagerCompat notificationManager;
     //Used to make sure that dateCheck only runs once per app start
     public static boolean firstCheckOfDay = true;
@@ -61,12 +64,11 @@ public class MainActivity extends AppCompatActivity {
             {
                 case R.id.habits:
                     selectedFragment = new MainFragment();
-                    break;
-                case R.id.calendar:
-                    selectedFragment = new CalendarFragment();
+                    currentFragment = "Main";
                     break;
                 case R.id.settings:
                     selectedFragment = new SettingsFragment();
+                    currentFragment = "Settings";
                     break;
             }
             if (selectedFragment != null){
@@ -78,6 +80,10 @@ public class MainActivity extends AppCompatActivity {
     };
 
     public void openDialog(View view){
+        if (currentFragment.equals("Settings")){
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MainFragment()).commit();
+
+        }
         AddHabitDialog habitDialog = new AddHabitDialog();
         habitDialog.show(getSupportFragmentManager(), "dialog");
     }
