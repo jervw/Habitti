@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -43,11 +44,13 @@ public class MainFragment extends Fragment {
     ListView habbitsListView;
     View rootView;
 
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        Log.d("TAG", "OnCreate");
+        Log.d("MAIN FRAGMENT", "OnCreate");
 
         //habbitsView = loadHabbitData();
         //SaveLoad.getInstance().loadHabbitData(getActivity(), sharedPreferenceName);
@@ -56,8 +59,17 @@ public class MainFragment extends Fragment {
         loadHabbitData();
         updateUI();
 
+        Button shopBtn = (Button) rootView.findViewById(R.id.ShopBtn);
+        shopBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("MAIN", "Shop onClick()");
+                Intent intent = new Intent(getActivity(), ShopPopUp.class);
+                getActivity().startActivity(intent);
+                //startActivity(new Intent(getActivity(), PopUp.class));
+            }
+        });
         return rootView;
-
     }
 
     private void saveHabbitData() {
