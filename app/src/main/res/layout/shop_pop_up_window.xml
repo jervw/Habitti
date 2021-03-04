@@ -29,8 +29,9 @@
         android:id="@+id/relativeLayout"
         android:layout_width="200dp"
         android:layout_height="200dp"
+        android:layout_marginBottom="44dp"
         android:padding="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/idGV"
+        app:layout_constraintBottom_toTopOf="@+id/GridViewId"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,28 +62,14 @@
             android:src="@drawable/profile" />
     </RelativeLayout>
 
-    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.example.user.gridbuttonview.GridActivity"
-        android:columnWidth="90dp"
-        android:id="@+id/activity_grid"
-        android:gravity="center"
-        android:horizontalSpacing="10dp"
-        android:numColumns="auto_fit"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="10dp" />
-
     <GridView
-        android:id="@+id/idGV"
+        android:id="@+id/GridViewId"
         android:layout_width="325dp"
         android:layout_height="309dp"
         android:horizontalSpacing="6dp"
         android:numColumns="3"
         android:verticalSpacing="6dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline7"
+        app:layout_constraintBottom_toTopOf="@+id/closeBtn"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
         app:layout_constraintTop_toTopOf="@+id/guideline6" />
@@ -127,5 +114,14 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent=".05" />
+
+    <Button
+        android:id="@+id/closeBtn"
+        android:layout_width="135dp"
+        android:layout_height="49dp"
+        android:text="CLOSE"
+        app:layout_constraintBottom_toTopOf="@+id/guideline7"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintStart_toStartOf="@+id/guideline4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
