@@ -6,6 +6,7 @@ public class HabbitsView {
 
     private int ivHabbitImageId;
     private String mHabbitName;
+    private String mHabitType;
     private String mHabbitScores;
     private String mHabbitDaysStreak;
     private String dateCreated;
@@ -13,31 +14,37 @@ public class HabbitsView {
 
 
     // create constructor to set the values for all the parameters of the each single view
-    public HabbitsView(int ivHabbitImageId, String mHabbitName, String mHabbitScores, String mHabbitDaysStreak, String dateCreated, double scoreMultiplier) {
+    public HabbitsView(int ivHabbitImageId, String mHabbitName, String mHabitType , String mHabbitScores, String mHabbitDaysStreak, String dateCreated, double scoreMultiplier) {
         this.ivHabbitImageId = ivHabbitImageId;
         this.mHabbitName = mHabbitName;
+        this.mHabitType = mHabitType;
         this.mHabbitScores = mHabbitScores;
         this.mHabbitDaysStreak = mHabbitDaysStreak;
         this.dateCreated = dateCreated;
         this.scoreMultiplier = scoreMultiplier;
     }
 
-    // getter method for returning the ID of the imageview
+    // getter method for returning the ID of the ImageView
     public int getIvHabbitImageIdImageId() {
         return ivHabbitImageId;
     }
 
-    // getter method for returning the level of the habbit
+    // getter method for returning the level of the habit
     public String getmHabbitScores() {
         return mHabbitScores;
     }
 
-    // getter method for returning the name of the habbit
+    // getter method for returning the name of the habit
     public String getmHabbitName() {
         return mHabbitName;
     }
 
-    // getter method for returning the days of the habbit
+    // getter method for returning the type of the habit
+    public String getmHabitType() {
+        return mHabitType;
+    }
+
+    // getter method for returning the days of the habit
     public String getmHabbitDaysStreak() {
         return mHabbitDaysStreak;
     }

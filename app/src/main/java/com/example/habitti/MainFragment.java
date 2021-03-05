@@ -166,9 +166,8 @@ public class MainFragment extends Fragment {
         habbitsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> AdapterView, View view, int i, long l) {
-                Intent showDetails = new Intent(getActivity(), HabbitDetails.class);
-                showDetails.putExtra("EXTRA", i);
-                startActivity(showDetails);
+                HabitDetailsDialog detailsDialog = new HabitDetailsDialog(i);
+                detailsDialog.show(getFragmentManager(), "habit details");
             }
         });
 

@@ -10,6 +10,10 @@
     <string name="customHabbitHint">Enter your habit\'s name</string>
     <string name="buttonCreateHabbit">Add selected habit</string>
     <string name="level">Level: </string>
+    <string name="positive">Good habit</string>
+    <string name="negative">Bad habit</string>
+    <string name="habit_name">Habit name</string>
+    <string name="delete_habit">Delete habit</string>
 
     <string-array name="habbits_array">
         <item>No smoking</item>

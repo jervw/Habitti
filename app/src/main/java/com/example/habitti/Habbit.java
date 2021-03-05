@@ -17,12 +17,14 @@ public class Habbit {
     private String habbitName;
     private int imageId;
     private String dateCreated;
+    private String habitType;
     private int dayStreak;
     private double overallScore = 0;
     private double scoreMultiplier = 1.0;
 
-    public Habbit(String name, int imageId) {
+    public Habbit(String name, String habitType, int imageId) {
         this.habbitName = name;
+        this.habitType = habitType;
         this.dateCreated = GlobalModel.getInstance().getOwnDateCreatedAsString();
         this.imageId = imageId;
         this.dayStreak = 0;
@@ -30,6 +32,12 @@ public class Habbit {
     }
     public String getHabbitName() {
         return this.habbitName;
+    }
+
+    public void setHabitName(String newHabitName){this.habbitName = newHabitName;}
+
+    public String getHabitType() {
+        return this.habitType;
     }
 
     public String getDateCreated() {
@@ -67,4 +75,5 @@ public class Habbit {
     public int getDayStreak() {
         return this.dayStreak;
     }
+
 }

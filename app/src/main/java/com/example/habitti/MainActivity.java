@@ -79,13 +79,19 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    public void openDialog(View view){
+    public void addHabitDialog(View view){
         if (currentFragment.equals("Settings")){
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MainFragment()).commit();
 
         }
         AddHabitDialog habitDialog = new AddHabitDialog();
-        habitDialog.show(getSupportFragmentManager(), "dialog");
+        habitDialog.show(getSupportFragmentManager(), "new habit");
+    }
+
+    public void habitDetailsDialog(int index){
+
+        HabitDetailsDialog detailsDialog = new HabitDetailsDialog(index);
+        detailsDialog.show(getSupportFragmentManager(), "habit details");
     }
 
     private void createNotificationChannel() {
