@@ -51,7 +51,7 @@ public class Habbit {
     }
 
     public void addDailyScore() {
-        this.overallScore = this.overallScore + (this.scoreMultiplier * 100);
+        this.overallScore = this.overallScore + (this.scoreMultiplier * 10);
         this.dayStreak++;
         Log.d("Tag", String.valueOf(this.overallScore));
     }
