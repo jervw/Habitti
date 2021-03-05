@@ -23,6 +23,7 @@ public class GlobalModel {
     private ArrayList<Habbit> habbitsTesting = null;
     private ArrayList<HabbitsView> habbitsViewsTesting = null;
     private double userOverallScores = 0;
+    private int userLevel = 1;
 
     public  static GlobalModel getInstance() {
         return ourInstance;
@@ -111,12 +112,16 @@ public class GlobalModel {
 
     public void getUserScoresFromHabbits() {
         int index = 0;
-        double overallScores = 0.0;
+        double overallScoresDouble = 0.0;
         while (index < habbits.size()) {
-            overallScores = overallScores + getHabbitItem(index).getOverallScore();
+            overallScoresDouble = overallScoresDouble + getHabbitItem(index).getOverallScore();
             index++;
         }
-        this.setUserOverallScores(overallScores);
+        this.setUserOverallScores(overallScoresDouble);
+        int overallScoresInt = (int) overallScoresDouble;
+        if (overallScoresInt / 100 > this.userLevel) {
+            this.userLevel = overallScoresInt / 100;
+        }
     }
 
     public void setUserOverallScores(double scores) {
@@ -131,4 +136,7 @@ public class GlobalModel {
         return this.userOverallScores;
     }
 
+    public int getUserLevel() {
+        return this.userLevel;
+    }
 }

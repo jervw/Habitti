@@ -19,23 +19,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.joda.JodaModule;
-import com.fatboyindustrial.gsonjodatime.Converters;
+
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collection;
-
 import java.util.Calendar;
+import java.util.Collection;
 
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
 import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class MainFragment extends Fragment {
 
@@ -60,22 +56,15 @@ public class MainFragment extends Fragment {
         //Button devButton = (Button) rootView.findViewById(R.id.buttonDevAddDay);
 
 
-
+       /*if (!LoginActivity.developerMode) {
+            devButton.setVisibility(View.GONE);
+        }
+        */
 
         //Load saved preferences and put them on screen
         initializeCalendar();
         loadHabbitData();
         updateUI();
-
-/*        devButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("Tag", "devButton pressed");
-                dateCheck.devAddDay();
-                updateUI();
-                Log.d("Tag", "DevButton executed");
-            }
-        });*/
 
         Button shopBtn = (Button) rootView.findViewById(R.id.ShopBtn);
         shopBtn.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +73,7 @@ public class MainFragment extends Fragment {
                 Log.d("MAIN FRAGMENT", "Shop onClick()");
                 Intent intent = new Intent(getActivity(), ShopPopUp.class);
                 getActivity().startActivity(intent);
+                //startActivity(new Intent(getActivity(), PopUp.class));
             }
         });
         return rootView;
@@ -156,8 +146,12 @@ public class MainFragment extends Fragment {
         } else {
             habbitsArrayAdapter = new HabbitsViewAdapter(getActivity(), GlobalModel.getInstance().getHabbitsView());
         }
+
+        Log.d("MAIN FRAGMENT", "updateUI");
+        habbitsArrayAdapter = new HabbitsViewAdapter(getActivity(), GlobalModel.getInstance().getHabbitsView());
         habbitsListView = (ListView) rootView.findViewById(R.id.listViewHabbits);
         habbitsListView.setAdapter(habbitsArrayAdapter);
+
         habbitsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> AdapterView, View view, int i, long l) {
