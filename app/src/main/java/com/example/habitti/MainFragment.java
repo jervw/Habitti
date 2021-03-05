@@ -1,10 +1,8 @@
 package com.example.habitti;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,29 +17,26 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.joda.JodaModule;
-import com.fatboyindustrial.gsonjodatime.Converters;
+
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collection;
-
 import java.util.Calendar;
+import java.util.Collection;
 
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
 import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class MainFragment extends Fragment {
 
     private SharedPreferences sharedPrefHabbits;
     private final String sharedPreferenceName = "shared preference";
 
+    SaveLoad saveLoad = SaveLoad.getInstance();
 
     int[] clothesImages;
     int[] hairsImages;
@@ -49,30 +44,26 @@ public class MainFragment extends Fragment {
     ListView habbitsListView;
     View rootView;
 
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_main, container, false);
         dateCheck dateCheck = new dateCheck(getActivity());
-        //Button devButton = (Button) rootView.findViewById(R.id.buttonDevAddDay);
+        //Button devButton = (Button) rootView.findViewById(R.id.devButtonAddDay);
 
+        //userDayStreakText = (TextView) rootView.findViewById(R.id.textViewUserDayStreak);
 
-
+       /*if (!LoginActivity.developerMode) {
+            devButton.setVisibility(View.GONE);
+        }
+        */
 
         //Load saved preferences and put them on screen
         initializeCalendar();
         loadHabbitData();
-        //updateUI();
-
-/*        devButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("Tag", "devButton pressed");
-                dateCheck.devAddDay();
-                updateUI();
-                Log.d("Tag", "DevButton executed");
-            }
-        });*/
+        updateUI();
 
         Button shopBtn = (Button) rootView.findViewById(R.id.ShopBtn);
         shopBtn.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +72,7 @@ public class MainFragment extends Fragment {
                 Log.d("MAIN", "Shop onClick()");
                 Intent intent = new Intent(getActivity(), ShopPopUp.class);
                 getActivity().startActivity(intent);
+                //startActivity(new Intent(getActivity(), PopUp.class));
             }
         });
         return rootView;
@@ -153,22 +145,29 @@ public class MainFragment extends Fragment {
         } else {
             habbitsArrayAdapter = new HabbitsViewAdapter(getActivity(), GlobalModel.getInstance().getHabbitsView());
         }
+
+        Log.d("MAIN FRAGMENT", "updateUI");
+        habbitsArrayAdapter = new HabbitsViewAdapter(getActivity(), GlobalModel.getInstance().getHabbitsView());
         habbitsListView = (ListView) rootView.findViewById(R.id.listViewHabbits);
         habbitsListView.setAdapter(habbitsArrayAdapter);
-        saveHabbitData();
-
 
         habbitsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> AdapterView, View view, int i, long l) {
-                HabitDetailsDialog detailsDialog = new HabitDetailsDialog(i);
-                detailsDialog.show(getFragmentManager(), "habit details");
+                Log.d("Tag", "onClick pressed");
+                Intent showDetails = new Intent(getActivity(), HabbitDetails.class);
+                showDetails.putExtra("EXTRA", i);
+                startActivity(showDetails);
             }
         });
 
 
+        saveHabbitData();
+
         // GET NAME FROM SHARED PREFERENCE.XML:
-        sharedPrefHabbits = this.getActivity().getSharedPreferences("shared preference", Context.MODE_PRIVATE);
+        //TextView textViewUserName = (TextView) rootView.findViewById(R.id.username);
+        //textViewUserName.setText(SaveLoad.getInstance().loadCharacterName(getActivity(), "LastUserName"));
+        sharedPrefHabbits = this.getActivity().getSharedPreferences("shared preference", MODE_PRIVATE);
         TextView textViewUserName = (TextView) rootView.findViewById(R.id.username);
         if (sharedPrefHabbits.contains("LastUserName")) {
             textViewUserName.setText(sharedPrefHabbits.getString("LastUserName", ""));
