@@ -4,17 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-
     android:layout_height="match_parent"
     android:orientation="vertical">
 
 
-    <Spinner
-        android:id="@+id/spinnerHabbits"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_height="wrap_content"
-        android:dropDownWidth="200dp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -31,7 +24,7 @@
 
 
             <ImageView
-                android:id="@+id/habitImage"
+                android:id="@+id/detailsHabitImage"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
@@ -46,7 +39,7 @@
             android:layout_weight="1">
 
             <EditText
-                android:id="@+id/habbitName"
+                android:id="@+id/detailsHabitName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:ems="10"
@@ -54,32 +47,50 @@
                 android:hint="@string/habit_name"/>
 
         </LinearLayout>
-</LinearLayout>
+    </LinearLayout>
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="horizontal">
+        android:layout_margin="30dp"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical">
 
-        <RadioGroup
-            android:id="@+id/radioGroup"
-            android:layout_width="match_parent"
-            android:checkedButton="@id/positiveRadioButton"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+        <TextView
+            android:id="@+id/detailsHabitType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="type"
+            />
+        <TextView
+            android:id="@+id/detailsHabitCreationDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="create date"
+            />
+        <TextView
+            android:id="@+id/detailsHabitStreak"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="streak"
+            />
+        <TextView
+            android:id="@+id/detailsHabitScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="score"
+            />
+        <TextView
+            android:id="@+id/detailsHabitMultiplier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="multiplier"
+            />
 
-            <RadioButton
-                android:id="@+id/positiveRadioButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/positive" />
-
-            <RadioButton
-                android:id="@+id/negativeRadioButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/negative" />
-        </RadioGroup>
 
     </LinearLayout>
 </LinearLayout>

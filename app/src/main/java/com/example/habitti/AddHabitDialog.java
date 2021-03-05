@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -22,7 +24,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 public class AddHabitDialog extends AppCompatDialogFragment {
 
-    MainFragment mainFragment;
     int imageId;
     String spinnerSelectedText;
 
@@ -37,11 +38,16 @@ public class AddHabitDialog extends AppCompatDialogFragment {
         dialogImageView.setImageResource(R.drawable.habit_1);
 
         TextView textView = (TextView) view.findViewById(R.id.habbitName);
+        RadioGroup radio = (RadioGroup) view.findViewById(R.id.radioGroup);
+
 
         Spinner habitSpinner = (Spinner) view.findViewById(R.id.spinnerHabbits);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.habbits_array));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         habitSpinner.setAdapter(adapter);
+
+
+
 
         habitSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -94,7 +100,10 @@ public class AddHabitDialog extends AppCompatDialogFragment {
                 .setPositiveButton("add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        GlobalModel.getInstance().addHabbit(new Habbit(textView.getText().toString(),imageId));
+                        int selectedType = radio.getCheckedRadioButtonId();
+                        RadioButton selectedRadioButton = (RadioButton) view.findViewById(selectedType);
+
+                        GlobalModel.getInstance().addHabbit(new Habbit(textView.getText().toString(),selectedRadioButton.getText().toString() ,imageId));
                         FragmentManager fm = getFragmentManager();
                         MainFragment fragm = (MainFragment)fm.findFragmentById(R.id.fragment_container);
                         fragm.updateUI();
@@ -104,4 +113,5 @@ public class AddHabitDialog extends AppCompatDialogFragment {
 
         return builder.create();
     }
+
 }
