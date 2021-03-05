@@ -11,14 +11,10 @@ import org.joda.time.ReadableInstant;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import java.util.ArrayList;
-
 public class dateCheck {
     private static Context context;
     private static ReadableInstant comparedDate;
     private static int dayComparison;
-    private ArrayList<Habbit> habbitChecked;
-    private ArrayList<Habbit> habbitNotChecked;
 
     //When called set Context to current activity where called, set compareDate to current date and
     // dayComparison to 0 (always 0 except in dev mode).
@@ -64,7 +60,6 @@ public class dateCheck {
             prefEditor.commit();
         }
     }
-
 
     //Used only in devMode
     //Minus one from the dayComparison int to make the program think there is one day difference in current date and saved date

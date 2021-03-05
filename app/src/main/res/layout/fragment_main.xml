@@ -103,6 +103,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             app:textColorSelected="@color/grey"/>
+
         <ListView
             android:id="@+id/listViewHabbits"
             android:layout_width="match_parent"

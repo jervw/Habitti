@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,10 +22,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collection;
+
 import java.util.Calendar;
 import java.util.Collection;
 
@@ -57,10 +59,12 @@ public class MainFragment extends Fragment {
         dateCheck dateCheck = new dateCheck(getActivity());
         //Button devButton = (Button) rootView.findViewById(R.id.buttonDevAddDay);
 
-       /*if (!LoginActivity.developerMode) {
-            devButton.setVisibility(View.GONE);
+
+        if (!LoginActivity.developerMode) {
+            // TODO etsitään parempi paikka
+            //devButton.setVisibility(View.GONE);
         }
-        */
+
 
         //Load saved preferences and put them on screen
         initializeCalendar();
@@ -188,6 +192,8 @@ public class MainFragment extends Fragment {
 
         saveHabbitData();
 
+        saveHabbitData();
+
         // GET NAME FROM SHARED PREFERENCE.XML:
         sharedPrefHabbits = this.getActivity().getSharedPreferences("shared preference", Context.MODE_PRIVATE);
         TextView textViewUserName = (TextView) rootView.findViewById(R.id.username);
@@ -222,23 +228,6 @@ public class MainFragment extends Fragment {
         }
     }
 
-    /*public void setCheckStatus() {
-        if (habbitsListView != null) {
-            SparseBooleanArray sp = habbitsListView.getCheckedItemPositions();
-            if (sp != null) {
-            for (int i = 0; i < sp.size(); i++) {
-                if (sp.valueAt(i) == true) {
-                    GlobalModel.getInstance().getHabbitItem(i).setCheckedStatus(true);
-                }
-            }
-            }
-        }
-    }
-
-     */
-
-
-
     @Override
     public void onResume() {
         super.onResume();
@@ -248,14 +237,8 @@ public class MainFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        saveHabbitData();
-
-
-        //setCheckStatus();
         //SaveLoad.getInstance().saveHabbitData(getActivity(), GlobalModel.getInstance().getHabbitsView(), "shared preference");
-        Log.d("MAIN", "satus " + GlobalModel.getInstance().getHabbitItem(0).getCheckedStatus());
-        Log.d("MAIN", "satus " + GlobalModel.getInstance().getHabbitItem(1).getCheckedStatus());
-
+        Log.d("MAIN", "OnPause");
     }
 
 }
