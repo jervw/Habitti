@@ -103,7 +103,7 @@ public class GlobalModel {
         int index = 0;
         habbitsView.clear();
         while (index < habbits.size()) {
-            habbitsView.add(new HabbitsView(getHabbitItem(index).getImageId(), getHabbitItem(index).getHabbitName(), getHabbitItem(index).getHabitType().toString(), "" + getHabbitItem(index).getOverallScore(), ""+getHabbitItem(index).getDayStreak(),
+            habbitsView.add(new HabbitsView(getHabbitItem(index).getImageId(), getHabbitItem(index).getHabbitName(), getHabbitItem(index).getHabitType(), "" + getHabbitItem(index).getOverallScore(), ""+getHabbitItem(index).getDayStreak(),
                     getHabbitItem(index).getDateCreated(), getHabbitItem(index).getScoreMultiplier()));
             index++;
         }

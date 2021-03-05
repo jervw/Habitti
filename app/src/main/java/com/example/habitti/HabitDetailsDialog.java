@@ -83,6 +83,7 @@ public class HabitDetailsDialog extends AppCompatDialogFragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 GlobalModel.getInstance().setHabitName(index, detailsHabitName.getText().toString());
+                                GlobalModel.getInstance().updateHabbitViewList();
                                 FragmentManager fm = getFragmentManager();
                                 MainFragment fragm = (MainFragment)fm.findFragmentById(R.id.fragment_container);
                                 fragm.updateUI();
