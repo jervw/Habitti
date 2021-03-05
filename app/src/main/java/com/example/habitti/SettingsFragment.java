@@ -47,7 +47,7 @@ public class SettingsFragment extends Fragment {
 
         // GET NAME FROM SHARED PREFERENCE.XML:
         sharedPrefHabbits = this.getActivity().getSharedPreferences("shared preference", Context.MODE_PRIVATE);
-        TextView textViewUserName = (TextView) rootView.findViewById(R.id.usernamesettings);
+        TextView textViewUserName = (TextView) rootView.findViewById(R.id.userNameSettings);
         if (sharedPrefHabbits.contains("LastUserName")) {
             textViewUserName.setText(sharedPrefHabbits.getString("LastUserName", ""));
         }
