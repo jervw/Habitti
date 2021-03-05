@@ -14,6 +14,7 @@
     <string name="negative">Bad habit</string>
     <string name="habit_name">Habit name</string>
     <string name="delete_habit">Delete habit</string>
+    <string name="creditsButton" />
 
     <string-array name="habbits_array">
         <item>No smoking</item>

@@ -16,13 +16,15 @@
     <SwitchPreferenceCompat
         app:key="notifications"
         app:iconSpaceReserved="false"
-        app:title="Enable notifications"/>
+        app:title="Habit reminders"
+        app:summaryOff="Reminders are currently off"
+        app:summaryOn="Reminders are currently on"/>
 
     <Preference
-        app:key="feedback"
-        app:title="Send feedback"
+        app:key="@string/creditsButton"
+        app:title="Credits"
         app:iconSpaceReserved="false"
-        app:summary="Report technical issues or suggest new features"/>
+        app:summary="Wizards behind the app"/>
 
 
     </PreferenceCategory>
