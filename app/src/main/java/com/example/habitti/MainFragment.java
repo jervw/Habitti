@@ -1,10 +1,7 @@
 package com.example.habitti;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,23 +16,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.joda.JodaModule;
-import com.fatboyindustrial.gsonjodatime.Converters;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Collection;
-
-import java.util.Calendar;
-
-import devs.mulham.horizontalcalendar.HorizontalCalendar;
-import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
+import static android.content.Context.MODE_PRIVATE;
 
 public class MainFragment extends Fragment {
 
@@ -49,8 +31,8 @@ public class MainFragment extends Fragment {
 
     ListView habbitsListView;
     View rootView;
-    int userDayStreak = 0;
-    //TextView userDayStreakText;
+
+
 
     @Nullable
     @Override
@@ -71,19 +53,6 @@ public class MainFragment extends Fragment {
         loadHabbitData();
         updateUI();
 
-       /* devButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("Tag", "devButton pressed");
-                dateCheck.devAddDay();
-                userDayStreak = dateCheck.loginDayStreak();
-                updateUI();
-                Log.d("Tag", "DevButton executed");
-            }
-        });
-
-        */
-
         Button shopBtn = (Button) rootView.findViewById(R.id.ShopBtn);
         shopBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +60,7 @@ public class MainFragment extends Fragment {
                 Log.d("MAIN", "Shop onClick()");
                 Intent intent = new Intent(getActivity(), ShopPopUp.class);
                 getActivity().startActivity(intent);
+                //startActivity(new Intent(getActivity(), PopUp.class));
             }
         });
         return rootView;
@@ -163,8 +133,13 @@ public class MainFragment extends Fragment {
         } else {
             habbitsArrayAdapter = new HabbitsViewAdapter(getActivity(), GlobalModel.getInstance().getHabbitsView());
         }
+
+    private void updateUI() {
+        Log.d("MAIN FRAGMENT", "updateUI");
+        HabbitsViewAdapter habbitsArrayAdapter = new HabbitsViewAdapter(getActivity(), GlobalModel.getInstance().getHabbitsView());
         habbitsListView = (ListView) rootView.findViewById(R.id.listViewHabbits);
         habbitsListView.setAdapter(habbitsArrayAdapter);
+
         habbitsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> AdapterView, View view, int i, long l) {
@@ -179,7 +154,9 @@ public class MainFragment extends Fragment {
         saveHabbitData();
 
         // GET NAME FROM SHARED PREFERENCE.XML:
-        sharedPrefHabbits = this.getActivity().getSharedPreferences("shared preference", Context.MODE_PRIVATE);
+        //TextView textViewUserName = (TextView) rootView.findViewById(R.id.username);
+        //textViewUserName.setText(SaveLoad.getInstance().loadCharacterName(getActivity(), "LastUserName"));
+        sharedPrefHabbits = this.getActivity().getSharedPreferences("shared preference", MODE_PRIVATE);
         TextView textViewUserName = (TextView) rootView.findViewById(R.id.username);
         if (sharedPrefHabbits.contains("LastUserName")) {
             textViewUserName.setText(sharedPrefHabbits.getString("LastUserName", ""));
