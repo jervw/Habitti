@@ -28,7 +28,7 @@ public class ShopPopUp extends Activity {
 
     int currentImagelothes1 = 0;
 
-    int characterLvl = 4;
+    int characterLvl;
 
     int a = 0;
 
@@ -58,6 +58,8 @@ public class ShopPopUp extends Activity {
         ShopItemAdapter itemAdapter = new ShopItemAdapter(itemNames, itemImages, this);
         gridview.setAdapter(itemAdapter);
 
+        characterLvl = GlobalModel.getInstance().getUserLevel();
+        Log.d("SHOP", "User level is " + characterLvl);
 
         // CHANGE THE TEXT OF ITEM, IF CHARACTER LEVEL IS ...:
         if (characterLvl == 2) {
