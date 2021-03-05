@@ -49,35 +49,40 @@ public class MainFragment extends Fragment {
 
     ListView habbitsListView;
     View rootView;
+    int userDayStreak = 0;
+    //TextView userDayStreakText;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_main, container, false);
         dateCheck dateCheck = new dateCheck(getActivity());
-        //Button devButton = (Button) rootView.findViewById(R.id.buttonDevAddDay);
+        //Button devButton = (Button) rootView.findViewById(R.id.devButtonAddDay);
 
+        //userDayStreakText = (TextView) rootView.findViewById(R.id.textViewUserDayStreak);
 
-        if (!LoginActivity.developerMode) {
-            // TODO etsitään parempi paikka
-            //devButton.setVisibility(View.GONE);
+       /*if (!LoginActivity.developerMode) {
+            devButton.setVisibility(View.GONE);
         }
-
+        */
 
         //Load saved preferences and put them on screen
         initializeCalendar();
         loadHabbitData();
         updateUI();
 
-/*        devButton.setOnClickListener(new View.OnClickListener() {
+       /* devButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("Tag", "devButton pressed");
                 dateCheck.devAddDay();
+                userDayStreak = dateCheck.loginDayStreak();
                 updateUI();
                 Log.d("Tag", "DevButton executed");
             }
-        });*/
+        });
+
+        */
 
         Button shopBtn = (Button) rootView.findViewById(R.id.ShopBtn);
         shopBtn.setOnClickListener(new View.OnClickListener() {
@@ -160,18 +165,18 @@ public class MainFragment extends Fragment {
         }
         habbitsListView = (ListView) rootView.findViewById(R.id.listViewHabbits);
         habbitsListView.setAdapter(habbitsArrayAdapter);
-        saveHabbitData();
-
-
         habbitsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> AdapterView, View view, int i, long l) {
+                Log.d("Tag", "onClick pressed");
                 Intent showDetails = new Intent(getActivity(), HabbitDetails.class);
                 showDetails.putExtra("EXTRA", i);
                 startActivity(showDetails);
             }
         });
 
+
+        saveHabbitData();
 
         // GET NAME FROM SHARED PREFERENCE.XML:
         sharedPrefHabbits = this.getActivity().getSharedPreferences("shared preference", Context.MODE_PRIVATE);
