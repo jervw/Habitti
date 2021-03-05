@@ -1,11 +1,13 @@
 package com.example.habitti;
 
 import android.app.Activity;
-import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -13,103 +15,132 @@ import android.widget.ImageView;
 public class ShopPopUp extends Activity {
 
     private SharedPreferences sharedPrefHabbits;
+    private final String UserClothesKey = "LastUserClothes";
+    private final String UserHairsKey = "LastUserHairs";
+
     int[] clothesImages;
     int[] hairsImages;
-    int[] numberImage;
-    private Context mContext;
 
-    GridView shopItemGV;
-    Button btn;
+    GridView gridview;
+
+    String[] itemNames = {"Unlock on 2. lvl", "Unlock on 3. lvl", "Unlock on 4. lvl"};
+    int[] itemImages = {R.drawable.shop_item_1, R.drawable.shop_item_2, R.drawable.shop_item_3};
+
+    int currentImagelothes1 = 0;
+
+    int characterLvl = 3;
+
+    int a = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("SHOP", "Shop onCreate()");
-
         setContentView(R.layout.shop_pop_up_window);
 
+        // FULL SCREEN POP UP WINDOW:
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        //getWindow().setLayout((int) (width*.8), (int) (height*.6));
         getWindow().setLayout((int) (width), (int) (height));
 
+
+        // SET CURRENT APPEARANCE:
         updateUI();
 
-        //shopItemGV = findViewById(R.id.idGV);
 
-        GridView gridview = (GridView) findViewById(R.id.idGV);
-        gridview.setAdapter(new ButtonAdapter(this));
-
-
-
-
-        /*ArrayList<ShopModel> courseModelArrayList = new ArrayList<ShopModel>();
-        courseModelArrayList.add(new ShopModel(R.drawable.char_13, "0"));
-        courseModelArrayList.add(new ShopModel(R.drawable.char_13, "1"));
-        courseModelArrayList.add(new ShopModel(R.drawable.char_13, "2"));
-        courseModelArrayList.add(new ShopModel(R.drawable.char_13, "3"));
-        courseModelArrayList.add(new ShopModel(R.drawable.char_13, "4"));
-        courseModelArrayList.add(new ShopModel(R.drawable.char_13, "5"));
-
-        ShopItemAdapter adapter = new ShopItemAdapter(this, courseModelArrayList);
-        shopItemGV.setAdapter(adapter);*/
-
-        // @Override public View getView(final int position, View convertView, ViewGroup parent) { ImageView imageView = new ImageView(getContext()); imageView.setOnClickListener(new OnClickListener() { @Override onClick(View v) { if (getOnItemClickListener() != null) { getOnItemClickListener().onItemClick(MyGridView.this, v, position, getItemId(position)); } return imageView; }
-
-        /*shopItemGV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d("SHOP", "Item button OnClick");
-            }
-
-        });*/
-
-        /*btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("SHOP", "Item button OnClick");
-
-            }
-        });*/
-
-        /*GridView gridview = (GridView) findViewById(R.id.activity_grid);
-        gridview.setAdapter(new ButtonAdapter(this));*/
+        // GRID VIEW:
+        gridview = (GridView) findViewById(R.id.GridViewId);
+        ShopItemAdapter itemAdapter = new ShopItemAdapter(itemNames, itemImages, this);
+        gridview.setAdapter(itemAdapter);
 
 
-        /*Button btn = new Button(mContext);
-        int btn_id = 0;
-
-        for (int i = 0; i > 3; i++) {
-            btn_id++;
+        // CHANGE THE TEXT OF ITEM, IF CHARACTER LEVEL IS ...:
+        if (characterLvl == 2) {
+            itemNames[0] = "";
+        } else if(characterLvl == 3) {
+            itemNames[0] = "";
+            itemNames[1] = "";
+        } else if(characterLvl == 4) {
+            itemNames[0] = "";
+            itemNames[1] = "";
+            itemNames[2] = "";
         }
 
-        Button ItemBtn1 = (Button) findViewById(R.id.shopItemBtn1);
-        Button ItemBtn2 = (Button) findViewById(R.id.shopItemBtn2);
-        Button ItemBtn3 = (Button) findViewById(R.id.shopItemBtn3);
+
+        // CHANGE CLOTHES THEN ITEM WAS CLICKED:
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                a = i;
+
+                String selectedName = itemNames[i];
+                int selectedImage = itemImages[i];
 
 
-        btn.setOnClickListener(new View.OnClickListener() {
+
+                // CLOTHES CHANGING BASED ON LEVEL, COLUMN (i) AND ROW (l)
+                if ((i == 0 && l == 0) && (characterLvl == 1)) {
+                    // DO NOTHING
+                }
+                else if ((characterLvl == 2) && (i == 0 && l == 0) && (i != 1 && l == 0)) {
+                    changeUserClothes();
+                    Log.d("SHOP", "On item clicked (item for 2. lvl) " + selectedName + "index = " + i + ", long = " + l + ", level = " + characterLvl);
+                }
+                else if ((characterLvl == 3) && (i == 0 && l == 0) || (i == 1 && l == 0) && (characterLvl == 3)) {
+                    changeUserClothes();
+                    Log.d("SHOP", "On item clicked (item for 3. lvl) " + selectedName + "index = " + i + ", long = " + l + ", level = " + characterLvl);
+                }
+                else if ((i == 0 && l == 0)  && (characterLvl == 4)|| (i == 1 && l == 0)  && (characterLvl == 4)|| (i == 2 && l == 0) && (characterLvl == 4)) {
+                    changeUserClothes();
+                    Log.d("SHOP", "On item clicked (item for 4. lvl) " + selectedName + "index = " + i + ", long = " + l + ", level = " + characterLvl);
+                }
+            }
+        });
+
+
+        // CLOSE SHOP WINDOW AND SAVE APPEARANCE:
+        Button closeBtn = (Button) findViewById(R.id.closeBtn);
+        closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("SHOP", "Item button OnClick");
-                btn.setText("Button " + (++btn_id));
+
+                Intent intent = new Intent(ShopPopUp.this, MainActivity.class);
+                startActivity(intent);
+
+                //SAVE USER DATA:
+                SaveLoad.getInstance().saveCharacterImages2(ShopPopUp.this, currentImagelothes1, UserClothesKey);
             }
-        });*/
+        });
     }
 
-        //GridView gridview = (GridView) findViewById(R.id.activity_grid);
-        //gridview.setAdapter(new ButtonAdapter(this));
 
+    // CHANGE CLOTHES IMAGES:
+    private void changeUserClothes() {
+        int selectedImage = itemImages[a];
 
-        //CLOTHES BUTTON:
+        ImageView imageViewCharacterClothes1 = (ImageView) findViewById(R.id.userClothesImage1);
 
+        clothesImages = new int[]{R.drawable.char_2, R.drawable.char_13, R.drawable.char_14};
 
+        selectedImage++;
+        selectedImage = selectedImage % clothesImages.length;
+        imageViewCharacterClothes1.setImageResource(clothesImages[selectedImage]);
 
-
-
+        // SET A NEW INDEX FOR THE SELECTED ITEM, THAT BASED ON INT ARRAY OF CLOTHES IN MAIN FRAGMENT:
+        currentImagelothes1 = clothesImages[selectedImage];
+        if(currentImagelothes1 == 2131230828) {
+            currentImagelothes1 = 0;
+        } else if (currentImagelothes1 == 2131230829) {
+            currentImagelothes1 = 4;
+        } else if (currentImagelothes1 == 2131230830) {
+            currentImagelothes1 = 1;
+        }
+    }
 
 
     // LOAD CHARACTER IMAGES THEN ACTIVITY STARTS:

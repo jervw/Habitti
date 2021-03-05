@@ -42,7 +42,6 @@ public class MainFragment extends Fragment {
     private SharedPreferences sharedPrefHabbits;
     private final String sharedPreferenceName = "shared preference";
 
-    SaveLoad saveLoad = SaveLoad.getInstance();
 
     int[] clothesImages;
     int[] hairsImages;
@@ -58,16 +57,12 @@ public class MainFragment extends Fragment {
         //Button devButton = (Button) rootView.findViewById(R.id.buttonDevAddDay);
 
 
-        if (!LoginActivity.developerMode) {
-            // TODO etsitään parempi paikka
-            //devButton.setVisibility(View.GONE);
-        }
 
 
         //Load saved preferences and put them on screen
         initializeCalendar();
         loadHabbitData();
-        updateUI();
+        //updateUI();
 
 /*        devButton.setOnClickListener(new View.OnClickListener() {
             @Override
