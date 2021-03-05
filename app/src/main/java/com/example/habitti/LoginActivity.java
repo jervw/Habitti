@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
+    public static boolean developerMode;
     private SharedPreferences sharedPrefs;
     private String UserName = "UserName";
     private final String UserNameKey = "LastUserName";
@@ -75,6 +76,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                // SAVE:
                 sharedPrefs = getSharedPreferences("shared preference", Context.MODE_PRIVATE);
                 UserName = sharedPrefs.getString(UserNameKey, "0");
 
@@ -163,6 +165,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
 
+    // SAVE DATA:
     @Override
     protected void onPause() {
         super.onPause();

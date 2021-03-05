@@ -64,6 +64,7 @@ public class dateCheck {
         }
     }
 
+
     //Used only in devMode
     //Minus one from the dayComparison int to make the program think there is one day difference in current date and saved date
     //Then run checkDate to get points and set dayComparison back to normal
@@ -73,6 +74,43 @@ public class dateCheck {
         checkDate();
         dayComparison++;
     }
+
+    public static int loginDayStreak() {
+        int returner;
+        DateTimeFormatter df = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
+        SharedPreferences sharedPref = context.getSharedPreferences("login date", Context.MODE_PRIVATE);
+        returner = sharedPref.getInt("days streak", 0);
+        String savedDate = sharedPref.getString("login date", null);
+        if (savedDate != null) {
+            //Convert saved String into milliseconds and then those -seconds into date
+            long millis = df.parseMillis(savedDate);
+            DateTime date = new DateTime(millis);
+            int days = Days.daysBetween(date, comparedDate).getDays();
+            if (days == 0) {
+            }
+            else if (days > dayComparison && days < 2) {
+                returner++;
+            }else if (days > 1) {
+                returner = 0;
+            }
+            DateTime currentDate = new DateTime();
+            String currentDateString = currentDate.toString(df);
+            SharedPreferences.Editor prefEditor = sharedPref.edit();
+            prefEditor.putString("login date", currentDateString);
+            prefEditor.putInt("days streak", returner);
+            prefEditor.commit();
+        } else if (savedDate == null) {
+            DateTime currentDate = new DateTime();
+            String currentDateString = currentDate.toString(df);
+            SharedPreferences.Editor prefEditor = sharedPref.edit();
+            prefEditor.putString("login date", currentDateString);
+            prefEditor.putInt("days streak", returner);
+            prefEditor.commit();
+        }
+        return returner;
+    }
+
+
 }
 
 
