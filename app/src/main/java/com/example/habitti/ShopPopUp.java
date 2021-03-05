@@ -112,7 +112,7 @@ public class ShopPopUp extends Activity {
                 startActivity(intent);
 
                 //SAVE USER DATA:
-                SaveLoad.getInstance().saveCharacterImages2(ShopPopUp.this, currentImagelothes1, UserClothesKey);
+                Save.getInstance().saveCharacterImages2(ShopPopUp.this, currentImagelothes1, UserClothesKey);
             }
         });
     }
@@ -124,7 +124,7 @@ public class ShopPopUp extends Activity {
 
         ImageView imageViewCharacterClothes1 = (ImageView) findViewById(R.id.userClothesImage1);
 
-        clothesImages = new int[]{R.drawable.char_2, R.drawable.char_13, R.drawable.char_14};
+        clothesImages = new int[]{R.drawable.char_13, R.drawable.char_14, R.drawable.char_2};
 
         selectedImage++;
         selectedImage = selectedImage % clothesImages.length;
@@ -132,12 +132,12 @@ public class ShopPopUp extends Activity {
 
         // SET A NEW INDEX FOR THE SELECTED ITEM, THAT BASED ON INT ARRAY OF CLOTHES IN MAIN FRAGMENT:
         currentImagelothes1 = clothesImages[selectedImage];
-        if(currentImagelothes1 == 2131230829) {
-            currentImagelothes1 = 0;
-        } else if (currentImagelothes1 == 2131230830) {
-            currentImagelothes1 = 4;
-        } else if (currentImagelothes1 == 2131230832) {
+        if(currentImagelothes1 == 2131230833) {
             currentImagelothes1 = 1;
+        } else if (currentImagelothes1 == 2131230830) {
+            currentImagelothes1 = 0;
+        } else if (currentImagelothes1 == 2131230831) {
+            currentImagelothes1 = 4;
         }
     }
 
