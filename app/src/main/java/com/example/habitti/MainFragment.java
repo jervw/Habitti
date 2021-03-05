@@ -163,7 +163,6 @@ public class MainFragment extends Fragment {
             }
         });
 
-
         saveHabbitData();
 
         // GET NAME FROM SHARED PREFERENCE.XML:
