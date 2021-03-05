@@ -42,12 +42,15 @@ public class MainFragment extends Fragment {
     private SharedPreferences sharedPrefHabbits;
     private final String sharedPreferenceName = "shared preference";
 
+    SaveLoad saveLoad = SaveLoad.getInstance();
 
     int[] clothesImages;
     int[] hairsImages;
 
     ListView habbitsListView;
     View rootView;
+    int userDayStreak = 0;
+    //TextView userDayStreakText;
 
     @Nullable
     @Override
@@ -62,7 +65,7 @@ public class MainFragment extends Fragment {
         //Load saved preferences and put them on screen
         initializeCalendar();
         loadHabbitData();
-        //updateUI();
+        updateUI();
 
 /*        devButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,9 +158,6 @@ public class MainFragment extends Fragment {
         }
         habbitsListView = (ListView) rootView.findViewById(R.id.listViewHabbits);
         habbitsListView.setAdapter(habbitsArrayAdapter);
-        saveHabbitData();
-
-
         habbitsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> AdapterView, View view, int i, long l) {
@@ -166,6 +166,8 @@ public class MainFragment extends Fragment {
             }
         });
 
+
+        saveHabbitData();
 
         // GET NAME FROM SHARED PREFERENCE.XML:
         sharedPrefHabbits = this.getActivity().getSharedPreferences("shared preference", Context.MODE_PRIVATE);
