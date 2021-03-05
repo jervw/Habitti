@@ -19,12 +19,15 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -38,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
     //Used to make sure that dateCheck only runs once per app start
     public static boolean firstCheckOfDay = true;
 
+    //private long lastPressedTime;
+    //private static final int PERIOD = 2000;
+
+    boolean doubleBackToExitPressedOnce = false;
 
 
     @Override
@@ -109,4 +116,17 @@ public class MainActivity extends AppCompatActivity {
             Log.i("app","notification sent");
         }
     }
+
+
+    // APP DOESN'T CLOSE, IF USER CLICKED THE BACK BUTTON
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+        this.doubleBackToExitPressedOnce = false;
+    }
+
+
 }
