@@ -46,8 +46,6 @@ public class MainFragment extends Fragment {
         //Button devButton = (Button) rootView.findViewById(R.id.buttonDevAddDay);
 
 
-        //habbitsView = loadHabbitData();
-        //SaveLoad.getInstance().loadHabbitData(getActivity(), sharedPreferenceName);
 
         updateUI();
 
@@ -58,7 +56,6 @@ public class MainFragment extends Fragment {
                 Log.d("MAIN", "Shop onClick()");
                 Intent intent = new Intent(getActivity(), ShopPopUp.class);
                 getActivity().startActivity(intent);
-                //startActivity(new Intent(getActivity(), PopUp.class));
             }
         });
         return rootView;
