@@ -21,6 +21,7 @@ public class Habbit {
     private int dayStreak;
     private double overallScore = 0;
     private double scoreMultiplier = 1.0;
+    private boolean checkedToday;
 
     public Habbit(String name, String habitType, int imageId) {
         this.habbitName = name;
@@ -28,6 +29,7 @@ public class Habbit {
         this.dateCreated = GlobalModel.getInstance().getOwnDateCreatedAsString();
         this.imageId = imageId;
         this.dayStreak = 0;
+        this.checkedToday = false;
 
     }
     public String getHabbitName() {
@@ -74,6 +76,14 @@ public class Habbit {
 
     public int getDayStreak() {
         return this.dayStreak;
+    }
+
+    public void setCheckedStatus(boolean bool) {
+        this.checkedToday = bool;
+    }
+
+    public boolean getCheckedStatus() {
+        return this.checkedToday;
     }
 
 }

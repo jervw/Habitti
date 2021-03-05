@@ -7,11 +7,13 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -152,13 +154,25 @@ public class MainFragment extends Fragment {
         habbitsListView = (ListView) rootView.findViewById(R.id.listViewHabbits);
         habbitsListView.setAdapter(habbitsArrayAdapter);
 
+        habbitsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View view, int i, long l) {
+                HabitDetailsDialog detailsDialog = new HabitDetailsDialog(i);
+                detailsDialog.show(getFragmentManager(), "habit details");
+                return false;
+            }
+        });
+
         habbitsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> AdapterView, View view, int i, long l) {
-                HabitDetailsDialog detailsDialog = new HabitDetailsDialog(i);
-                detailsDialog.show(getFragmentManager(), "habit details");
+                //boolean currentCheck = cb.isChecked();
+                GlobalModel.getInstance().getHabbitItem(i).setCheckedStatus(true);
             }
         });
+
+
+
 
         saveHabbitData();
 
@@ -196,6 +210,23 @@ public class MainFragment extends Fragment {
         }
     }
 
+    /*public void setCheckStatus() {
+        if (habbitsListView != null) {
+            SparseBooleanArray sp = habbitsListView.getCheckedItemPositions();
+            if (sp != null) {
+            for (int i = 0; i < sp.size(); i++) {
+                if (sp.valueAt(i) == true) {
+                    GlobalModel.getInstance().getHabbitItem(i).setCheckedStatus(true);
+                }
+            }
+            }
+        }
+    }
+
+     */
+
+
+
     @Override
     public void onResume() {
         super.onResume();
@@ -205,8 +236,9 @@ public class MainFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
+        //setCheckStatus();
         //SaveLoad.getInstance().saveHabbitData(getActivity(), GlobalModel.getInstance().getHabbitsView(), "shared preference");
-        Log.d("MAIN", "OnPause");
+        Log.d("MAIN", "satus " + GlobalModel.getInstance().getHabbitItem(0).getCheckedStatus());
     }
 
 }
