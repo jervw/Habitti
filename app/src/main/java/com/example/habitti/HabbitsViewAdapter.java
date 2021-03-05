@@ -34,6 +34,9 @@ public class HabbitsViewAdapter extends ArrayAdapter<HabbitsView>{
         TextView textViewHabbitName = currentItemView.findViewById(R.id.textViewHabbitName);
         textViewHabbitName.setText(currentNumberPosition.getmHabbitName());
 
+        TextView textViewHabitType = currentItemView.findViewById(R.id.habitType);
+        textViewHabitType.setText(currentNumberPosition.getmHabitType());
+
         TextView textViewHabbitDaysStreak = currentItemView.findViewById(R.id.textViewDays);
         textViewHabbitDaysStreak.setText(currentNumberPosition.getmHabbitDaysStreak());
 
