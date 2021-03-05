@@ -12,22 +12,51 @@
             android:layout_height="300dp"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/avatar"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="45dp"
-                android:src="@drawable/profile" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="194dp"
+                android:padding="10dp">
+
+
+                <ImageView
+                    android:id="@+id/userCharacterImage"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="100dp"
+                    android:layout_marginEnd="100dp" />
+
+                <ImageView
+                    android:id="@+id/userHairsImage"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="100dp"
+                    android:layout_marginEnd="100dp" />
+
+                <ImageView
+                    android:id="@+id/userClothesImage"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="100dp"
+                    android:layout_marginEnd="100dp" />
+
+            </RelativeLayout>
+
             <TextView
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center_horizontal"
+                android:id="@+id/usernamesettings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
                 android:text="@string/username"
                 android:textColor="#fff"
-                android:textStyle="bold"
-                android:textSize="21sp"/>
+                android:textSize="21sp"
+                android:textStyle="bold" />
 
             <Button
                 android:layout_width="wrap_content"
