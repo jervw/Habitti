@@ -28,7 +28,7 @@ public class ShopPopUp extends Activity {
 
     int currentImagelothes1 = 0;
 
-    int characterLvl = 4;
+    int characterLvl = 3;
 
     int a = 0;
 
@@ -82,6 +82,7 @@ public class ShopPopUp extends Activity {
                 int selectedImage = itemImages[i];
 
 
+
                 // CLOTHES CHANGING BASED ON LEVEL, COLUMN (i) AND ROW (l)
                 if ((i == 0 && l == 0) && (characterLvl == 1)) {
                     // DO NOTHING
@@ -132,11 +133,11 @@ public class ShopPopUp extends Activity {
 
         // SET A NEW INDEX FOR THE SELECTED ITEM, THAT BASED ON INT ARRAY OF CLOTHES IN MAIN FRAGMENT:
         currentImagelothes1 = clothesImages[selectedImage];
-        if(currentImagelothes1 == 2131230829) {
+        if(currentImagelothes1 == 2131230828) {
             currentImagelothes1 = 0;
-        } else if (currentImagelothes1 == 2131230830) {
+        } else if (currentImagelothes1 == 2131230829) {
             currentImagelothes1 = 4;
-        } else if (currentImagelothes1 == 2131230832) {
+        } else if (currentImagelothes1 == 2131230830) {
             currentImagelothes1 = 1;
         }
     }
