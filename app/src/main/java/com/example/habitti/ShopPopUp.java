@@ -159,42 +159,29 @@ public class ShopPopUp extends Activity {
     // CHANGE CLOTHES IMAGES:
     private void changeUserClothes() {
         int selectedImage = itemImages[a];
-        //int index = Arrays.asList(itemImages).indexOf(R.drawable.shop_item_3);
-        //Log.d("SHOP", "a = " + a + ", selected image = " + selectedImage + ", index = " + index);
 
         ImageView imageViewCharacterClothes1 = (ImageView) findViewById(R.id.userClothesImage1);
 
-        //clothesImages = new int[]{R.drawable.char_13, R.drawable.char_14, R.drawable.char_2};
         clothesImages = new int[] {R.drawable.char_2, R.drawable.char_10, R.drawable.char_16, R.drawable.char_15, R.drawable.char_13, R.drawable.char_14};
-
 
         selectedImage++;
         selectedImage = selectedImage % clothesImages.length;
         imageViewCharacterClothes1.setImageResource(clothesImages[selectedImage]);
 
 
-        int index = 0;
-        for (int x = 0; x < clothesImages.length; x++) {
-            if (clothesImages[x] == R.drawable.char_2) {
-                index = x;
-            }
-        }
-        Log.d("SHOP", "R.drawable.char_2 index is " + index);
-
-
         // SET A NEW INDEX FOR THE SELECTED ITEM, THAT BASED ON INT ARRAY OF CLOTHES IN MAIN FRAGMENT:
-        currentImagelothes1 = clothesImages[selectedImage];
-        if(currentImagelothes1 == 2131230834) {
+        currentImagelothes1 = a;
+        if(currentImagelothes1 == 2) {
             currentImagelothes1 = 1; // mag
-        } else if (currentImagelothes1 == 2131230830) {
+        } else if (currentImagelothes1 == 0) {
             currentImagelothes1 = 0; // soldier
-        } else if (currentImagelothes1 == 2131230831) {
+        } else if (currentImagelothes1 == 1) {
             currentImagelothes1 = 4; // sci fi soldier
-        } else if (currentImagelothes1 == 2131230827) {
+        } else if (currentImagelothes1 == 3) {
             currentImagelothes1 = 3; // dress
-        } else if (currentImagelothes1 == 2131230833) {
+        } else if (currentImagelothes1 == 5) {
             currentImagelothes1 = 5; // best
-        } else if (currentImagelothes1 == 2131230832) {
+        } else if (currentImagelothes1 == 4) {
             currentImagelothes1 = 2; // mag with beard
         }
 
@@ -208,7 +195,7 @@ public class ShopPopUp extends Activity {
         sharedPrefHabbits = getSharedPreferences("shared preference", Activity.MODE_PRIVATE);
 
         // GET CLOTHES FROM SHARED PREFERENCE.XML:
-        clothesImages = new int[] {R.drawable.char_13, R.drawable.char_2, R.drawable.char_15, R.drawable.char_10, R.drawable.char_14};
+        clothesImages = new int[] {R.drawable.char_13, R.drawable.char_2, R.drawable.char_15, R.drawable.char_10, R.drawable.char_14, R.drawable.char_16};
         ImageView imageViewCharacterClothes1 = (ImageView) findViewById(R.id.userClothesImage1);
         if (sharedPrefHabbits.contains("LastUserClothes")) {
             imageViewCharacterClothes1.setImageResource(clothesImages[sharedPrefHabbits.getInt("LastUserClothes", -1)]);
