@@ -112,7 +112,9 @@ public class MainFragment extends Fragment {
         Gson gson = new Gson();
         Double userScoresD = GlobalModel.getInstance().getUserOverallScores();
         String userScores = String.valueOf(userScoresD);
+        int userLevel = GlobalModel.getInstance().getUserLevel();
         String jsonHabbits = gson.toJson(GlobalModel.getInstance().getHabbitsList());
+        editor.putInt("User level", userLevel);
         editor.putString("Habbits list", jsonHabbits);
         editor.putString("User Scores", userScores);
         editor.apply();
@@ -123,6 +125,7 @@ public class MainFragment extends Fragment {
         sharedPrefHabbits = getActivity().getSharedPreferences(sharedPreferenceName, Activity.MODE_PRIVATE);
         Gson gson = new Gson();
         String userScores = sharedPrefHabbits.getString("User scores", "0");
+        int userLevel = sharedPrefHabbits.getInt("User level", 0);
         double userScoresD = Double.parseDouble(userScores);
         String jsonHabbits = sharedPrefHabbits.getString("Habbits list", null);
         //String jsonHabbitsView = sharedPrefHabbits.getString("Habbits list view", null);
@@ -130,6 +133,7 @@ public class MainFragment extends Fragment {
         }.getType();
         //Type typeHabbitsView = new TypeToken<Collection<HabbitsView>>() {}.getType();
         GlobalModel.getInstance().replaceListHabbits(gson.fromJson(jsonHabbits, typeHabbits));
+        GlobalModel.getInstance().setUserLevel(userLevel);
         GlobalModel.getInstance().setUserOverallScores(userScoresD);
         //Go check if day has passed since last app start and give points accordingly
         if (MainActivity.firstCheckOfDay == true) {

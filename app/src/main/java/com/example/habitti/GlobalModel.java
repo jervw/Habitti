@@ -140,4 +140,8 @@ public class GlobalModel {
     public int getUserLevel() {
         return this.userLevel;
     }
+
+    public void setUserLevel(int i) {
+        this.userLevel = i;
+    }
 }
