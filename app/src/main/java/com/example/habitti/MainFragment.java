@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,10 +22,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collection;
+
 import java.util.Calendar;
 import java.util.Collection;
 
@@ -57,10 +59,8 @@ public class MainFragment extends Fragment {
         dateCheck dateCheck = new dateCheck(getActivity());
         //Button devButton = (Button) rootView.findViewById(R.id.buttonDevAddDay);
 
-       /*if (!LoginActivity.developerMode) {
-            devButton.setVisibility(View.GONE);
-        }
-        */
+
+
 
         //Load saved preferences and put them on screen
         initializeCalendar();
@@ -71,10 +71,9 @@ public class MainFragment extends Fragment {
         shopBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("MAIN FRAGMENT", "Shop onClick()");
+                Log.d("MAIN", "Shop onClick()");
                 Intent intent = new Intent(getActivity(), ShopPopUp.class);
                 getActivity().startActivity(intent);
-                //startActivity(new Intent(getActivity(), PopUp.class));
             }
         });
         return rootView;
@@ -149,12 +148,9 @@ public class MainFragment extends Fragment {
         } else {
             habbitsArrayAdapter = new HabbitsViewAdapter(getActivity(), GlobalModel.getInstance().getHabbitsView());
         }
-
-
-        Log.d("MAIN FRAGMENT", "updateUI");
-        //habbitsArrayAdapter = new HabbitsViewAdapter(getActivity(), GlobalModel.getInstance().getHabbitsView());
         habbitsListView = (ListView) rootView.findViewById(R.id.listViewHabbits);
         habbitsListView.setAdapter(habbitsArrayAdapter);
+        saveHabbitData();
 
         habbitsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -180,11 +176,6 @@ public class MainFragment extends Fragment {
                 Log.d("Tag", String.valueOf(GlobalModel.getInstance().getHabbitItem(i).getCheckedStatus()));
             }
         });
-
-
-
-
-
 
         saveHabbitData();
 
@@ -221,23 +212,6 @@ public class MainFragment extends Fragment {
             imageViewCharacter.setImageResource(R.drawable.char_7);
         }
     }
-
-    /*public void setCheckStatus() {
-        if (habbitsListView != null) {
-            SparseBooleanArray sp = habbitsListView.getCheckedItemPositions();
-            if (sp != null) {
-            for (int i = 0; i < sp.size(); i++) {
-                if (sp.valueAt(i) == true) {
-                    GlobalModel.getInstance().getHabbitItem(i).setCheckedStatus(true);
-                }
-            }
-            }
-        }
-    }
-
-     */
-
-
 
     @Override
     public void onResume() {
