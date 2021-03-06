@@ -21,6 +21,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+
+import devs.mulham.horizontalcalendar.HorizontalCalendar;
+import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
+
 import static android.content.Context.MODE_PRIVATE;
 
 public class MainFragment extends Fragment {
@@ -46,7 +57,7 @@ public class MainFragment extends Fragment {
         //Button devButton = (Button) rootView.findViewById(R.id.buttonDevAddDay);
 
 
-
+        loadHabbitData();
         updateUI();
 
         Button shopBtn = (Button) rootView.findViewById(R.id.ShopBtn);
@@ -133,7 +144,7 @@ public class MainFragment extends Fragment {
 
 
         Log.d("MAIN FRAGMENT", "updateUI");
-        //habbitsArrayAdapter = new HabbitsViewAdapter(getActivity(), GlobalModel.getInstance().getHabbitsView());
+        habbitsArrayAdapter = new HabbitsViewAdapter(getActivity(), GlobalModel.getInstance().getHabbitsView());
         habbitsListView = (ListView) rootView.findViewById(R.id.listViewHabbits);
         habbitsListView.setAdapter(habbitsArrayAdapter);
 
@@ -163,14 +174,10 @@ public class MainFragment extends Fragment {
         });
 
 
-
-
-
-
         saveHabbitData();
-
-        saveHabbitData();
-
+        updateCostume();
+    }
+    public void updateCostume() {
         // GET NAME FROM SHARED PREFERENCE.XML:
         sharedPrefHabbits = this.getActivity().getSharedPreferences("shared preference", Context.MODE_PRIVATE);
         TextView textViewUserName = (TextView) rootView.findViewById(R.id.username);
