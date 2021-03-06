@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +23,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collection;
+
 import java.util.Calendar;
 import java.util.Collection;
 
@@ -57,6 +61,10 @@ public class MainFragment extends Fragment {
         //Button devButton = (Button) rootView.findViewById(R.id.buttonDevAddDay);
 
 
+
+
+        //Load saved preferences and put them on screen
+        initializeCalendar();
         loadHabbitData();
         updateUI();
 
@@ -64,9 +72,10 @@ public class MainFragment extends Fragment {
         shopBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("MAIN", "Shop onClick()");
+                Log.d("MAIN FRAGMENT", "Shop onClick()");
                 Intent intent = new Intent(getActivity(), ShopPopUp.class);
                 getActivity().startActivity(intent);
+                //startActivity(new Intent(getActivity(), PopUp.class));
             }
         });
         return rootView;
@@ -147,6 +156,7 @@ public class MainFragment extends Fragment {
         habbitsArrayAdapter = new HabbitsViewAdapter(getActivity(), GlobalModel.getInstance().getHabbitsView());
         habbitsListView = (ListView) rootView.findViewById(R.id.listViewHabbits);
         habbitsListView.setAdapter(habbitsArrayAdapter);
+        saveHabbitData();
 
         habbitsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
