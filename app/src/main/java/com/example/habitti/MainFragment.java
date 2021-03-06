@@ -6,6 +6,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -62,6 +65,9 @@ public class MainFragment extends Fragment {
         initializeCalendar();
         loadHabbitData();
         updateUI();
+
+        // TOP BAR ICONS ARE VISIBLE:
+        setHasOptionsMenu(true);
 
         Button shopBtn = (Button) rootView.findViewById(R.id.ShopBtn);
         shopBtn.setOnClickListener(new View.OnClickListener() {
@@ -209,6 +215,28 @@ public class MainFragment extends Fragment {
         super.onPause();
         //SaveLoad.getInstance().saveHabbitData(getActivity(), GlobalModel.getInstance().getHabbitsView(), "shared preference");
         Log.d("MAIN", "OnPause");
+    }
+
+
+    // TOP BAR ICON:
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    // THEN ON CLICK "SHOP/REWARDS" ICON IN TOP BAR:
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        // OPEN THE SHOP/REWARDS POP UP WINDOW:
+        if (id == R.id.shopBtn) {
+            Intent intent = new Intent(getActivity(), ShopPopUp.class);
+            getActivity().startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }
