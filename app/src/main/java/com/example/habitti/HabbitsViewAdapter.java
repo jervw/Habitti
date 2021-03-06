@@ -42,6 +42,7 @@ public class HabbitsViewAdapter extends ArrayAdapter<HabbitsView>{
         textViewHabbitDaysStreak.setText(currentNumberPosition.getmHabbitDaysStreak());
 
         CheckBox checkBox = currentItemView.findViewById(R.id.radioButton);
+        checkBox.setChecked(currentNumberPosition.getCheckStatus());
 
 
 

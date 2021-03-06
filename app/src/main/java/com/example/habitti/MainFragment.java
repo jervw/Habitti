@@ -57,7 +57,6 @@ public class MainFragment extends Fragment {
         dateCheck dateCheck = new dateCheck(getActivity());
         //Button devButton = (Button) rootView.findViewById(R.id.buttonDevAddDay);
 
-
        /*if (!LoginActivity.developerMode) {
             devButton.setVisibility(View.GONE);
         }
@@ -134,6 +133,8 @@ public class MainFragment extends Fragment {
         //Go check if day has passed since last app start and give points accordingly
         if (MainActivity.firstCheckOfDay == true) {
             dateCheck.checkDate();
+            //TODO käytä tätä tarkistaaksesi onko käyttäjän login streak pysynyt ja palauta nykyinen streak
+            // dateCheck.loginDayStreak();
             MainActivity.firstCheckOfDay = false;
         }
     }
@@ -149,8 +150,9 @@ public class MainFragment extends Fragment {
             habbitsArrayAdapter = new HabbitsViewAdapter(getActivity(), GlobalModel.getInstance().getHabbitsView());
         }
 
+
         Log.d("MAIN FRAGMENT", "updateUI");
-        habbitsArrayAdapter = new HabbitsViewAdapter(getActivity(), GlobalModel.getInstance().getHabbitsView());
+        //habbitsArrayAdapter = new HabbitsViewAdapter(getActivity(), GlobalModel.getInstance().getHabbitsView());
         habbitsListView = (ListView) rootView.findViewById(R.id.listViewHabbits);
         habbitsListView.setAdapter(habbitsArrayAdapter);
 
@@ -163,13 +165,23 @@ public class MainFragment extends Fragment {
             }
         });
 
+        HabbitsViewAdapter finalHabbitsArrayAdapter = habbitsArrayAdapter;
         habbitsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> AdapterView, View view, int i, long l) {
-                //boolean currentCheck = cb.isChecked();
-                GlobalModel.getInstance().getHabbitItem(i).setCheckedStatus(true);
+                boolean currentItemValue = GlobalModel.getInstance().getHabbitItem(i).getCheckedStatus();
+                if (!currentItemValue) {
+                    GlobalModel.getInstance().getHabbitItem(i).setCheckedStatus(true);
+                } else {
+                    GlobalModel.getInstance().getHabbitItem(i).setCheckedStatus(false);
+                }
+                finalHabbitsArrayAdapter.notifyDataSetChanged();
+                GlobalModel.getInstance().updateHabbitViewList();
+                Log.d("Tag", String.valueOf(GlobalModel.getInstance().getHabbitItem(i).getCheckedStatus()));
             }
         });
+
+
 
 
 
@@ -236,9 +248,14 @@ public class MainFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
+        saveHabbitData();
+
+
         //setCheckStatus();
         //SaveLoad.getInstance().saveHabbitData(getActivity(), GlobalModel.getInstance().getHabbitsView(), "shared preference");
         Log.d("MAIN", "satus " + GlobalModel.getInstance().getHabbitItem(0).getCheckedStatus());
+        Log.d("MAIN", "satus " + GlobalModel.getInstance().getHabbitItem(1).getCheckedStatus());
+
     }
 
 }

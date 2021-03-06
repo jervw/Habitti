@@ -50,7 +50,7 @@ public class GlobalModel {
     }
 
     public void addListView(Habbit habbit){
-                habbitsView.add(new HabbitsView(habbit.getImageId(), habbit.getHabbitName(), habbit.getHabitType(), "" + habbit.getOverallScore(), ""+habbit.getDayStreak(), habbit.getDateCreated(), habbit.getScoreMultiplier()));
+                habbitsView.add(new HabbitsView(habbit.getImageId(), habbit.getHabbitName(), habbit.getHabitType(), "" + habbit.getOverallScore(), ""+habbit.getDayStreak(), habbit.getDateCreated(), habbit.getScoreMultiplier(), habbit.getCheckedStatus()));
     }
 
     public HabbitsView getHabbitViewItem(int i) {
@@ -82,14 +82,15 @@ public class GlobalModel {
     }
 
     //Gets all the habbits and gives them more multiplier and daily score
-    public void dailyPointsAndMultipliers() {
-        int index = 0;
-        while (index < habbits.size()) {
-            getHabbitItem(index).addScoreMultiplier();
-            getHabbitItem(index).addDailyScore();
-            index++;
+    public void dailyPointsAndMultipliers(Habbit habbit) {
+            habbit.addScoreMultiplier();
+            habbit.addDailyScore();
             Log.d("Tag", "dailyPoints runned");
+            updateHabbitViewList();
         }
+
+    public void resetMultiplier(Habbit habbit) {
+        habbit.resetScoreMultiplier();
         updateHabbitViewList();
     }
 
@@ -105,7 +106,7 @@ public class GlobalModel {
         habbitsView.clear();
         while (index < habbits.size()) {
             habbitsView.add(new HabbitsView(getHabbitItem(index).getImageId(), getHabbitItem(index).getHabbitName(), getHabbitItem(index).getHabitType(), "" + getHabbitItem(index).getOverallScore(), ""+getHabbitItem(index).getDayStreak(),
-                    getHabbitItem(index).getDateCreated(), getHabbitItem(index).getScoreMultiplier()));
+                    getHabbitItem(index).getDateCreated(), getHabbitItem(index).getScoreMultiplier(), getHabbitItem(index).getCheckedStatus()));
             index++;
         }
     }
