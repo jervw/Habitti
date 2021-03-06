@@ -15,6 +15,12 @@
     <string name="habit_name">Habit name</string>
     <string name="delete_habit">Delete habit</string>
     <string name="creditsButton" />
+    <string name="character">character</string>
+    <string name="welcome_to_the_habitti">Welcome to the Habitti!</string>
+    <string name="create_your_character">Create your character</string>
+    <string name="hair">hair</string>
+    <string name="clothes">clothes</string>
+    <string name="next">Next</string>
 
     <string-array name="habbits_array">
         <item>No smoking</item>

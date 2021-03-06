@@ -24,8 +24,8 @@ public class LoginActivity extends AppCompatActivity {
     private int UserSex;
     private final String UserSexKey = "LastUserSex";
 
-    private EditText SingUpName;
-    private Button btnNext;
+    private EditText textViewUsername;
+    private Button buttonNext;
 
     private ImageView imageViewCharacter;
     private ImageView imageViewClothes;
@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnChangeClothes;
     private Button btnChangeHairs;
     private ImageView imageViewHairs;
-    String singUpName;
+    String signUpName;
     boolean devMode = false;
 
     int[] hairsImages;
@@ -45,10 +45,10 @@ public class LoginActivity extends AppCompatActivity {
 
     public static final String EXTRA_MESSAGE = "com.example.habitti";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.Theme_Habitti_NoActionBar);
         setContentView(R.layout.login_activity);
 
 
@@ -66,12 +66,12 @@ public class LoginActivity extends AppCompatActivity {
         }
 
 
-        SingUpName = (EditText) findViewById(R.id.editTextSingUpName);
-        btnNext = (Button) findViewById(R.id.btnSingUp);
+        textViewUsername = (EditText) findViewById(R.id.usernameField);
+        buttonNext = (Button) findViewById(R.id.buttonNext);
 
 
         // NEXT BUTTON:
-        btnNext.setOnClickListener(new View.OnClickListener() {
+        buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -84,9 +84,9 @@ public class LoginActivity extends AppCompatActivity {
 
 
                 // CHECKING FOR THE USER'S INPUT NAME:
-                singUpName = SingUpName.getText().toString();
+                signUpName = textViewUsername.getText().toString();
 
-                switch (singUpName) {
+                switch (signUpName) {
                     case ("dev"): {
                         Log.d("login activity", "dev mode");
                         devMode = true;
@@ -95,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
                         break;
                     }
                     default: {
-                        Log.d("login activity", "name is " + singUpName);
+                        Log.d("login activity", "name is " + signUpName);
                         devMode = false;
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
@@ -104,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                 // SAVE USER DATA:
-                SaveLoad.getInstance().saveCharacterImages(LoginActivity.this, SingUpName.getText().toString(), UserNameKey, currentImageClothes, UserClothesKey,
+                SaveLoad.getInstance().saveCharacterImages(LoginActivity.this, textViewUsername.getText().toString(), UserNameKey, currentImageClothes, UserClothesKey,
                         currentImageHairs, UserHairsKey, currentCharacterSex, UserSexKey);
             }
         });
@@ -112,8 +112,10 @@ public class LoginActivity extends AppCompatActivity {
 
             // CHARACTER SEX:
             imageViewCharacter = (ImageView) findViewById(R.id.imageViewCharacter);
-
             btnChangeToFemale = (Button) findViewById(R.id.btnFemale);
+            imageViewCharacter.setImageResource(R.drawable.char_7);
+            currentCharacterSex = 0;
+
             btnChangeToFemale.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -145,7 +147,6 @@ public class LoginActivity extends AppCompatActivity {
                     imageViewClothes.setImageResource(clothesImages[currentImageClothes]);
                 }
             });
-
 
             // CHARACTER HAIRS:
             imageViewHairs = (ImageView) findViewById(R.id.imageViewHairs);

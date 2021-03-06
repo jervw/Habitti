@@ -91,14 +91,6 @@
         android:layout_margin="5dp">
 
 
-<!--        <CheckBox
-            android:id="@+id/radioButton"
-            android:layout_width="wrap_content"
-            android:layout_gravity="right|center"
-            android:scaleX="1.5"
-            android:scaleY="1.5"
-            android:gravity="right|center"
-            android:layout_height="match_parent"/>-->
     </LinearLayout>
 
 </LinearLayout>

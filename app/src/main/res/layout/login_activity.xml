@@ -1,168 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    android:orientation="vertical"
+    android:background="@color/cerulean">
 
-    <ImageView
-        android:id="@+id/imageViewCharacter"
-        android:layout_width="223dp"
-        android:layout_height="201dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="40dp"
-        app:layout_constraintEnd_toStartOf="@+id/btnChangeClothes"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextSingUpName"
-        app:srcCompat="@drawable/char_7"
-        tools:srcCompat="@drawable/char_7" />
 
-    <ImageView
-        android:id="@+id/imageViewHairs"
-        android:layout_width="223dp"
-        android:layout_height="201dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="40dp"
-        app:layout_constraintEnd_toStartOf="@+id/btnChangeHairs"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextSingUpName"
-        app:srcCompat="?attr/selectableItemBackground"
-        tools:srcCompat="?attr/selectableItemBackgroundBorderless" />
-
-    <ImageView
-        android:id="@+id/imageViewClothes"
-        android:layout_width="223dp"
-        android:layout_height="201dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="40dp"
-        app:layout_constraintEnd_toStartOf="@+id/btnChangeClothes"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextSingUpName"
-        app:srcCompat="?attr/selectableItemBackground"
-        tools:srcCompat="?attr/selectableItemBackgroundBorderless" />
-
-    <EditText
-        android:id="@+id/editTextSingUpName"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="180dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="@string/username"
-        android:textColor="#150E0E"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_margin="20dp"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btnSingUp"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/habitti_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome_to_the_habitti"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/habitti_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/create_your_character"
+            android:fontFamily="sans-serif-light"
+
+            android:textAlignment="center"
+            android:textColor="#fff"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/usernameField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:textAlignment="center"
+            android:backgroundTint="@color/white"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="@string/username"
+            android:textColorHint="@color/white"
+            android:fontFamily="sans-serif-light"
+            android:textColor="#fff"
+            android:importantForAutofill="no" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:text="NEXT"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewCharacter"
-        app:layout_constraintVertical_bias="0.707" />
+        android:orientation="horizontal"
+        android:weightSum="3">
 
-    <Button
-        android:id="@+id/btnChangeClothes"
-        android:layout_width="52dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="36dp"
-        android:scaleX="-1"
-        app:icon="@drawable/abc_vector_test"
-        app:layout_constraintBottom_toBottomOf="@+id/btnSingUp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnChangeHairs"
-        app:layout_constraintVertical_bias="0.145" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
-    <Button
-        android:id="@+id/btnChangeHairs"
-        android:layout_width="52dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="116dp"
-        android:layout_marginEnd="36dp"
-        android:scaleX="-1"
-        app:icon="@drawable/abc_vector_test"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editTextSingUpName" />
+            <ImageView
+                android:id="@+id/imageViewCharacter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="hair" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/imageViewHairs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="hair" />
+
+            <ImageView
+                android:id="@+id/imageViewClothes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="hair" />
+
+        </RelativeLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+
+            <Button
+                android:id="@+id/btnChangeHairs"
+                android:layout_width="50dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                android:scaleX="-1"
+                app:icon="@drawable/abc_vector_test"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btnChangeClothes"
+                android:layout_width="50dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="30dp"
+                android:scaleX="-1"
+                app:icon="@drawable/abc_vector_test"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:text="Welcome to the Habitti!"
-        android:textColor="#130909"
-        android:textColorHint="#020101"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextSingUpName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.601" />
+        android:gravity="center"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Create your character"
-        android:textColor="#373636"
-        android:textColorHint="#020101"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextSingUpName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="0.145" />
 
-    <Button
-        android:id="@+id/btnMale"
-        android:layout_width="68dp"
-        android:layout_height="65dp"
-        android:layout_marginEnd="28dp"
-        android:background="@android:color/transparent"
-        android:foreground="@drawable/male"
-        android:text="male"
-        app:layout_constraintBottom_toBottomOf="@+id/btnFemale"
-        app:layout_constraintEnd_toStartOf="@+id/btnFemale"
-        app:layout_constraintHorizontal_bias="0.967"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnFemale"
-        app:layout_constraintVertical_bias="0.0" />
+        <Button
+            android:id="@+id/btnMale"
+            android:layout_width="68dp"
+            android:layout_height="65dp"
+            android:gravity="center"
+            android:background="@android:color/transparent"
+            android:foregroundTint="#4FC3F7"
+            android:foreground="@drawable/male" />
 
-    <Button
-        android:id="@+id/btnFemale"
-        android:layout_width="68dp"
-        android:layout_height="65dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="120dp"
-        android:background="@android:color/transparent"
-        android:foreground="@drawable/female"
-        android:text="female"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewCharacter" />
+        <Button
+            android:id="@+id/btnFemale"
+            android:layout_width="68dp"
+            android:layout_height="65dp"
+            android:gravity="center"
+            android:foregroundTint="#C66666"
+            android:background="@android:color/transparent"
+            android:foreground="@drawable/female" />
 
-    <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"></FrameLayout>
+    </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <Button
+            android:id="@+id/buttonNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter"
+            android:textSize="18sp"
+            android:backgroundTint="@color/cerulean"/>
+
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

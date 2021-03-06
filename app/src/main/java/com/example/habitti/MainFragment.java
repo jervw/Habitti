@@ -159,12 +159,16 @@ public class MainFragment extends Fragment {
 
 
         habbitsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
             public void onItemClick(AdapterView<?> AdapterView, View view, int i, long l) {
                 HabitDetailsDialog detailsDialog = new HabitDetailsDialog(i);
                 detailsDialog.show(getFragmentManager(), "habit details");
             }
+
+
         });
+
 
 
         // GET NAME FROM SHARED PREFERENCE.XML:

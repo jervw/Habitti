@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#616161</color>
     <color name="cerulean">#FF00B8AE</color>
+    <color name="darkCerulean">#005A55</color>
 
 
     <color name="md_red_500">#970606</color>

@@ -7,7 +7,6 @@
         android:title="Habits">
     </item>
     <item
-        android:id="@+id/calendar"
         android:title=""
         android:enabled="false">
     </item>
