@@ -12,6 +12,9 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class ShopPopUp extends Activity {
 
     private SharedPreferences sharedPrefHabbits;
@@ -23,8 +26,9 @@ public class ShopPopUp extends Activity {
 
     GridView gridview;
 
-    String[] itemNames = {"Unlock on 2. lvl", "Unlock on 3. lvl", "Unlock on 4. lvl"};
-    int[] itemImages = {R.drawable.shop_item_1, R.drawable.shop_item_2, R.drawable.shop_item_3};
+    // CREATE A NEW ITEM IN THE SHOP:
+    String[] itemNames = {"Unlock on 2 lvl", "Unlock on 3 lvl", "Unlock on 4 lvl", "Unlock on 6 lvl", "Unlock on 8 lvl", "Unlock on 10 lvl"};
+    int[] itemImages = {R.drawable.shop_item_1, R.drawable.shop_item_2, R.drawable.shop_item_3, R.drawable.shop_item_4, R.drawable.shop_item_6, R.drawable.shop_item_5};
 
     int currentImagelothes1 = 0;
 
@@ -32,6 +36,7 @@ public class ShopPopUp extends Activity {
 
     int a = 0;
 
+    //int[] clothesImages = new int[] {R.drawable.char_2, R.drawable.char_10, R.drawable.char_16, R.drawable.char_15, R.drawable.char_13, R.drawable.char_14};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +63,13 @@ public class ShopPopUp extends Activity {
         ShopItemAdapter itemAdapter = new ShopItemAdapter(itemNames, itemImages, this);
         gridview.setAdapter(itemAdapter);
 
+
+        // GET USER LEVEL FROM GLOBAL MODEL:
         characterLvl = GlobalModel.getInstance().getUserLevel();
+        // TEST LEVEL:
+        //characterLvl = 10;
         Log.d("SHOP", "User level is " + characterLvl);
+
 
         // CHANGE THE TEXT OF ITEM, IF CHARACTER LEVEL IS ...:
         if (characterLvl == 2) {
@@ -71,6 +81,24 @@ public class ShopPopUp extends Activity {
             itemNames[0] = "";
             itemNames[1] = "";
             itemNames[2] = "";
+        } else if(characterLvl == 6) {
+            itemNames[0] = "";
+            itemNames[1] = "";
+            itemNames[2] = "";
+            itemNames[3] = "";
+        } else if(characterLvl == 8) {
+            itemNames[0] = "";
+            itemNames[1] = "";
+            itemNames[2] = "";
+            itemNames[3] = "";
+            itemNames[4] = "";
+        } else if(characterLvl == 10) {
+            itemNames[0] = "";
+            itemNames[1] = "";
+            itemNames[2] = "";
+            itemNames[3] = "";
+            itemNames[4] = "";
+            itemNames[5] = "";
         }
 
 
@@ -78,6 +106,8 @@ public class ShopPopUp extends Activity {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d("SHOP", "On item clicked: " + "index = " + i + ", long = " + l);
+
                 a = i;
 
                 String selectedName = itemNames[i];
@@ -87,16 +117,22 @@ public class ShopPopUp extends Activity {
                 // CLOTHES CHANGING BASED ON LEVEL, COLUMN (i) AND ROW (l)
                 if ((i == 0 && l == 0) && (characterLvl == 1)) {
                     // DO NOTHING
-                }
-                else if ((characterLvl == 2) && (i == 0 && l == 0) && (i != 1 && l == 0)) {
+                } else if ((characterLvl == 2) && (i == 0 && l == 0) && (i != 1 && l == 0)) {
                     changeUserClothes();
                     Log.d("SHOP", "On item clicked (item for 2. lvl) " + selectedName + "index = " + i + ", long = " + l + ", level = " + characterLvl);
-                }
-                else if ((characterLvl == 3) && (i == 0 && l == 0) || (i == 1 && l == 0) && (characterLvl == 3)) {
+                } else if ((characterLvl == 3) && (i == 0 && l == 0) || (i == 1 && l == 0) && (characterLvl == 3)) {
                     changeUserClothes();
                     Log.d("SHOP", "On item clicked (item for 3. lvl) " + selectedName + "index = " + i + ", long = " + l + ", level = " + characterLvl);
-                }
-                else if ((i == 0 && l == 0)  && (characterLvl == 4)|| (i == 1 && l == 0)  && (characterLvl == 4)|| (i == 2 && l == 0) && (characterLvl == 4)) {
+                } else if ((i == 0 && l == 0) && (characterLvl == 4) || (i == 1 && l == 0) && (characterLvl == 4) || (i == 2 && l == 0) && (characterLvl == 4)) {
+                    changeUserClothes();
+                    Log.d("SHOP", "On item clicked (item for 4. lvl) " + selectedName + "index = " + i + ", long = " + l + ", level = " + characterLvl);
+                } else if ((i == 0 && l == 0) && (characterLvl == 6) || (i == 1 && l == 0) && (characterLvl == 6) || (i == 2 && l == 0) && (characterLvl == 6) || (i == 3 && l == 0) && (characterLvl == 6)) {
+                    changeUserClothes();
+                    Log.d("SHOP", "On item clicked (item for 4. lvl) " + selectedName + "index = " + i + ", long = " + l + ", level = " + characterLvl);
+                } else if ((i == 0 && l == 0) && (characterLvl == 8) || (i == 1 && l == 0) && (characterLvl == 8) || (i == 2 && l == 0) && (characterLvl == 8) || (i == 3 && l == 0) && (characterLvl == 8) || (i == 4 && l == 0) && (characterLvl == 8)) {
+                    changeUserClothes();
+                    Log.d("SHOP", "On item clicked (item for 4. lvl) " + selectedName + "index = " + i + ", long = " + l + ", level = " + characterLvl);
+                } else if ((i == 0 && l == 0) && (characterLvl == 10) || (i == 1 && l == 0) && (characterLvl == 10) || (i == 2 && l == 0) && (characterLvl == 10) || (i == 3 && l == 0) && (characterLvl == 10) || (i == 4 && l == 0) && (characterLvl == 10) || (i == 5 && l == 0) && (characterLvl == 10)) {
                     changeUserClothes();
                     Log.d("SHOP", "On item clicked (item for 4. lvl) " + selectedName + "index = " + i + ", long = " + l + ", level = " + characterLvl);
                 }
@@ -123,24 +159,45 @@ public class ShopPopUp extends Activity {
     // CHANGE CLOTHES IMAGES:
     private void changeUserClothes() {
         int selectedImage = itemImages[a];
+        //int index = Arrays.asList(itemImages).indexOf(R.drawable.shop_item_3);
+        //Log.d("SHOP", "a = " + a + ", selected image = " + selectedImage + ", index = " + index);
 
         ImageView imageViewCharacterClothes1 = (ImageView) findViewById(R.id.userClothesImage1);
 
-        clothesImages = new int[]{R.drawable.char_13, R.drawable.char_14, R.drawable.char_2};
+        //clothesImages = new int[]{R.drawable.char_13, R.drawable.char_14, R.drawable.char_2};
+        clothesImages = new int[] {R.drawable.char_2, R.drawable.char_10, R.drawable.char_16, R.drawable.char_15, R.drawable.char_13, R.drawable.char_14};
+
 
         selectedImage++;
         selectedImage = selectedImage % clothesImages.length;
         imageViewCharacterClothes1.setImageResource(clothesImages[selectedImage]);
 
+
+        int index = 0;
+        for (int x = 0; x < clothesImages.length; x++) {
+            if (clothesImages[x] == R.drawable.char_2) {
+                index = x;
+            }
+        }
+        Log.d("SHOP", "R.drawable.char_2 index is " + index);
+
+
         // SET A NEW INDEX FOR THE SELECTED ITEM, THAT BASED ON INT ARRAY OF CLOTHES IN MAIN FRAGMENT:
         currentImagelothes1 = clothesImages[selectedImage];
-        if(currentImagelothes1 == 2131230833) {
-            currentImagelothes1 = 1;
+        if(currentImagelothes1 == 2131230834) {
+            currentImagelothes1 = 1; // mag
         } else if (currentImagelothes1 == 2131230830) {
-            currentImagelothes1 = 0;
+            currentImagelothes1 = 0; // soldier
         } else if (currentImagelothes1 == 2131230831) {
-            currentImagelothes1 = 4;
+            currentImagelothes1 = 4; // sci fi soldier
+        } else if (currentImagelothes1 == 2131230827) {
+            currentImagelothes1 = 3; // dress
+        } else if (currentImagelothes1 == 2131230833) {
+            currentImagelothes1 = 5; // best
+        } else if (currentImagelothes1 == 2131230832) {
+            currentImagelothes1 = 2; // mag with beard
         }
+
     }
 
 
