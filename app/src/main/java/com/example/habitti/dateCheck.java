@@ -109,10 +109,11 @@ public class dateCheck {
         int index = 0;
         while (index < GlobalModel.getInstance().getHabbitsList().size()) {
             if (GlobalModel.getInstance().getHabbitItem(index).getCheckedStatus()) {
-                GlobalModel.getInstance().dailyPointsAndMultipliers(GlobalModel.getInstance().getHabbitItem(index));
+                GlobalModel.getInstance().getHabbitItem(index).setDayStreak();
                 GlobalModel.getInstance().getHabbitItem(index).setCheckedStatus(false);
             } else {
-                GlobalModel.getInstance().resetMultiplier(GlobalModel.getInstance().getHabbitItem(index));
+                GlobalModel.getInstance().getHabbitItem(index).resetScoreMultiplier();
+                GlobalModel.getInstance().getHabbitItem(index).setCheckedStatus(false);
             }
             index++;
         }

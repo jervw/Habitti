@@ -3,6 +3,7 @@ package com.example.habitti;
 
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.ProgressBar;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -22,8 +23,12 @@ public class GlobalModel {
     private ArrayList<HabbitsView> habbitsView = null;
     private ArrayList<Habbit> habbitsTesting = null;
     private ArrayList<HabbitsView> habbitsViewsTesting = null;
-    private double userOverallScores = 0;
-    private int userLevel = 1;
+    private double userOverallScores;
+    private int userLevel;
+    private double levelCap;
+    private int levelCapProgress;
+    ProgressBar progressBar;
+    private int userOverallScoresProgress;
 
     public  static GlobalModel getInstance() {
         return ourInstance;
@@ -34,6 +39,9 @@ public class GlobalModel {
         habbitsView = new ArrayList<HabbitsView>();
         habbitsTesting = new ArrayList<Habbit>();
         habbitsViewsTesting = new ArrayList<HabbitsView>();
+        userOverallScores = 0;
+        userLevel = 1;
+        levelCap = 100;
     }
 
     public void addHabbit(Habbit habbit) {
@@ -81,6 +89,7 @@ public class GlobalModel {
         }
     }
 
+    /*
     //Gets all the habbits and gives them more multiplier and daily score
     public void dailyPointsAndMultipliers(Habbit habbit) {
             habbit.addScoreMultiplier();
@@ -88,6 +97,8 @@ public class GlobalModel {
             Log.d("Tag", "dailyPoints runned");
             updateHabbitViewList();
         }
+
+     */
 
     public void resetMultiplier(Habbit habbit) {
         habbit.resetScoreMultiplier();
@@ -119,11 +130,27 @@ public class GlobalModel {
             index++;
         }
         this.setUserOverallScores(overallScoresDouble);
-        int overallScoresInt = (int) overallScoresDouble;
-        if (overallScoresInt / 100 > this.userLevel) {
-            this.userLevel = overallScoresInt / 100;
+        this.userOverallScoresProgress = (int) userOverallScores;
+        if (userOverallScores >= levelCap) {
+            checkUserLevelUp();
         }
     }
+
+    public int getProgressbarMax() {
+        return this.levelCapProgress;
+    }
+
+    public int getProgressbarProgress() {
+        return this.userOverallScoresProgress;
+    }
+
+    public void checkUserLevelUp() {
+            this.userLevel++;
+            this.levelCap = this.levelCap + (this.levelCap * 0.05);
+            this.levelCapProgress = (int) levelCap;
+            this.levelCapProgress = (levelCapProgress - (int) userOverallScores);
+            this.userOverallScoresProgress = 0;
+        }
 
     public void setUserOverallScores(double scores) {
         this.userOverallScores = scores;

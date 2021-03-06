@@ -51,10 +51,6 @@ public class Habbit {
         return this.imageId;
     }
 
-    public void addScoreMultiplier() {
-        this.scoreMultiplier = this.scoreMultiplier + 0.1;
-    }
-
     public void resetScoreMultiplier() {
         this.scoreMultiplier = 1.0;
         this.dayStreak = 0;
@@ -62,8 +58,6 @@ public class Habbit {
 
     public void addDailyScore() {
         this.overallScore = this.overallScore + (this.scoreMultiplier * 10);
-        this.dayStreak++;
-        Log.d("Tag", String.valueOf(this.overallScore));
     }
 
     public double getScoreMultiplier() {
@@ -84,6 +78,11 @@ public class Habbit {
 
     public boolean getCheckedStatus() {
         return this.checkedToday;
+    }
+
+    public void setDayStreak() {
+        this.scoreMultiplier = this.scoreMultiplier + 0.005;
+        this.dayStreak++;
     }
 
 }
