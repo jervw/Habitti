@@ -27,7 +27,6 @@ public class GlobalModel {
     private int userLevel;
     private double levelCap;
     private int levelCapProgress;
-    ProgressBar progressBar;
     private int userOverallScoresProgress;
 
     public  static GlobalModel getInstance() {
@@ -42,6 +41,7 @@ public class GlobalModel {
         userOverallScores = 0;
         userLevel = 1;
         levelCap = 100;
+        levelCapProgress = 100;
     }
 
     public void addHabbit(Habbit habbit) {
@@ -89,17 +89,6 @@ public class GlobalModel {
         }
     }
 
-    /*
-    //Gets all the habbits and gives them more multiplier and daily score
-    public void dailyPointsAndMultipliers(Habbit habbit) {
-            habbit.addScoreMultiplier();
-            habbit.addDailyScore();
-            Log.d("Tag", "dailyPoints runned");
-            updateHabbitViewList();
-        }
-
-     */
-
     public void resetMultiplier(Habbit habbit) {
         habbit.resetScoreMultiplier();
         updateHabbitViewList();
@@ -130,6 +119,7 @@ public class GlobalModel {
             index++;
         }
         this.setUserOverallScores(overallScoresDouble);
+        this.userOverallScoresProgress = (int) (overallScoresDouble);
         this.userOverallScoresProgress = (int) userOverallScores;
         if (userOverallScores >= levelCap) {
             checkUserLevelUp();
@@ -144,9 +134,13 @@ public class GlobalModel {
         return this.userOverallScoresProgress;
     }
 
+    public void setProgressbarProgress(int scores) {
+        this.userOverallScoresProgress = scores;
+    }
+
     public void checkUserLevelUp() {
             this.userLevel++;
-            this.levelCap = this.levelCap + (this.levelCap * 0.05);
+            this.levelCap = this.levelCap + this.levelCap + (this.levelCap * 0.05);
             this.levelCapProgress = (int) levelCap;
             this.levelCapProgress = (levelCapProgress - (int) userOverallScores);
             this.userOverallScoresProgress = 0;

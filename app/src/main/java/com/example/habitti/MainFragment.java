@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -49,8 +50,11 @@ public class MainFragment extends Fragment {
     ListView habbitsListView;
     View rootView;
     int userDayStreak = 0;
-    ProgressBar progressBar;
+    Handler progressBarHandler;
     //TextView userDayStreakText;
+    TextView level;
+    TextView userLoginStreak;
+    TextView userScores;
 
     @Nullable
     @Override
@@ -58,22 +62,27 @@ public class MainFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_main, container, false);
         dateCheck dateCheck = new dateCheck(getActivity());
 
-        //Button devButton = (Button) rootView.findViewById(R.id.devButtonAddDay);
-        progressBar = (ProgressBar) rootView.findViewById(R.id.progress_limit);
+        level = (TextView) rootView.findViewById(R.id.levelText);
+        userLoginStreak = (TextView) rootView.findViewById(R.id.textViewUserLoginSTreak);
+        userScores = (TextView) rootView.findViewById(R.id.textViewUserScores);
         //userDayStreakText = (TextView) rootView.findViewById(R.id.textViewUserDayStreak);
-
+        userScores.setText("Scores: " + GlobalModel.getInstance().getUserOverallScores());
 
 
         //Load saved preferences and put them on screen
         initializeCalendar();
         loadHabbitData();
         updateUI();
+        level.setText("Current level: " + GlobalModel.getInstance().getUserLevel() + " progress: " + GlobalModel.getInstance().getProgressbarProgress()
+                + " / " + GlobalModel.getInstance().getProgressbarMax());
+        userScores.setText("Scores: " + GlobalModel.getInstance().getUserOverallScores());
+        userLoginStreak.setText("Login streak: 1");
 
         // TOP BAR ICONS ARE VISIBLE:
         setHasOptionsMenu(true);
 
 
-        Button shopBtn = (Button) rootView.findViewById(R.id.ShopBtn);
+        /*Button shopBtn = (Button) rootView.findViewById(R.id.ShopBtn);
         shopBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,8 +92,14 @@ public class MainFragment extends Fragment {
                 //startActivity(new Intent(getActivity(), PopUp.class));
             }
         });
+
+         */
         return rootView;
+
+
     }
+
+
 
 
 
@@ -117,9 +132,11 @@ public class MainFragment extends Fragment {
         Gson gson = new Gson();
         Double userScoresD = GlobalModel.getInstance().getUserOverallScores();
         String userScores = String.valueOf(userScoresD);
+        int userScoresProgress = GlobalModel.getInstance().getProgressbarProgress();
         String jsonHabbits = gson.toJson(GlobalModel.getInstance().getHabbitsList());
         editor.putString("Habbits list", jsonHabbits);
         editor.putString("User Scores", userScores);
+        editor.putInt("User Scores Progress", userScoresProgress);
         editor.apply();
         Log.d("Tag", "Saved");
     }
@@ -128,21 +145,21 @@ public class MainFragment extends Fragment {
         sharedPrefHabbits = getActivity().getSharedPreferences(sharedPreferenceName, Activity.MODE_PRIVATE);
         Gson gson = new Gson();
         String userScores = sharedPrefHabbits.getString("User scores", "0");
-        int userLevel = sharedPrefHabbits.getInt("User level", 0);
+        int userScoresProgress = sharedPrefHabbits.getInt("User Scores Progress", 0);
+        int userLevel = sharedPrefHabbits.getInt("User level", 1);
         double userScoresD = Double.parseDouble(userScores);
         String jsonHabbits = sharedPrefHabbits.getString("Habbits list", null);
-        //String jsonHabbitsView = sharedPrefHabbits.getString("Habbits list view", null);
         Type typeHabbits = new TypeToken<Collection<Habbit>>() {
         }.getType();
-        //Type typeHabbitsView = new TypeToken<Collection<HabbitsView>>() {}.getType();
         GlobalModel.getInstance().replaceListHabbits(gson.fromJson(jsonHabbits, typeHabbits));
         GlobalModel.getInstance().setUserLevel(userLevel);
         GlobalModel.getInstance().setUserOverallScores(userScoresD);
+        GlobalModel.getInstance().setProgressbarProgress(userScoresProgress);
         //Go check if day has passed since last app start and give points accordingly
         if (MainActivity.firstCheckOfDay == true) {
             dateCheck.checkDate();
-            //TODO käytä tätä tarkistaaksesi onko käyttäjän login streak pysynyt ja palauta nykyinen streak
-            // dateCheck.loginDayStreak();
+            userDayStreak = dateCheck.loginDayStreak();
+            userLoginStreak.setText("Login day streak: " + userDayStreak);
             MainActivity.firstCheckOfDay = false;
         }
     }
@@ -184,8 +201,10 @@ public class MainFragment extends Fragment {
                 finalHabbitsArrayAdapter.notifyDataSetChanged();
                 GlobalModel.getInstance().updateHabbitViewList();
                 GlobalModel.getInstance().getUserScoresFromHabbits();
-                progressBar.setProgress(0);
-                progressBar.setProgress(GlobalModel.getInstance().getProgressbarProgress());
+                userScores.setText("Scores: " + GlobalModel.getInstance().getUserOverallScores());
+                level.setText("Current level: " + GlobalModel.getInstance().getUserLevel() + " progress: " + GlobalModel.getInstance().getProgressbarProgress()
+                        + " / " + GlobalModel.getInstance().getProgressbarMax());
+
                 Log.d("Tag", "Progress: " + GlobalModel.getInstance().getProgressbarProgress());
                 Log.d("Tag", "Overall scores" + GlobalModel.getInstance().getUserOverallScores());
             }
@@ -193,7 +212,6 @@ public class MainFragment extends Fragment {
         });
 
 
-        saveHabbitData();
         updateCostume();
     }
     public void updateCostume() {
@@ -229,13 +247,16 @@ public class MainFragment extends Fragment {
         } else if (i == 0) {
             imageViewCharacter.setImageResource(R.drawable.char_7);
         }
-        progressBar.setMax(GlobalModel.getInstance().getProgressbarMax());
     }
+
+
 
     @Override
     public void onResume() {
         super.onResume();
         updateUI();
+        GlobalModel.getInstance().getUserScoresFromHabbits();
+        userScores.setText("Scores: " + GlobalModel.getInstance().getUserOverallScores());
     }
 
     @Override

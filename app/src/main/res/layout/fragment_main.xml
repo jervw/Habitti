@@ -67,25 +67,25 @@
                 android:layout_height="wrap_content"
                 android:text="Level"
                 android:textColor="#fff"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
-            <ProgressBar
-                android:id="@+id/progress_limit"
-                style="?android:attr/progressBarStyleHorizontal"
+            <TextView
+                android:id="@+id/textViewUserScores"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="30dp"
-                android:max="100"
-                android:progress="0"
-                android:indeterminate="false"
-                android:progressDrawable="@drawable/custom_progressbar" />
-            <Button
-                android:id="@+id/ShopBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:backgroundTint="@color/design_default_color_primary"
-                android:text="Shop" />
+                android:text="TextView"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textViewUserLoginSTreak"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
     </LinearLayout>
