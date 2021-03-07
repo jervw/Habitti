@@ -36,7 +36,7 @@ public class MainFragment extends Fragment {
     private SharedPreferences sharedPrefHabbits;
     private final String sharedPreferenceName = "shared preference";
 
-    SaveLoad saveLoad = SaveLoad.getInstance();
+    SaveManager saveLoad = SaveManager.getInstance().getInstance();
 
     int[] clothesImages;
     int[] hairsImages;
@@ -54,10 +54,10 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        dateCheck dateCheck = new dateCheck(getActivity());
+        DateCheck dateCheck = new DateCheck(getActivity());
 
         level = (TextView) rootView.findViewById(R.id.levelText);
-        userLoginStreak = (TextView) rootView.findViewById(R.id.textViewUserLoginSTreak);
+        userLoginStreak = (TextView) rootView.findViewById(R.id.textViewUserLoginStreak);
         userScores = (TextView) rootView.findViewById(R.id.textViewUserScores);
         //userDayStreakText = (TextView) rootView.findViewById(R.id.textViewUserDayStreak);
         userScores.setText("Scores: " + GlobalModel.getInstance().getUserOverallScores());
@@ -123,7 +123,7 @@ public class MainFragment extends Fragment {
         int userLevel = sharedPrefHabbits.getInt("User level", 1);
         double userScoresD = Double.parseDouble(userScores);
         String jsonHabbits = sharedPrefHabbits.getString("Habbits list", null);
-        Type typeHabbits = new TypeToken<Collection<Habbit>>() {
+        Type typeHabbits = new TypeToken<Collection<Habit>>() {
         }.getType();
         GlobalModel.getInstance().replaceListHabbits(gson.fromJson(jsonHabbits, typeHabbits));
         GlobalModel.getInstance().setUserLevel(userLevel);
@@ -131,8 +131,8 @@ public class MainFragment extends Fragment {
         GlobalModel.getInstance().setProgressbarProgress(userScoresProgress);
         //Go check if day has passed since last app start and give points accordingly
         if (MainActivity.firstCheckOfDay == true) {
-            dateCheck.checkDate();
-            userDayStreak = dateCheck.loginDayStreak();
+            DateCheck.checkDate();
+            userDayStreak = DateCheck.loginDayStreak();
             userLoginStreak.setText("Login day streak: " + userDayStreak);
             MainActivity.firstCheckOfDay = false;
         }
@@ -148,14 +148,14 @@ public class MainFragment extends Fragment {
                 + " / " + GlobalModel.getInstance().getProgressbarMax());
         HabitsViewAdapter habbitsArrayAdapter;
         if (GlobalModel.getInstance().getHabbitsView() == null) {
-            habbitsArrayAdapter = new HabbitsViewAdapter(getActivity(), new ArrayList<HabbitsView>());
+            habbitsArrayAdapter = new HabitsViewAdapter(getActivity(), new ArrayList<HabitsView>());
         } else {
-            habbitsArrayAdapter = new HabbitsViewAdapter(getActivity(), GlobalModel.getInstance().getHabbitsView());
+            habbitsArrayAdapter = new HabitsViewAdapter(getActivity(), GlobalModel.getInstance().getHabbitsView());
         }
 
 
         Log.d("MAIN FRAGMENT", "updateUI");
-        habbitsArrayAdapter = new HabbitsViewAdapter(getActivity(), GlobalModel.getInstance().getHabbitsView());
+        habbitsArrayAdapter = new HabitsViewAdapter(getActivity(), GlobalModel.getInstance().getHabbitsView());
         habbitsListView = (ListView) rootView.findViewById(R.id.listViewHabbits);
         habbitsListView.setAdapter(habbitsArrayAdapter);
         saveHabbitData();
@@ -238,7 +238,6 @@ public class MainFragment extends Fragment {
     public void onPause() {
         super.onPause();
         saveHabbitData();
-        //SaveLoad.getInstance().saveHabbitData(getActivity(), GlobalModel.getInstance().getHabbitsView(), "shared preference");
         Log.d("MAIN", "OnPause");
     }
 }

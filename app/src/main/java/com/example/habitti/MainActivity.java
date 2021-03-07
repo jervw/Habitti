@@ -57,12 +57,12 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.rewardsButton:
-                Intent i = new Intent(getApplicationContext(), ShopPopUp.class);
+                Intent i = new Intent(getApplicationContext(), RewardsActivity.class);
                 startActivity(i);
                 break;
 
             case R.id.howToUseButton:
-                Intent y = new Intent(getApplicationContext(), HowToUse.class);
+                Intent y = new Intent(getApplicationContext(), TutorialActivity.class);
                 startActivity(y);
                 break;
         }
