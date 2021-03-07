@@ -2,22 +2,17 @@ package com.example.habitti;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -35,7 +30,6 @@ import java.util.Collection;
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
 import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
 
-import static android.content.Context.MODE_PRIVATE;
 
 public class MainFragment extends Fragment {
 
@@ -78,19 +72,6 @@ public class MainFragment extends Fragment {
         userScores.setText("Total scores: " + GlobalModel.getInstance().getUserOverallScores());
         userLoginStreak.setText("Login streak: 1");
 
-        // TOP BAR ICONS ARE VISIBLE:
-        setHasOptionsMenu(true);
-
-        Button shopBtn = (Button) rootView.findViewById(R.id.ShopBtn);
-        shopBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("MAIN", "Shop onClick()");
-                Intent intent = new Intent(getActivity(), ShopPopUp.class);
-                getActivity().startActivity(intent);
-                //startActivity(new Intent(getActivity(), PopUp.class));
-            }
-        });
         return rootView;
     }
 
@@ -204,7 +185,6 @@ public class MainFragment extends Fragment {
             }
         });
 
-
         updateCostume();
     }
     public void updateCostume() {
@@ -242,8 +222,6 @@ public class MainFragment extends Fragment {
         }
     }
 
-
-
     @Override
     public void onResume() {
         super.onResume();
@@ -259,27 +237,4 @@ public class MainFragment extends Fragment {
         //SaveLoad.getInstance().saveHabbitData(getActivity(), GlobalModel.getInstance().getHabbitsView(), "shared preference");
         Log.d("MAIN", "OnPause");
     }
-
-
-    // TOP BAR ICON:
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    // THEN ON CLICK "SHOP/REWARDS" ICON IN TOP BAR:
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        // OPEN THE SHOP/REWARDS POP UP WINDOW:
-        if (id == R.id.shopBtn) {
-            Intent intent = new Intent(getActivity(), ShopPopUp.class);
-            getActivity().startActivity(intent);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
 }
