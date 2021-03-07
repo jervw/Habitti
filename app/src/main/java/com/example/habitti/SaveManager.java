@@ -3,15 +3,13 @@ package com.example.habitti;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import androidx.preference.PreferenceManager;
+public class SaveManager {
 
-public class Save {
+    private static final SaveManager instance = new SaveManager();
 
-    private static final Save instance = new Save();
+    public static SaveManager getInstance() {return instance;}
 
-    public static Save getInstance() {return instance;}
-
-    private Save() {
+    private SaveManager() {
     }
 
     private static SharedPreferences getSharedPreferences(Context context) {

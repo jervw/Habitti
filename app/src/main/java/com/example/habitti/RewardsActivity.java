@@ -17,7 +17,7 @@ import android.widget.ImageView;
  * ShopPopUp program implements rewards system in the app.
  * @author Anna Raevskaia
  */
-public class ShopPopUp extends Activity {
+public class RewardsActivity extends Activity {
 
     private SharedPreferences sharedPrefHabbits;
     private final String UserClothesKey = "LastUserClothes";
@@ -56,7 +56,7 @@ public class ShopPopUp extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("SHOP", "Shop onCreate()");
-        setContentView(R.layout.shop_pop_up_window);
+        setContentView(R.layout.rewards_window);
 
         // FULL SCREEN POP UP WINDOW:
         DisplayMetrics dm = new DisplayMetrics();
@@ -74,7 +74,7 @@ public class ShopPopUp extends Activity {
 
         // GRID VIEW:
         gridview = (GridView) findViewById(R.id.GridViewId);
-        ShopItemAdapter itemAdapter = new ShopItemAdapter(itemNames, itemImages, this);
+        RewardsItemAdapter itemAdapter = new RewardsItemAdapter(itemNames, itemImages, this);
         gridview.setAdapter(itemAdapter);
 
 
@@ -111,12 +111,12 @@ public class ShopPopUp extends Activity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(ShopPopUp.this, MainActivity.class);
+                Intent intent = new Intent(RewardsActivity.this, MainActivity.class);
                 startActivity(intent);
 
                 //SAVE USER DATA:
                 if(characterLvl != 1) {
-                    Save.getInstance().saveCharacterImages2(ShopPopUp.this, currentImagelothes1, UserClothesKey);
+                    SaveManager.getInstance().saveCharacterImages2(RewardsActivity.this, currentImagelothes1, UserClothesKey);
                 }
             }
         });
@@ -228,7 +228,6 @@ public class ShopPopUp extends Activity {
             itemNames[5] = "";
         }
     }
-
 
     /**
      *

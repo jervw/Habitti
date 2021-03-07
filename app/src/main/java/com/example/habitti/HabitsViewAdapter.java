@@ -11,9 +11,9 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
-public class HabbitsViewAdapter extends ArrayAdapter<HabbitsView>{
+public class HabitsViewAdapter extends ArrayAdapter<HabitsView>{
 
-    public HabbitsViewAdapter(@NonNull Activity context, ArrayList<HabbitsView> arrayList) {
+    public HabitsViewAdapter(@NonNull Activity context, ArrayList<HabitsView> arrayList) {
         super(context, 0, arrayList);
     }
 
@@ -26,7 +26,7 @@ public class HabbitsViewAdapter extends ArrayAdapter<HabbitsView>{
             currentItemView = LayoutInflater.from(getContext()).inflate(R.layout.custom_list_view, parent, false);
         }
 
-        HabbitsView currentNumberPosition = getItem(position);
+        HabitsView currentNumberPosition = getItem(position);
 
         ImageView habbitsImage = currentItemView.findViewById(R.id.imageView);
         assert currentNumberPosition != null;

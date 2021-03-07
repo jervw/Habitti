@@ -1,17 +1,14 @@
 package com.example.habitti;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
+
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -20,12 +17,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
-import java.util.HashMap;
-import java.util.List;
+/**
+ * <h1>Creating new habits</h1>
+ * The intention of AddHabitDialog is to take advantage of the Android Dialog system.
+ * the purpose is specifically to build a Dialog window, using the new_habit_dialog.xml file.
+ * AddHabitDialog methods cannot be used to display the dialog.
+ * @author Jere Vuola
+ * @author Santeri Hytönen
+ */
 
 public class AddHabitDialog extends AppCompatDialogFragment {
 
@@ -45,7 +46,6 @@ public class AddHabitDialog extends AppCompatDialogFragment {
 
         TextView textView = (TextView) view.findViewById(R.id.habbitName);
         RadioGroup radio = (RadioGroup) view.findViewById(R.id.radioGroup);
-
 
         Spinner habitSpinner = (Spinner) view.findViewById(R.id.spinnerHabbits);
         CustomSpinnerAdapter customAdapter = new CustomSpinnerAdapter(getContext(), spinnerImages, spinnerTitles);
@@ -81,18 +81,10 @@ public class AddHabitDialog extends AppCompatDialogFragment {
                         imageId = R.drawable.habit_8;
                         break;
                 }
-
-
             }
-
-
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
-
+            public void onNothingSelected(AdapterView<?> parent) {}});
 
         builder.setView(view)
                 .setTitle("New habit")
@@ -111,14 +103,13 @@ public class AddHabitDialog extends AppCompatDialogFragment {
                                 if (nameCheck.equals("")) {
                                     nameCheck = customAdapter.getItemName(habitSpinner.getSelectedItemPosition());
                                 }
-                                GlobalModel.getInstance().addHabbit(new Habbit(nameCheck, selectedRadioButton.getText().toString(), imageId));
+                                GlobalModel.getInstance().addHabbit(new Habit(nameCheck, selectedRadioButton.getText().toString(), imageId));
                                 FragmentManager fm = getFragmentManager();
                                 MainFragment fragm = (MainFragment) fm.findFragmentById(R.id.fragment_container);
                                 fragm.updateUI();
                             }
                         }
                 );
-
         return builder.create();
     }
 }

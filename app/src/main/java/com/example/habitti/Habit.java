@@ -13,7 +13,7 @@ import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-public class Habbit {
+public class Habit {
     private String habbitName;
     private int imageId;
     private String dateCreated;
@@ -23,7 +23,7 @@ public class Habbit {
     private double scoreMultiplier = 1.0;
     private boolean checkedToday;
 
-    public Habbit(String name, String habitType, int imageId) {
+    public Habit(String name, String habitType, int imageId) {
         this.habbitName = name;
         this.habitType = habitType;
         this.dateCreated = GlobalModel.getInstance().getOwnDateCreatedAsString();

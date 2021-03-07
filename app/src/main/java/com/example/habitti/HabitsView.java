@@ -2,7 +2,7 @@ package com.example.habitti;
 
 import java.util.Date;
 
-public class HabbitsView {
+public class HabitsView {
 
     private int ivHabbitImageId;
     private String mHabbitName;
@@ -15,7 +15,7 @@ public class HabbitsView {
 
 
     // create constructor to set the values for all the parameters of the each single view
-    public HabbitsView(int ivHabbitImageId, String mHabbitName, String mHabitType , String mHabbitScores, String mHabbitDaysStreak, String dateCreated, double scoreMultiplier, boolean checkStatus) {
+    public HabitsView(int ivHabbitImageId, String mHabbitName, String mHabitType , String mHabbitScores, String mHabbitDaysStreak, String dateCreated, double scoreMultiplier, boolean checkStatus) {
         this.ivHabbitImageId = ivHabbitImageId;
         this.mHabbitName = mHabbitName;
         this.mHabitType = mHabitType;

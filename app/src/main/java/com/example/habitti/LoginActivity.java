@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                 // SAVE USER DATA:
-                Save.getInstance().saveCharacterImages(LoginActivity.this, SingUpName.getText().toString(), UserNameKey, currentImageClothes, UserClothesKey,
+                SaveManager.getInstance().saveCharacterImages(LoginActivity.this, SingUpName.getText().toString(), UserNameKey, currentImageClothes, UserClothesKey,
                         currentImageHairs, UserHairsKey, currentCharacterSex, UserSexKey);
             }
         });

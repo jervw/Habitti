@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
-public class HowToUse extends AppCompatActivity {
+public class TutorialActivity extends AppCompatActivity {
 
     TextView title;
 
@@ -17,7 +17,6 @@ public class HowToUse extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.how_to_use);
-
         title = (TextView) findViewById(R.id.textViewTitle);
     }
 

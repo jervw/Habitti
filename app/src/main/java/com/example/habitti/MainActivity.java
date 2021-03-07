@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == R.id.rewardsButton){
-            Intent i = new Intent(getApplicationContext(), ShopPopUp.class);
+            Intent i = new Intent(getApplicationContext(), RewardsActivity.class);
             startActivity(i);
             return true;
         } else{

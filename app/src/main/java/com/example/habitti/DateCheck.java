@@ -11,14 +11,14 @@ import org.joda.time.ReadableInstant;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-public class dateCheck {
+public class DateCheck {
     private static Context context;
     private static ReadableInstant comparedDate;
     private static int dayComparison;
 
     //When called set Context to current activity where called, set compareDate to current date and
     // dayComparison to 0 (always 0 except in dev mode).
-    public dateCheck(Context context) {
+    public DateCheck(Context context) {
         this.context = context;
         this.comparedDate = new DateTime();
         this.dayComparison = 0;
