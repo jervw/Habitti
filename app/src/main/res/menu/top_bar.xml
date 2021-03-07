@@ -6,4 +6,7 @@
         android:title="@string/rewards"
         app:showAsAction="ifRoom">
     </item>
+    <item android:title="How to use"
+        android:icon="@drawable/ic_baseline_help_24"
+        app:showAsAction="ifRoom" />
 </menu>

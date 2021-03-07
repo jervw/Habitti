@@ -13,37 +13,38 @@
         android:id="@+id/profile"
         android:layout_width="match_parent"
         android:layout_height="130dp"
+        android:weightSum="2"
         android:background="@color/cerulean"
         android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:weightSum="1"
+            android:weightSum="3"
             android:orientation="horizontal">
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
                 android:padding="10dp">
 
                 <ImageView
                     android:id="@+id/userCharacterImage"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp" />
+                    android:layout_width="120dp"
+                    android:layout_height="120dp" />
 
                 <ImageView
                     android:id="@+id/userHairsImage"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp" />
+                    android:layout_width="120dp"
+                    android:layout_height="120dp" />
 
                 <ImageView
                     android:id="@+id/userClothesImage"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp" />
+                    android:layout_width="120dp"
+                    android:layout_height="120dp" />
 
             </RelativeLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -57,7 +58,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    android:gravity="left"
                     android:text="@string/username"
                     android:textColor="#fff"
                     android:textSize="21sp"
