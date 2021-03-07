@@ -40,11 +40,8 @@ public class AddHabitDialog extends AppCompatDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder((getActivity()));
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.new_habit_dialog, null);
-        spinnerImages = new int[]{R.drawable.habit_1, R.drawable.habit_2, R.drawable.habit_3, R.drawable.habit_4, R.drawable.habit_5, R.drawable.habit_6};
-        spinnerTitles = new String[]{"No smoking", "Drink water", "No alcohol", "No sugar", "Eat healthy", "Exercise"};
-
-        //final ImageView dialogImageView = (ImageView) view.findViewById(R.id.habitImage);
-        //dialogImageView.setImageResource(R.drawable.habit_1);
+        spinnerImages = new int[]{R.drawable.habit_1, R.drawable.habit_2, R.drawable.habit_3, R.drawable.habit_4, R.drawable.habit_5, R.drawable.habit_6, R.drawable.habit_7, R.drawable.habit_8};
+        spinnerTitles = new String[]{"No smoking", "Drink water", "No alcohol", "No sugar", "Eat healthy", "Exercise", "Good habit", "Bad habit"};
 
         TextView textView = (TextView) view.findViewById(R.id.habbitName);
         RadioGroup radio = (RadioGroup) view.findViewById(R.id.radioGroup);
@@ -77,10 +74,11 @@ public class AddHabitDialog extends AppCompatDialogFragment {
                     case "Drink water":
                         imageId = R.drawable.habit_2;
                         break;
-                    case "Add custom habit":
-                        textView.setText("");
-                        textView.setHint("Custom");
-                        imageId = R.drawable.ic_baseline_settings_24;
+                    case "Good habit":
+                        imageId = R.drawable.habit_7;
+                        break;
+                    case "Bad habit":
+                        imageId = R.drawable.habit_8;
                         break;
                 }
 
