@@ -124,9 +124,6 @@ public class GlobalModel {
         }
     }
 
-    public void setHabitName(int index, String newHabitName){
-        getHabbitItem(index).setHabitName(newHabitName);
-    }
 
     public void setUserOverallScores(double scores) {
         this.userOverallScores = scores;
