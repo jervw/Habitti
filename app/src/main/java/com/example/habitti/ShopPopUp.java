@@ -12,9 +12,11 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
+/**
+ * <h1>Shop / Rewards</h1>
+ * ShopPopUp program implements rewards system in the app.
+ * @author Anna Raevskaia
+ */
 public class ShopPopUp extends Activity {
 
     private SharedPreferences sharedPrefHabbits;
@@ -27,8 +29,11 @@ public class ShopPopUp extends Activity {
     GridView gridview;
 
     // CREATE A NEW ITEM IN THE SHOP:
-    String[] itemNames = {"Unlock on 2 lvl", "Unlock on 3 lvl", "Unlock on 4 lvl", "Unlock on 6 lvl", "Unlock on 8 lvl", "Unlock on 10 lvl"};
+    String[] itemNames = {"Locked 2 lvl", "Locked 3 lvl", "Locked 4 lvl", "Locked 6 lvl", "Locked8 lvl", "Locked 10 lvl"};
     int[] itemImages = {R.drawable.shop_item_1, R.drawable.shop_item_2, R.drawable.shop_item_3, R.drawable.shop_item_4, R.drawable.shop_item_6, R.drawable.shop_item_5};
+
+    String selectedNameString;
+    int selectedImage;
 
     int currentImagelothes1 = 0;
 
@@ -36,7 +41,17 @@ public class ShopPopUp extends Activity {
 
     int a = 0;
 
-    
+
+    /**
+     * 1: Sets shop_pop_up_window layout.
+     * 2: Calls updateUI() method, that set current character's appearance.
+     * 3: Finds grid view by id, create new ShopItemAdapter and set it to grid view.
+     * 4: Gets user's level from the singleton GlobalModel class.
+     * 5: Calls changeItemsText() method, that change default text of items to empty.
+     * @see #changeItemsText().
+     * The button closeBtn closes shop/rewards window and opens the main fragment.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +68,7 @@ public class ShopPopUp extends Activity {
         getWindow().setLayout((int) (width), (int) (height));
 
 
-        // SET CURRENT APPEARANCE:
+        // SET CURRENT CHARACTER'S APPEARANCE:
         updateUI();
 
 
@@ -65,40 +80,13 @@ public class ShopPopUp extends Activity {
 
         // GET USER LEVEL FROM GLOBAL MODEL:
         characterLvl = GlobalModel.getInstance().getUserLevel();
-        // TEST LEVEL:
+
+        // SET TEST LEVEL:
         //characterLvl = 10;
-        Log.d("SHOP", "User level is " + characterLvl);
 
 
-        // CHANGE THE TEXT OF ITEM, IF CHARACTER LEVEL IS ...:
-        if (characterLvl == 2) {
-            itemNames[0] = "";
-        } else if(characterLvl == 3) {
-            itemNames[0] = "";
-            itemNames[1] = "";
-        } else if(characterLvl == 4) {
-            itemNames[0] = "";
-            itemNames[1] = "";
-            itemNames[2] = "";
-        } else if(characterLvl == 6) {
-            itemNames[0] = "";
-            itemNames[1] = "";
-            itemNames[2] = "";
-            itemNames[3] = "";
-        } else if(characterLvl == 8) {
-            itemNames[0] = "";
-            itemNames[1] = "";
-            itemNames[2] = "";
-            itemNames[3] = "";
-            itemNames[4] = "";
-        } else if(characterLvl == 10) {
-            itemNames[0] = "";
-            itemNames[1] = "";
-            itemNames[2] = "";
-            itemNames[3] = "";
-            itemNames[4] = "";
-            itemNames[5] = "";
-        }
+        // SET EMPTY TEXT, IF USER'S LEVEL IS SUITABLE:
+        changeItemsText();
 
 
         // CHANGE CLOTHES THEN ITEM WAS CLICKED:
@@ -109,32 +97,10 @@ public class ShopPopUp extends Activity {
 
                 a = i;
 
-                String selectedName = itemNames[i];
-                int selectedImage = itemImages[i];
+                selectedNameString = itemNames[i];
+                selectedImage = itemImages[i];
 
-
-                // CLOTHES CHANGING BASED ON LEVEL, COLUMN (i) AND ROW (l)
-                if ((i == 0 && l == 0) && (characterLvl == 1)) {
-                    // DO NOTHING
-                } else if ((characterLvl == 2) && (i == 0 && l == 0) && (i != 1 && l == 0)) {
-                    changeUserClothes();
-                    Log.d("SHOP", "On item clicked (item for 2. lvl) " + selectedName + "index = " + i + ", long = " + l + ", level = " + characterLvl);
-                } else if ((characterLvl == 3) && (i == 0 && l == 0) || (i == 1 && l == 0) && (characterLvl == 3)) {
-                    changeUserClothes();
-                    Log.d("SHOP", "On item clicked (item for 3. lvl) " + selectedName + "index = " + i + ", long = " + l + ", level = " + characterLvl);
-                } else if ((i == 0 && l == 0) && (characterLvl == 4) || (i == 1 && l == 0) && (characterLvl == 4) || (i == 2 && l == 0) && (characterLvl == 4)) {
-                    changeUserClothes();
-                    Log.d("SHOP", "On item clicked (item for 4. lvl) " + selectedName + "index = " + i + ", long = " + l + ", level = " + characterLvl);
-                } else if ((i == 0 && l == 0) && (characterLvl == 6) || (i == 1 && l == 0) && (characterLvl == 6) || (i == 2 && l == 0) && (characterLvl == 6) || (i == 3 && l == 0) && (characterLvl == 6)) {
-                    changeUserClothes();
-                    Log.d("SHOP", "On item clicked (item for 4. lvl) " + selectedName + "index = " + i + ", long = " + l + ", level = " + characterLvl);
-                } else if ((i == 0 && l == 0) && (characterLvl == 8) || (i == 1 && l == 0) && (characterLvl == 8) || (i == 2 && l == 0) && (characterLvl == 8) || (i == 3 && l == 0) && (characterLvl == 8) || (i == 4 && l == 0) && (characterLvl == 8)) {
-                    changeUserClothes();
-                    Log.d("SHOP", "On item clicked (item for 4. lvl) " + selectedName + "index = " + i + ", long = " + l + ", level = " + characterLvl);
-                } else if ((i == 0 && l == 0) && (characterLvl == 10) || (i == 1 && l == 0) && (characterLvl == 10) || (i == 2 && l == 0) && (characterLvl == 10) || (i == 3 && l == 0) && (characterLvl == 10) || (i == 4 && l == 0) && (characterLvl == 10) || (i == 5 && l == 0) && (characterLvl == 10)) {
-                    changeUserClothes();
-                    Log.d("SHOP", "On item clicked (item for 4. lvl) " + selectedName + "index = " + i + ", long = " + l + ", level = " + characterLvl);
-                }
+                changeClothes();
             }
         });
 
@@ -152,16 +118,50 @@ public class ShopPopUp extends Activity {
                 Save.getInstance().saveCharacterImages2(ShopPopUp.this, currentImagelothes1, UserClothesKey);
             }
         });
+
     }
 
 
+    /**
+     *
+     */
+    // CLOTHES CHANGING BASED ON LEVEL AND INDEX (POSITION) OF ITEM IN GRID VIEW:
+    private void changeClothes() {
+        if ((a == 0) && (characterLvl == 1)) {
+            // DO NOTHING
+        } else if ((characterLvl == 2) && (a == 0 ) && (a != 1)) {
+            changeUserClothes();
+            Log.d("SHOP", "On item clicked (item for 2. lvl) " + selectedNameString + "index = " + a + ", level = " + characterLvl);
+        } else if ((characterLvl == 3) && (a == 0) || (a == 1) && (characterLvl == 3)) {
+            changeUserClothes();
+            Log.d("SHOP", "On item clicked (item for 3. lvl) " + selectedNameString + "index = " + a + ", level = " + characterLvl);
+        } else if ((a == 0) && (characterLvl == 4) || (a == 1) && (characterLvl == 4) || (a == 2) && (characterLvl == 4)) {
+            changeUserClothes();
+            Log.d("SHOP", "On item clicked (item for 4. lvl) " + selectedNameString + "index = " + a + ", level = " + characterLvl);
+        } else if ((a == 0) && (characterLvl == 6) || (a== 1) && (characterLvl == 6) || (a == 2) && (characterLvl == 6) || (a == 3) && (characterLvl == 6)) {
+            changeUserClothes();
+            Log.d("SHOP", "On item clicked (item for 4. lvl) " + selectedNameString + "index = " + a + ", level = " + characterLvl);
+        } else if ((a == 0) && (characterLvl == 8) || (a == 1) && (characterLvl == 8) || (a == 2) && (characterLvl == 8) || (a == 3) && (characterLvl == 8) || (a == 4) && (characterLvl == 8)) {
+            changeUserClothes();
+            Log.d("SHOP", "On item clicked (item for 4. lvl) " + selectedNameString + "index = " + a + ", level = " + characterLvl);
+        } else if ((a == 0) && (characterLvl == 10) || (a == 1) && (characterLvl == 10) || (a == 2) && (characterLvl == 10) || (a == 3) && (characterLvl == 10) || (a == 4) && (characterLvl == 10) || (a == 5) && (characterLvl == 10)) {
+            changeUserClothes();
+            Log.d("SHOP", "On item clicked (item for 4. lvl) " + selectedNameString + "index = " + a + ", level = " + characterLvl);
+        }
+    }
+
+
+    /**
+     * The method changes user's clothes images in the shop_pop_up_window activity.
+     *
+     */
     // CHANGE CLOTHES IMAGES:
     private void changeUserClothes() {
         int selectedImage = itemImages[a];
 
         ImageView imageViewCharacterClothes1 = (ImageView) findViewById(R.id.userClothesImage1);
 
-        clothesImages = new int[] {R.drawable.char_2, R.drawable.char_10, R.drawable.char_16, R.drawable.char_15, R.drawable.char_13, R.drawable.char_14};
+        clothesImages = new int[] {R.drawable.char_13, R.drawable.char_14, R.drawable.char_2, R.drawable.char_10, R.drawable.char_16, R.drawable.char_15};
 
         selectedImage++;
         selectedImage = selectedImage % clothesImages.length;
@@ -187,6 +187,50 @@ public class ShopPopUp extends Activity {
     }
 
 
+    /**
+     * If user's level is high enough, the program sets an empty text to text view in the item card.
+     * Else if user doesn't have needed level, in the card will written, that level is needed.
+     */
+    // CHANGE TEXT TO EMPTY IN ITEMS CARDS:
+    private void changeItemsText() {
+
+        Log.d("SHOP", "User level is " + characterLvl);
+
+        // CHANGE THE TEXT OF ITEM, IF CHARACTER LEVEL IS ...:
+        if (characterLvl == 2) {
+            itemNames[0] = "";
+        } else if(characterLvl == 3) {
+            itemNames[0] = "";
+            itemNames[1] = "";
+        } else if(characterLvl == 4 || characterLvl == 5) {
+            itemNames[0] = "";
+            itemNames[1] = "";
+            itemNames[2] = "";
+        } else if(characterLvl == 6 || characterLvl == 7) {
+            itemNames[0] = "";
+            itemNames[1] = "";
+            itemNames[2] = "";
+            itemNames[3] = "";
+        } else if(characterLvl == 8 || characterLvl == 9) {
+            itemNames[0] = "";
+            itemNames[1] = "";
+            itemNames[2] = "";
+            itemNames[3] = "";
+            itemNames[4] = "";
+        } else if(characterLvl == 10) {
+            itemNames[0] = "";
+            itemNames[1] = "";
+            itemNames[2] = "";
+            itemNames[3] = "";
+            itemNames[4] = "";
+            itemNames[5] = "";
+        }
+    }
+
+
+    /**
+     *
+     */
     // LOAD CHARACTER IMAGES THEN ACTIVITY STARTS:
     private void updateUI() {
         Log.d("SHOP", "updateUI()");

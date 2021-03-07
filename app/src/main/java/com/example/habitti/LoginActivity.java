@@ -9,8 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -24,8 +26,8 @@ public class LoginActivity extends AppCompatActivity {
     private int UserSex;
     private final String UserSexKey = "LastUserSex";
 
-    private EditText textViewUsername;
-    private Button buttonNext;
+    private EditText SingUpName;
+    private Button btnNext;
 
     private ImageView imageViewCharacter;
     private ImageView imageViewClothes;
@@ -34,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnChangeClothes;
     private Button btnChangeHairs;
     private ImageView imageViewHairs;
-    String signUpName;
+    String singUpName;
     boolean devMode = false;
 
     int[] hairsImages;
@@ -45,33 +47,23 @@ public class LoginActivity extends AppCompatActivity {
 
     public static final String EXTRA_MESSAGE = "com.example.habitti";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(R.style.Theme_Habitti_NoActionBar);
         setContentView(R.layout.login_activity);
 
 
-        // GO TO THE MAIN FRAGMENT, IF THE NAME WAS ALREADY CREATED
-        sharedPrefs = this.getSharedPreferences("shared preference", MODE_PRIVATE);
-        String name;
-
-        if (sharedPrefs.contains("LastUserName")) {
-            name = sharedPrefs.getString("LastUserName", "");
-
-            if (!name.equals("")) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        }
+        // GO TO THE MAIN FRAGMENT, IF THE NAME WAS ALREADY CREATED:
+        checkIfNameNotEmpty();
 
 
-        textViewUsername = (EditText) findViewById(R.id.usernameField);
-        buttonNext = (Button) findViewById(R.id.buttonNext);
+        SingUpName = (EditText) findViewById(R.id.editTextSingUpName);
+        btnNext = (Button) findViewById(R.id.btnSingUp);
 
 
         // NEXT BUTTON:
-        buttonNext.setOnClickListener(new View.OnClickListener() {
+        btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -84,91 +76,117 @@ public class LoginActivity extends AppCompatActivity {
 
 
                 // CHECKING FOR THE USER'S INPUT NAME:
-                signUpName = textViewUsername.getText().toString();
-
-                switch (signUpName) {
-                    case ("dev"): {
-                        Log.d("login activity", "dev mode");
-                        devMode = true;
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        break;
-                    }
-                    default: {
-                        Log.d("login activity", "name is " + signUpName);
-                        devMode = false;
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
-                    }
-                }
+                singUpName = SingUpName.getText().toString();
+                checkUserName();
 
 
                 // SAVE USER DATA:
-                SaveLoad.getInstance().saveCharacterImages(LoginActivity.this, textViewUsername.getText().toString(), UserNameKey, currentImageClothes, UserClothesKey,
+                Save.getInstance().saveCharacterImages(LoginActivity.this, SingUpName.getText().toString(), UserNameKey, currentImageClothes, UserClothesKey,
                         currentImageHairs, UserHairsKey, currentCharacterSex, UserSexKey);
             }
         });
 
 
-            // CHARACTER SEX:
-            imageViewCharacter = (ImageView) findViewById(R.id.imageViewCharacter);
-            btnChangeToFemale = (Button) findViewById(R.id.btnFemale);
-            imageViewCharacter.setImageResource(R.drawable.char_7);
-            currentCharacterSex = 0;
+        // CHARACTER SEX BUTTON:
+        imageViewCharacter = (ImageView) findViewById(R.id.imageViewCharacter);
 
-            btnChangeToFemale.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    imageViewCharacter.setImageResource(R.drawable.char_6);
-                    currentCharacterSex = 1;
-                }
-            });
+        btnChangeToFemale = (Button) findViewById(R.id.btnFemale);
+        btnChangeToFemale.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                imageViewCharacter.setImageResource(R.drawable.char_6);
+                currentCharacterSex = 1;
+            }
+        });
 
-            btnChangeToMale = (Button) findViewById(R.id.btnMale);
-            btnChangeToMale.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    imageViewCharacter.setImageResource(R.drawable.char_7);
-                    currentCharacterSex = 0;
-                }
-            });
+        btnChangeToMale = (Button) findViewById(R.id.btnMale);
+        btnChangeToMale.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                imageViewCharacter.setImageResource(R.drawable.char_7);
+                currentCharacterSex = 0;
+            }
+        });
 
 
-            // CHARACTER CLOTHES:
-            imageViewClothes = (ImageView) findViewById(R.id.imageViewClothes);
-            btnChangeClothes = (Button) findViewById(R.id.btnChangeClothes);
-            clothesImages = new int[]{R.drawable.char_13, R.drawable.char_2, R.drawable.char_15, R.drawable.char_10, R.drawable.char_14};
+        // CHARACTER CLOTHES BUTTON:
+        imageViewClothes = (ImageView) findViewById(R.id.imageViewClothes);
+        btnChangeClothes = (Button) findViewById(R.id.btnChangeClothes);
+        clothesImages = new int[]{R.drawable.char_13, R.drawable.char_2, R.drawable.char_15, R.drawable.char_10, R.drawable.char_14};
 
-            btnChangeClothes.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    currentImageClothes++;
-                    currentImageClothes = currentImageClothes % clothesImages.length;
-                    imageViewClothes.setImageResource(clothesImages[currentImageClothes]);
-                }
-            });
+        btnChangeClothes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                currentImageClothes++;
+                currentImageClothes = currentImageClothes % clothesImages.length;
+                imageViewClothes.setImageResource(clothesImages[currentImageClothes]);
+            }
+        });
 
-            // CHARACTER HAIRS:
-            imageViewHairs = (ImageView) findViewById(R.id.imageViewHairs);
-            btnChangeHairs = (Button) findViewById(R.id.btnChangeHairs);
-            hairsImages = new int[]{R.drawable.char_5, R.drawable.char_4, R.drawable.char_8, R.drawable.char_11, R.drawable.char_12, R.drawable.char_9};
 
-            btnChangeHairs.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    currentImageHairs++;
-                    currentImageHairs = currentImageHairs % hairsImages.length;
-                    imageViewHairs.setImageResource(hairsImages[currentImageHairs]);
-                }
-            });
+        // CHARACTER HAIRS BUTTON:
+        imageViewHairs = (ImageView) findViewById(R.id.imageViewHairs);
+        btnChangeHairs = (Button) findViewById(R.id.btnChangeHairs);
+        hairsImages = new int[]{R.drawable.char_5, R.drawable.char_4, R.drawable.char_8, R.drawable.char_11, R.drawable.char_12, R.drawable.char_9};
+
+        btnChangeHairs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                currentImageHairs++;
+                currentImageHairs = currentImageHairs % hairsImages.length;
+                imageViewHairs.setImageResource(hairsImages[currentImageHairs]);
+            }
+        });
+
+    }
+
+
+    // CHECKING FOR THE USER'S INPUT NAME:
+    private void checkUserName() {
+
+        switch (singUpName) {
+            case ("dev"): {
+                Log.d("login activity", "dev mode");
+                devMode = true;
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+                break;
+            }
+            case (""): {
+                Log.d("login activity", "empty name");
+                Toast toast = Toast.makeText(getApplicationContext(), "What is your name?", Toast.LENGTH_SHORT);
+                toast.show();
+                break;
+            }
+            default: {
+                Log.d("login activity", "name is " + singUpName);
+                devMode = false;
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
         }
+    }
 
+    // GO TO THE MAIN FRAGMENT, IF THE NAME WAS ALREADY CREATED:
+    private void checkIfNameNotEmpty() {
 
+        sharedPrefs = this.getSharedPreferences("shared preference", MODE_PRIVATE);
+        String name;
 
+        if (sharedPrefs.contains("LastUserName")) {
+            name = sharedPrefs.getString("LastUserName", "");
+
+            if (!name.equals("")) {
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        }
+    }
 
     @Override
     protected void onPause() {
         super.onPause();
         Log.d("LOGIN", "OnPause() LoginActivity");
     }
+
 }
