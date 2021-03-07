@@ -11,7 +11,8 @@
         app:title="Theme"
         app:iconSpaceReserved="false"
         app:entries="@array/themes"
-        app:entryValues="@array/colorValues" />
+        app:entryValues="@array/colorValues"
+        app:defaultValue="Cerulean"/>
 
     <SwitchPreferenceCompat
         app:key="notifications"

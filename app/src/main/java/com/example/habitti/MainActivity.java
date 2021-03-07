@@ -12,6 +12,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
 
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,13 +35,30 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setCustomTheme();
         setContentView(R.layout.activity_main);
+        Log.d("appColor", "" + PreferenceManager.getDefaultSharedPreferences(this).getString("theme", "Cerulean"));
 
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_nav);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MainFragment()).commit();
 
         createNotificationChannel();
+    }
+
+    private void setCustomTheme() {
+        String currentColor = PreferenceManager.getDefaultSharedPreferences(this).getString("theme", "Cerulean");
+        switch (currentColor){
+            case "Cerulean":
+                setTheme(R.style.Theme_Habitti);
+                break;
+            case "Red":
+                setTheme(R.style.Red);
+                break;
+            case "Green":
+                setTheme(R.style.Green);
+                break;
+        }
     }
 
 
