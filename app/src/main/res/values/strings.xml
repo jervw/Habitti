@@ -22,6 +22,21 @@
     <string name="clothes">clothes</string>
     <string name="next">Next</string>
     <string name="rewards">Rewards</string>
+    <string name="how_to_use_title">How to use</string>
+    <string name="how_to_use_adding_habit">Adding new habit</string>
+    <string name="how_to_use_adding_habit_description">To add a new habit, click the plus-icon in bottom of the screen. Then you can choose the icon, name
+    and a type for your habit.</string>
+    <string name="how_to_use_habit_details">Habit details</string>
+    <string name="how_to_use_habit_details_description">To see the details of your habit click and hold the habit. A new screen will open where you will see
+    the details. You can also rename or delete your habit. To rename click the name, write the new name and click "OK"</string>
+    <string name="how_to_use_daily_actions">Daily actions</string>
+    <string name="how_to_use_daily_actions_details">To get points you have to open the app everyday and check the habit you have been doing/not doing.
+    Doing this gets you points instantly and gives your habits a new multiplier and adds one day to day streak. You will also gain login-streak by simply
+    opening the app.</string>
+    <string name="how_to_use_lvl_rewards">Levels and rewards</string>
+    <string name="how_to_use_lvl_rewards_description">By getting scores you also gain experience points. You can see your progress in top of the screen.
+    When you get enough points you will unlock a new level. By getting levels you unlock new skins for your character. You can inspect all the unlockable skins
+    in the "Rewards" view.</string>
 
     <string-array name="habbits_array">
         <item>No smoking</item>
@@ -33,12 +48,4 @@
         <item>Add custom habit</item>
     </string-array>
 
-    <string-array name="habbit_images">
-        <item>drawable.habit_1</item>
-        <item>drawable.habit_2</item>
-        <item>drawable.habit_3</item>
-        <item>drawable.habit_4</item>
-        <item>drawable.habit_5</item>
-        <item>drawable.habit_6</item>
-    </string-array>
 </resources>

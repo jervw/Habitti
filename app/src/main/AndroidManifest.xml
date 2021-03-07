@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Habitti">
         <activity android:name=".MainActivity"></activity>
+        <activity android:name=".HowToUse"></activity>
         <activity android:name=".LoginActivity">
             <intent-filter>
 
