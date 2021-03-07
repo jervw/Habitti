@@ -1,16 +1,11 @@
 package com.example.habitti;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -22,13 +17,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.joda.JodaModule;
-import com.fatboyindustrial.gsonjodatime.Converters;
+
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -59,25 +49,12 @@ public class MainFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_main, container, false);
         dateCheck dateCheck = new dateCheck(getActivity());
-        //Button devButton = (Button) rootView.findViewById(R.id.buttonDevAddDay);
-
-
-
 
         //Load saved preferences and put them on screen
         initializeCalendar();
         loadHabbitData();
-        //updateUI();
+        updateUI();
 
-/*        devButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("Tag", "devButton pressed");
-                dateCheck.devAddDay();
-                updateUI();
-                Log.d("Tag", "DevButton executed");
-            }
-        });*/
 
         Button shopBtn = (Button) rootView.findViewById(R.id.ShopBtn);
         shopBtn.setOnClickListener(new View.OnClickListener() {
@@ -90,9 +67,6 @@ public class MainFragment extends Fragment {
         });
         return rootView;
     }
-
-
-
 
     private void initializeCalendar() {
         Calendar startDate = Calendar.getInstance();
@@ -115,7 +89,6 @@ public class MainFragment extends Fragment {
             }
         });
     }
-
     private void saveHabbitData() {
         sharedPrefHabbits = getActivity().getSharedPreferences(sharedPreferenceName, Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefHabbits.edit();
@@ -207,7 +180,6 @@ public class MainFragment extends Fragment {
             imageViewCharacter.setImageResource(R.drawable.char_7);
         }
     }
-
     @Override
     public void onResume() {
         super.onResume();
@@ -220,27 +192,4 @@ public class MainFragment extends Fragment {
         //SaveLoad.getInstance().saveHabbitData(getActivity(), GlobalModel.getInstance().getHabbitsView(), "shared preference");
         Log.d("MAIN", "OnPause");
     }
-
-
-    // TOP BAR ICON:
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    // THEN ON CLICK "SHOP/REWARDS" ICON IN TOP BAR:
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        // OPEN THE SHOP/REWARDS POP UP WINDOW:
-        if (id == R.id.shopBtn) {
-            Intent intent = new Intent(getActivity(), ShopPopUp.class);
-            getActivity().startActivity(intent);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
 }

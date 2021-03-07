@@ -21,6 +21,7 @@
     <string name="hair">hair</string>
     <string name="clothes">clothes</string>
     <string name="next">Next</string>
+    <string name="rewards">Rewards</string>
 
     <string-array name="habbits_array">
         <item>No smoking</item>

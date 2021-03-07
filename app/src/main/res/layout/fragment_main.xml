@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="60dp"
+    android:background="#EDEDED"
     android:orientation="vertical"
     android:visibility="visible">
 
@@ -110,6 +112,7 @@
             android:id="@+id/listViewHabbits"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:divider="#000000"
             android:tag="listView">
 
         </ListView>
