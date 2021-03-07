@@ -39,7 +39,7 @@ public class ShopPopUp extends Activity {
 
     int characterLvl;
 
-    int a = 0;
+    int a;
 
 
     /**
@@ -115,7 +115,9 @@ public class ShopPopUp extends Activity {
                 startActivity(intent);
 
                 //SAVE USER DATA:
-                Save.getInstance().saveCharacterImages2(ShopPopUp.this, currentImagelothes1, UserClothesKey);
+                if(characterLvl != 1) {
+                    Save.getInstance().saveCharacterImages2(ShopPopUp.this, currentImagelothes1, UserClothesKey);
+                }
             }
         });
 
