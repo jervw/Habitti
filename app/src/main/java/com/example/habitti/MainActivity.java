@@ -71,13 +71,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (item.getItemId() == R.id.rewardsButton){
-            Intent i = new Intent(getApplicationContext(), ShopPopUp.class);
-            startActivity(i);
-            return true;
-        } else{
-            return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.rewardsButton:
+                Intent i = new Intent(getApplicationContext(), ShopPopUp.class);
+                startActivity(i);
+                break;
+
+            case R.id.howToUseButton:
+                Intent y = new Intent(getApplicationContext(), HowToUse.class);
+                startActivity(y);
+                break;
         }
+        return true;
     }
 
     private  BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =new BottomNavigationView.OnNavigationItemSelectedListener() {

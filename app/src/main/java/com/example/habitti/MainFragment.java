@@ -60,7 +60,6 @@ public class MainFragment extends Fragment {
         userLoginStreak = (TextView) rootView.findViewById(R.id.textViewUserLoginSTreak);
         userScores = (TextView) rootView.findViewById(R.id.textViewUserScores);
         //userDayStreakText = (TextView) rootView.findViewById(R.id.textViewUserDayStreak);
-        userScores.setText("Scores: " + GlobalModel.getInstance().getUserOverallScores());
 
 
         //Load saved preferences and put them on screen
@@ -142,6 +141,10 @@ public class MainFragment extends Fragment {
         //Check if ArrayList from GlobalModel is set null by sharedPreferences
         //If yes, create new ArrayList. If no get that ArrayList from GlobalModel. Put that ArrayList to ArrayAdapter
         //Find listView by id and set ArrayAdapter to it. Then save current habbits from that ArrayList.
+        GlobalModel.getInstance().getUserScoresFromHabbits();
+        userScores.setText("Total scores: " + GlobalModel.getInstance().getUserOverallScores());
+        level.setText("Level : " + GlobalModel.getInstance().getUserLevel() + " XP: " + GlobalModel.getInstance().getProgressbarProgress()
+                + " / " + GlobalModel.getInstance().getProgressbarMax());
         HabbitsViewAdapter habbitsArrayAdapter;
         if (GlobalModel.getInstance().getHabbitsView() == null) {
             habbitsArrayAdapter = new HabbitsViewAdapter(getActivity(), new ArrayList<HabbitsView>());
@@ -227,7 +230,6 @@ public class MainFragment extends Fragment {
         super.onResume();
         updateUI();
         GlobalModel.getInstance().getUserScoresFromHabbits();
-        userScores.setText("Scores: " + GlobalModel.getInstance().getUserOverallScores());
     }
 
     @Override

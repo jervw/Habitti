@@ -119,8 +119,11 @@ public class GlobalModel {
             index++;
         }
         this.setUserOverallScores(overallScoresDouble);
-        this.userOverallScoresProgress = (int) (overallScoresDouble);
-        this.userOverallScoresProgress = (int) userOverallScores;
+        if (overallScoresDouble < levelCapProgress) {
+            this.userOverallScoresProgress = (int) overallScoresDouble;
+        } else {
+            this.userOverallScoresProgress = (int) (overallScoresDouble) - levelCapProgress;
+        }
         if (userOverallScores >= levelCap) {
             checkUserLevelUp();
         }
@@ -140,9 +143,8 @@ public class GlobalModel {
 
     public void checkUserLevelUp() {
             this.userLevel++;
-            this.levelCap = this.levelCap + this.levelCap + (this.levelCap * 0.05);
-            this.levelCapProgress = (int) levelCap;
-            this.levelCapProgress = (levelCapProgress - (int) userOverallScores);
+            this.levelCapProgress = (int) (levelCap * 1.05);
+            this.levelCap =this.levelCap + (this.levelCap * 1.05);
             this.userOverallScoresProgress = 0;
         }
 
