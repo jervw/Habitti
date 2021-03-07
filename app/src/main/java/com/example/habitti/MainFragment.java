@@ -8,6 +8,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -36,6 +39,8 @@ import java.util.Calendar;
 
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
 import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class MainFragment extends Fragment {
 
@@ -159,20 +164,18 @@ public class MainFragment extends Fragment {
 
 
         habbitsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
             @Override
             public void onItemClick(AdapterView<?> AdapterView, View view, int i, long l) {
                 HabitDetailsDialog detailsDialog = new HabitDetailsDialog(i);
                 detailsDialog.show(getFragmentManager(), "habit details");
             }
-
-
         });
 
 
-
         // GET NAME FROM SHARED PREFERENCE.XML:
-        sharedPrefHabbits = this.getActivity().getSharedPreferences("shared preference", Context.MODE_PRIVATE);
+        //TextView textViewUserName = (TextView) rootView.findViewById(R.id.username);
+        //textViewUserName.setText(SaveLoad.getInstance().loadCharacterName(getActivity(), "LastUserName"));
+        sharedPrefHabbits = this.getActivity().getSharedPreferences("shared preference", MODE_PRIVATE);
         TextView textViewUserName = (TextView) rootView.findViewById(R.id.username);
         if (sharedPrefHabbits.contains("LastUserName")) {
             textViewUserName.setText(sharedPrefHabbits.getString("LastUserName", ""));
@@ -216,6 +219,28 @@ public class MainFragment extends Fragment {
         super.onPause();
         //SaveLoad.getInstance().saveHabbitData(getActivity(), GlobalModel.getInstance().getHabbitsView(), "shared preference");
         Log.d("MAIN", "OnPause");
+    }
+
+
+    // TOP BAR ICON:
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    // THEN ON CLICK "SHOP/REWARDS" ICON IN TOP BAR:
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        // OPEN THE SHOP/REWARDS POP UP WINDOW:
+        if (id == R.id.shopBtn) {
+            Intent intent = new Intent(getActivity(), ShopPopUp.class);
+            getActivity().startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

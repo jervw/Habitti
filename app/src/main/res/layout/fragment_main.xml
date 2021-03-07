@@ -4,95 +4,97 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="60dp"
-    android:background="#EDEDED"
     android:orientation="vertical"
     android:visibility="visible">
 
     <LinearLayout
         android:id="@+id/profile"
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="wrap_content"
         android:background="@color/cerulean"
         android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:weightSum="1"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1">
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp">
+                android:layout_width="135dp"
+                android:layout_height="match_parent"
+                android:padding="1dp">
 
                 <ImageView
                     android:id="@+id/userCharacterImage"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp" />
+                    android:layout_width="134dp"
+                    android:layout_height="134dp" />
 
                 <ImageView
                     android:id="@+id/userHairsImage"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp" />
+                    android:layout_width="134dp"
+                    android:layout_height="134dp" />
 
                 <ImageView
                     android:id="@+id/userClothesImage"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp" />
+                    android:layout_width="134dp"
+                    android:layout_height="134dp" />
 
             </RelativeLayout>
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/username"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:gravity="left"
-                android:text="@string/username"
-                android:textColor="#fff"
-                android:textSize="21sp"
-                android:textStyle="bold" />
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/levelText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Level"
-                android:textColor="#fff"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/username"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="left"
+                    android:text="@string/username"
+                    android:textColor="#fff"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
 
-            <ProgressBar
-                android:id="@+id/progress_limit"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="30dp"
-                android:indeterminate="false"
-                android:max="100"
-                android:progress="50"
-                android:progressDrawable="@drawable/custom_progressbar" />
-            <Button
-                android:id="@+id/ShopBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:backgroundTint="@color/design_default_color_primary"
-                android:text="Shop" />
+                <TextView
+                    android:id="@+id/levelText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Level"
+                    android:textColor="#fff"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
+                <ProgressBar
+                    android:id="@+id/progress_limit"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="false"
+                    android:max="100"
+                    android:maxHeight="12dp"
+                    android:minHeight="12dp"
+                    android:progress="50"
+                    android:paddingEnd="15dp"
+                    android:progressDrawable="@drawable/custom_progressbar" />
+
+                <Button
+                    android:id="@+id/ShopBtn"
+                    android:layout_width="80dp"
+                    android:layout_height="35dp"
+                    android:layout_margin="5dp"
+                    android:backgroundTint="@color/design_default_color_primary"
+                    android:text="Shop"
+                    android:visibility="invisible" />
+
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
 
-</LinearLayout>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -103,12 +105,13 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             app:textColorSelected="@color/grey"/>
+
         <ListView
             android:id="@+id/listViewHabbits"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:divider="#000000"
-            android:layout_weight="1"
-            android:tag="listView"/>
+            android:layout_height="wrap_content"
+            android:tag="listView">
+
+        </ListView>
     </LinearLayout>
 </LinearLayout>

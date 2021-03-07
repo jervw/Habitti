@@ -17,7 +17,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_gravity="center"
-        android:text="SHOP"
+        android:text="REWARDS"
         android:textColor="#FFFFFF"
         android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
