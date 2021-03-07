@@ -3,6 +3,8 @@ package com.example.habitti;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import androidx.preference.PreferenceManager;
+
 public class Save {
 
     private static final Save instance = new Save();
@@ -39,6 +41,8 @@ public class Save {
 
         editor.commit();
     }
+
+
 
 
 }

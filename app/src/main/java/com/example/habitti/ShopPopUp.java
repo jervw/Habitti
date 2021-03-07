@@ -12,12 +12,14 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 /**
  * <h1>Shop / Rewards</h1>
  * ShopPopUp program implements rewards system in the app.
  * @author Anna Raevskaia
  */
-public class ShopPopUp extends Activity {
+public class ShopPopUp extends AppCompatActivity {
 
     private SharedPreferences sharedPrefHabbits;
     private final String UserClothesKey = "LastUserClothes";
@@ -34,11 +36,8 @@ public class ShopPopUp extends Activity {
 
     String selectedNameString;
     int selectedImage;
-
     int currentImagelothes1 = 0;
-
     int characterLvl;
-
     int a = 0;
 
 
@@ -55,8 +54,8 @@ public class ShopPopUp extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("SHOP", "Shop onCreate()");
-        setContentView(R.layout.shop_pop_up_window);
+        setContentView(R.layout.rewards_window);
+
 
         // FULL SCREEN POP UP WINDOW:
         DisplayMetrics dm = new DisplayMetrics();
@@ -185,6 +184,8 @@ public class ShopPopUp extends Activity {
         }
 
     }
+
+
 
 
     /**

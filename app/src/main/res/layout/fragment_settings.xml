@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
-            android:background="@color/cerulean"
+            android:background="?colorPrimary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -21,8 +21,8 @@
 
                 <ImageView
                     android:id="@+id/userCharacterImage"
-                    android:layout_width="123dp"
-                    android:layout_height="123dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:gravity="center"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -30,8 +30,8 @@
 
                 <ImageView
                     android:id="@+id/userHairsImage"
-                    android:layout_width="123dp"
-                    android:layout_height="123dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:gravity="center"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -39,8 +39,8 @@
 
                 <ImageView
                     android:id="@+id/userClothesImage"
-                    android:layout_width="123dp"
-                    android:layout_height="123dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:gravity="center"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -59,12 +59,23 @@
                 android:textStyle="bold"
                 android:textSize="21sp"/>
             <TextView
+                android:id="@+id/levelSettings"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:layout_marginBottom="10dp"
-                android:text="@string/level"
+                android:text=""
+                android:textColor="#fff"
+                android:textSize="16sp"/>
+            <TextView
+                android:id="@+id/loginStreakSettings"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_marginBottom="10dp"
+                android:text=""
                 android:textColor="#fff"
                 android:textSize="16sp"/>
 

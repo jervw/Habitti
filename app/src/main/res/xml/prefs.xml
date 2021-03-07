@@ -6,20 +6,17 @@
         app:title="@string/settings"
         app:iconSpaceReserved="false">
 
-    <ListPreference
-        app:key="theme"
-        app:title="Theme"
-        app:iconSpaceReserved="false"
-        app:entries="@array/themes"
-        app:entryValues="@array/colorValues"
-        app:defaultValue="Cerulean"/>
-
     <SwitchPreferenceCompat
         app:key="notifications"
         app:iconSpaceReserved="false"
         app:title="Habit reminders"
         app:summaryOff="Reminders are currently off"
         app:summaryOn="Reminders are currently on"/>
+
+    <Preference
+        app:key=""
+        app:title="How to use"
+        app:iconSpaceReserved="false"/>
 
     <Preference
         app:key="@string/creditsButton"

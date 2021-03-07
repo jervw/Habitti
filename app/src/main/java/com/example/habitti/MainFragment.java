@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 
@@ -36,16 +35,12 @@ public class MainFragment extends Fragment {
     private SharedPreferences sharedPrefHabbits;
     private final String sharedPreferenceName = "shared preference";
 
-    SaveLoad saveLoad = SaveLoad.getInstance();
-
     int[] clothesImages;
     int[] hairsImages;
 
     ListView habbitsListView;
     View rootView;
     int userDayStreak = 0;
-    Handler progressBarHandler;
-    //TextView userDayStreakText;
     TextView level;
     TextView userLoginStreak;
     TextView userScores;
@@ -57,24 +52,19 @@ public class MainFragment extends Fragment {
         dateCheck dateCheck = new dateCheck(getActivity());
 
         level = (TextView) rootView.findViewById(R.id.levelText);
-        userLoginStreak = (TextView) rootView.findViewById(R.id.textViewUserLoginSTreak);
+        userLoginStreak = (TextView) rootView.findViewById(R.id.textViewUserLoginStreak);
         userScores = (TextView) rootView.findViewById(R.id.textViewUserScores);
-        //userDayStreakText = (TextView) rootView.findViewById(R.id.textViewUserDayStreak);
-        userScores.setText("Scores: " + GlobalModel.getInstance().getUserOverallScores());
 
-
-        //Load saved preferences and put them on screen
         initializeCalendar();
         loadHabbitData();
         updateUI();
-        level.setText("Level : " + GlobalModel.getInstance().getUserLevel() + " XP:  " + GlobalModel.getInstance().getProgressbarProgress()
+        level.setText("Level: " + GlobalModel.getInstance().getUserLevel() + " XP:  " + GlobalModel.getInstance().getProgressbarProgress()
                 + " / " + GlobalModel.getInstance().getProgressbarMax());
-        userScores.setText("Total scores: " + GlobalModel.getInstance().getUserOverallScores());
         userLoginStreak.setText("Login streak: 1");
+        userScores.setText("Total score: " + GlobalModel.getInstance().getUserOverallScores());
 
         return rootView;
     }
-
 
 
 
@@ -88,7 +78,7 @@ public class MainFragment extends Fragment {
                 .range(startDate, endDate)
                 .datesNumberOnScreen(5)
                 .configure()
-                    .showTopText(false)
+                .showTopText(false)
                 .end()
                 .build();
 
@@ -234,7 +224,6 @@ public class MainFragment extends Fragment {
     public void onPause() {
         super.onPause();
         saveHabbitData();
-        //SaveLoad.getInstance().saveHabbitData(getActivity(), GlobalModel.getInstance().getHabbitsView(), "shared preference");
         Log.d("MAIN", "OnPause");
     }
 }
