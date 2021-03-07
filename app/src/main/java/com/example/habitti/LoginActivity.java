@@ -54,13 +54,12 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.login_activity);
 
 
-        // GO TO THE MAIN FRAGMENT, IF THE NAME WAS ALREADY CREATED:
+        // GO TO THE MAIN ACTIVITY, IF THE NAME WAS ALREADY CREATED:
         checkIfNameNotEmpty();
 
 
-        SingUpName = (EditText) findViewById(R.id.editTextSingUpName);
-        btnNext = (Button) findViewById(R.id.btnSingUp);
-
+        SingUpName = (EditText) findViewById(R.id.usernameField);
+        btnNext = (Button) findViewById(R.id.buttonNext);
 
         // NEXT BUTTON:
         btnNext.setOnClickListener(new View.OnClickListener() {
@@ -89,8 +88,13 @@ public class LoginActivity extends AppCompatActivity {
 
         // CHARACTER SEX BUTTON:
         imageViewCharacter = (ImageView) findViewById(R.id.imageViewCharacter);
-
         btnChangeToFemale = (Button) findViewById(R.id.btnFemale);
+
+        // Default sex displayed (male)
+        imageViewCharacter.setImageResource(R.drawable.char_7);
+        currentCharacterSex = 0;
+
+
         btnChangeToFemale.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -140,7 +144,6 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-
     // CHECKING FOR THE USER'S INPUT NAME:
     private void checkUserName() {
 
@@ -188,5 +191,4 @@ public class LoginActivity extends AppCompatActivity {
         super.onPause();
         Log.d("LOGIN", "OnPause() LoginActivity");
     }
-
 }

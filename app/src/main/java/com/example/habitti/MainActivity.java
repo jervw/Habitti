@@ -1,53 +1,34 @@
 package com.example.habitti;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceManager;
 
-import android.app.FragmentContainer;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.content.res.TypedArray;
-import android.graphics.Color;
-import android.graphics.Typeface;
+
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 public class MainActivity extends AppCompatActivity {
     public static final String CHANNEL_1_ID = "channel";
     public static Fragment selectedFragment=null;
     public static String currentFragment = "Main";
-    private NotificationManagerCompat notificationManager;
-    //Used to make sure that dateCheck only runs once per app start
     public static boolean firstCheckOfDay = true;
-
-    //private long lastPressedTime;
-    //private static final int PERIOD = 2000;
-
-    boolean doubleBackToExitPressedOnce = false;
+    private NotificationManagerCompat notificationManager;
+    private boolean doubleBackToExitPressedOnce = false;
 
 
     @Override
@@ -60,6 +41,25 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MainFragment()).commit();
 
         createNotificationChannel();
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.top_bar, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.rewardsButton){
+            Intent i = new Intent(getApplicationContext(), ShopPopUp.class);
+            startActivity(i);
+            return true;
+        } else{
+            return super.onOptionsItemSelected(item);
+        }
     }
 
     private  BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -96,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void habitDetailsDialog(int index){
-
         HabitDetailsDialog detailsDialog = new HabitDetailsDialog(index);
         detailsDialog.show(getSupportFragmentManager(), "habit details");
     }
@@ -129,8 +128,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-    // APP DOESN'T CLOSE, IF USER CLICKED THE BACK BUTTON
+    // App will not close when back button is pressed once.
     @Override
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {
@@ -139,6 +137,4 @@ public class MainActivity extends AppCompatActivity {
         }
         this.doubleBackToExitPressedOnce = false;
     }
-
-
 }

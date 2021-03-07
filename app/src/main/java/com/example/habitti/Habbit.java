@@ -21,6 +21,7 @@ public class Habbit {
     private int dayStreak;
     private double overallScore = 0;
     private double scoreMultiplier = 1.0;
+    private boolean checkedToday;
 
     public Habbit(String name, String habitType, int imageId) {
         this.habbitName = name;
@@ -28,6 +29,7 @@ public class Habbit {
         this.dateCreated = GlobalModel.getInstance().getOwnDateCreatedAsString();
         this.imageId = imageId;
         this.dayStreak = 0;
+        this.checkedToday = false;
 
     }
     public String getHabbitName() {
@@ -49,10 +51,6 @@ public class Habbit {
         return this.imageId;
     }
 
-    public void addScoreMultiplier() {
-        this.scoreMultiplier = this.scoreMultiplier + 0.1;
-    }
-
     public void resetScoreMultiplier() {
         this.scoreMultiplier = 1.0;
         this.dayStreak = 0;
@@ -60,8 +58,6 @@ public class Habbit {
 
     public void addDailyScore() {
         this.overallScore = this.overallScore + (this.scoreMultiplier * 10);
-        this.dayStreak++;
-        Log.d("Tag", String.valueOf(this.overallScore));
     }
 
     public double getScoreMultiplier() {
@@ -74,6 +70,19 @@ public class Habbit {
 
     public int getDayStreak() {
         return this.dayStreak;
+    }
+
+    public void setCheckedStatus(boolean bool) {
+        this.checkedToday = bool;
+    }
+
+    public boolean getCheckedStatus() {
+        return this.checkedToday;
+    }
+
+    public void setDayStreak() {
+        this.scoreMultiplier = this.scoreMultiplier + 0.005;
+        this.dayStreak++;
     }
 
 }
