@@ -73,9 +73,9 @@ public class MainFragment extends Fragment {
         initializeCalendar();
         loadHabbitData();
         updateUI();
-        level.setText("Current level: " + GlobalModel.getInstance().getUserLevel() + " progress: " + GlobalModel.getInstance().getProgressbarProgress()
+        level.setText("Level : " + GlobalModel.getInstance().getUserLevel() + " XP:  " + GlobalModel.getInstance().getProgressbarProgress()
                 + " / " + GlobalModel.getInstance().getProgressbarMax());
-        userScores.setText("Scores: " + GlobalModel.getInstance().getUserOverallScores());
+        userScores.setText("Total scores: " + GlobalModel.getInstance().getUserOverallScores());
         userLoginStreak.setText("Login streak: 1");
 
         // TOP BAR ICONS ARE VISIBLE:
@@ -201,8 +201,8 @@ public class MainFragment extends Fragment {
                 finalHabbitsArrayAdapter.notifyDataSetChanged();
                 GlobalModel.getInstance().updateHabbitViewList();
                 GlobalModel.getInstance().getUserScoresFromHabbits();
-                userScores.setText("Scores: " + GlobalModel.getInstance().getUserOverallScores());
-                level.setText("Current level: " + GlobalModel.getInstance().getUserLevel() + " progress: " + GlobalModel.getInstance().getProgressbarProgress()
+                userScores.setText("Total scores: " + GlobalModel.getInstance().getUserOverallScores());
+                level.setText("Level : " + GlobalModel.getInstance().getUserLevel() + " XP: " + GlobalModel.getInstance().getProgressbarProgress()
                         + " / " + GlobalModel.getInstance().getProgressbarMax());
 
                 Log.d("Tag", "Progress: " + GlobalModel.getInstance().getProgressbarProgress());
