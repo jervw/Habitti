@@ -67,7 +67,7 @@
                     android:id="@+id/levelText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Level"
+                    android:text="Level: XP 0 / 100"
                     android:textColor="#fff"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -76,7 +76,7 @@
                     android:id="@+id/textViewUserScores"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
+                    android:text="Total scores"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
 
@@ -84,7 +84,7 @@
                     android:id="@+id/textViewUserLoginStreak"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
+                    android:text="Login streak"
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     android:textStyle="bold" />

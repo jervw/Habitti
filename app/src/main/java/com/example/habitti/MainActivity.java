@@ -12,6 +12,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
 
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,14 +36,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d("appColor", "" + PreferenceManager.getDefaultSharedPreferences(this).getString("theme", "Cerulean"));
 
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_nav);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new MainFragment()).commit();
+
         createNotificationChannel();
     }
-
-
 
 
     @Override
@@ -54,15 +55,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (item.getItemId() == R.id.rewardsButton){
-            Intent i = new Intent(getApplicationContext(), RewardsActivity.class);
-            startActivity(i);
-            return true;
-        } else{
-            return super.onOptionsItemSelected(item);
-        }
-    }
+        switch (item.getItemId()) {
+            case R.id.rewardsButton:
+                Intent i = new Intent(getApplicationContext(), ShopPopUp.class);
+                startActivity(i);
+                break;
 
+            case R.id.howToUseButton:
+                Intent y = new Intent(getApplicationContext(), HowToUse.class);
+                startActivity(y);
+                break;
+        }
+        return true;
+    }
 
     private  BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override

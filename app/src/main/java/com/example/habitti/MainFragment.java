@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 
@@ -35,12 +36,16 @@ public class MainFragment extends Fragment {
     private SharedPreferences sharedPrefHabbits;
     private final String sharedPreferenceName = "shared preference";
 
+    SaveLoad saveLoad = SaveLoad.getInstance();
+
     int[] clothesImages;
     int[] hairsImages;
 
     ListView habbitsListView;
     View rootView;
     int userDayStreak = 0;
+    Handler progressBarHandler;
+    //TextView userDayStreakText;
     TextView level;
     TextView userLoginStreak;
     TextView userScores;
@@ -49,22 +54,27 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        DateCheck dateCheck = new DateCheck(getActivity());
+        dateCheck dateCheck = new dateCheck(getActivity());
 
         level = (TextView) rootView.findViewById(R.id.levelText);
-        userLoginStreak = (TextView) rootView.findViewById(R.id.textViewUserLoginStreak);
+        userLoginStreak = (TextView) rootView.findViewById(R.id.textViewUserLoginSTreak);
         userScores = (TextView) rootView.findViewById(R.id.textViewUserScores);
+        //userDayStreakText = (TextView) rootView.findViewById(R.id.textViewUserDayStreak);
+        userScores.setText("Scores: " + GlobalModel.getInstance().getUserOverallScores());
 
+
+        //Load saved preferences and put them on screen
         initializeCalendar();
         loadHabbitData();
         updateUI();
-        level.setText("Level: " + GlobalModel.getInstance().getUserLevel() + " XP:  " + GlobalModel.getInstance().getProgressbarProgress()
+        level.setText("Level : " + GlobalModel.getInstance().getUserLevel() + " XP:  " + GlobalModel.getInstance().getProgressbarProgress()
                 + " / " + GlobalModel.getInstance().getProgressbarMax());
+        userScores.setText("Total scores: " + GlobalModel.getInstance().getUserOverallScores());
         userLoginStreak.setText("Login streak: 1");
-        userScores.setText("Total score: " + GlobalModel.getInstance().getUserOverallScores());
 
         return rootView;
     }
+
 
 
 
@@ -78,7 +88,7 @@ public class MainFragment extends Fragment {
                 .range(startDate, endDate)
                 .datesNumberOnScreen(5)
                 .configure()
-                .showTopText(false)
+                    .showTopText(false)
                 .end()
                 .build();
 
@@ -113,7 +123,7 @@ public class MainFragment extends Fragment {
         int userLevel = sharedPrefHabbits.getInt("User level", 1);
         double userScoresD = Double.parseDouble(userScores);
         String jsonHabbits = sharedPrefHabbits.getString("Habbits list", null);
-        Type typeHabbits = new TypeToken<Collection<Habit>>() {
+        Type typeHabbits = new TypeToken<Collection<Habbit>>() {
         }.getType();
         GlobalModel.getInstance().replaceListHabbits(gson.fromJson(jsonHabbits, typeHabbits));
         GlobalModel.getInstance().setUserLevel(userLevel);
@@ -121,8 +131,8 @@ public class MainFragment extends Fragment {
         GlobalModel.getInstance().setProgressbarProgress(userScoresProgress);
         //Go check if day has passed since last app start and give points accordingly
         if (MainActivity.firstCheckOfDay == true) {
-            DateCheck.checkDate();
-            userDayStreak = DateCheck.loginDayStreak();
+            dateCheck.checkDate();
+            userDayStreak = dateCheck.loginDayStreak();
             userLoginStreak.setText("Login day streak: " + userDayStreak);
             MainActivity.firstCheckOfDay = false;
         }
@@ -132,16 +142,20 @@ public class MainFragment extends Fragment {
         //Check if ArrayList from GlobalModel is set null by sharedPreferences
         //If yes, create new ArrayList. If no get that ArrayList from GlobalModel. Put that ArrayList to ArrayAdapter
         //Find listView by id and set ArrayAdapter to it. Then save current habbits from that ArrayList.
+        GlobalModel.getInstance().getUserScoresFromHabbits();
+        userScores.setText("Total scores: " + GlobalModel.getInstance().getUserOverallScores());
+        level.setText("Level : " + GlobalModel.getInstance().getUserLevel() + " XP: " + GlobalModel.getInstance().getProgressbarProgress()
+                + " / " + GlobalModel.getInstance().getProgressbarMax());
         HabitsViewAdapter habbitsArrayAdapter;
         if (GlobalModel.getInstance().getHabbitsView() == null) {
-            habbitsArrayAdapter = new HabitsViewAdapter(getActivity(), new ArrayList<HabitsView>());
+            habbitsArrayAdapter = new HabbitsViewAdapter(getActivity(), new ArrayList<HabbitsView>());
         } else {
-            habbitsArrayAdapter = new HabitsViewAdapter(getActivity(), GlobalModel.getInstance().getHabbitsView());
+            habbitsArrayAdapter = new HabbitsViewAdapter(getActivity(), GlobalModel.getInstance().getHabbitsView());
         }
 
 
         Log.d("MAIN FRAGMENT", "updateUI");
-        habbitsArrayAdapter = new HabitsViewAdapter(getActivity(), GlobalModel.getInstance().getHabbitsView());
+        habbitsArrayAdapter = new HabbitsViewAdapter(getActivity(), GlobalModel.getInstance().getHabbitsView());
         habbitsListView = (ListView) rootView.findViewById(R.id.listViewHabbits);
         habbitsListView.setAdapter(habbitsArrayAdapter);
         saveHabbitData();
@@ -224,6 +238,7 @@ public class MainFragment extends Fragment {
     public void onPause() {
         super.onPause();
         saveHabbitData();
+        //SaveLoad.getInstance().saveHabbitData(getActivity(), GlobalModel.getInstance().getHabbitsView(), "shared preference");
         Log.d("MAIN", "OnPause");
     }
 }
