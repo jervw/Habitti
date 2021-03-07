@@ -3,28 +3,18 @@ package com.example.habitti;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 public class HabitDetailsDialog extends AppCompatDialogFragment {
     private EditText detailsHabitName;
@@ -34,7 +24,6 @@ public class HabitDetailsDialog extends AppCompatDialogFragment {
     private TextView detailsHabitDaysStreak;
     private TextView detailsHabitScores;
     private TextView detailsHabitMultiplier;
-    private Button detailsDeleteHabit;
     private int index;
 
     public HabitDetailsDialog(int index){
@@ -96,5 +85,4 @@ public class HabitDetailsDialog extends AppCompatDialogFragment {
         nbutton.setTextColor(getResources().getColor(R.color.md_pink_A400));
         return alert;
     }
-
 }

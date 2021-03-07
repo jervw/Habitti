@@ -1,6 +1,7 @@
 package com.example.habitti;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -31,6 +32,31 @@ public class MyPreferenceFragment extends PreferenceFragmentCompat {
 
         });
 
+        Preference list = findPreference("theme");
+        list.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                Log.d("app", "change detected");
+                startActivity(getActivity().getIntent());
+                return true;
+            }
+        });
+
+
 
     }
+
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key)
+    {
+
+        //IT NEVER GETS IN HERE!
+        if (key.equals("theme"))
+        {
+            Log.d("app", "change detected");
+            // Set summary to be the user-description for the selected value
+            Preference exercisesPref = findPreference(key);
+            exercisesPref.setSummary(sharedPreferences.getString(key, ""));
+        }
+    }
+
 }
