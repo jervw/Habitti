@@ -50,7 +50,7 @@ public class GlobalModel {
     }
 
     public void addListView(Habbit habbit){
-                habbitsView.add(new HabbitsView(habbit.getImageId(), habbit.getHabbitName(), "Scores: " + habbit.getOverallScore(), "Days streak:" + habbit.getDayStreak(), habbit.getDateCreated(), habbit.getScoreMultiplier()));
+        habbitsView.add(new HabbitsView(habbit.getImageId(), habbit.getHabbitName(), "Scores: " + habbit.getOverallScore(), "Days streak:" + habbit.getDayStreak(), habbit.getDateCreated(), habbit.getScoreMultiplier()));
     }
 
     public HabbitsView getHabbitViewItem(int i) {
