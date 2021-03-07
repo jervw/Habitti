@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -39,6 +40,11 @@ public class HabbitsViewAdapter extends ArrayAdapter<HabbitsView>{
 
         TextView textViewHabbitDaysStreak = currentItemView.findViewById(R.id.textViewDays);
         textViewHabbitDaysStreak.setText(currentNumberPosition.getmHabbitDaysStreak());
+
+        CheckBox checkBox = currentItemView.findViewById(R.id.radioButton);
+        checkBox.setChecked(currentNumberPosition.getCheckStatus());
+
+
 
         return currentItemView;
     }

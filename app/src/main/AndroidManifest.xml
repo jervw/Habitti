@@ -19,9 +19,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".ShopPopUp"></activity>
-        <activity android:name=".HabbitDetails"></activity>
-        <activity android:name=".AddNewHabbits"></activity>
-        <activity android:name=".ShopPopUp"></activity>
     </application>
 
 </manifest>

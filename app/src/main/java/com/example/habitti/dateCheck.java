@@ -38,7 +38,7 @@ public class dateCheck {
             //Get int value of days between saved date and current date
             int days = Days.daysBetween(date, comparedDate).getDays();
             //Check if that int value is bigger than 0
-            if (days > dayComparison) {
+            if (days == 1) {
                 Log.d("Tag", String.valueOf(days));
                 //Save current date as a new saved date to SharedPreferences
                 DateTime currentDate = new DateTime();
@@ -46,13 +46,10 @@ public class dateCheck {
                 SharedPreferences.Editor prefEditor = sharedPref.edit();
                 prefEditor.putString("saved date", currentDateString);
                 prefEditor.commit();
-                Log.d("Tag", "CheckDate runned");
-                //Run dailyPointsAndMultiplier as many times as the int's value
-                while (days > dayComparison) {
-                    GlobalModel.getInstance().dailyPointsAndMultipliers();
-                    days--;
-                }
+                checkHabbitStatus();
                 GlobalModel.getInstance().getUserScoresFromHabbits();
+            } else if (days > 1) {
+                resetAllHabbitStreak();
             }
             //If the saved value is null (In first time running the app) add current date to to SharedPreferences to not make it null anymore
         } else {
@@ -63,7 +60,6 @@ public class dateCheck {
             prefEditor.commit();
         }
     }
-
 
     //Used only in devMode
     //Minus one from the dayComparison int to make the program think there is one day difference in current date and saved date
@@ -82,7 +78,6 @@ public class dateCheck {
         returner = sharedPref.getInt("days streak", 0);
         String savedDate = sharedPref.getString("login date", null);
         if (savedDate != null) {
-            //Convert saved String into milliseconds and then those -seconds into date
             long millis = df.parseMillis(savedDate);
             DateTime date = new DateTime(millis);
             int days = Days.daysBetween(date, comparedDate).getDays();
@@ -108,6 +103,28 @@ public class dateCheck {
             prefEditor.commit();
         }
         return returner;
+    }
+
+    public static void checkHabbitStatus() {
+        int index = 0;
+        while (index < GlobalModel.getInstance().getHabbitsList().size()) {
+            if (GlobalModel.getInstance().getHabbitItem(index).getCheckedStatus()) {
+                GlobalModel.getInstance().getHabbitItem(index).setDayStreak();
+                GlobalModel.getInstance().getHabbitItem(index).setCheckedStatus(false);
+            } else {
+                GlobalModel.getInstance().getHabbitItem(index).resetScoreMultiplier();
+                GlobalModel.getInstance().getHabbitItem(index).setCheckedStatus(false);
+            }
+            index++;
+        }
+    }
+
+    public static void resetAllHabbitStreak() {
+        int index = 0;
+        while (index < GlobalModel.getInstance().getHabbitsList().size()) {
+            GlobalModel.getInstance().resetMultiplier(GlobalModel.getInstance().getHabbitItem(index));
+            index++;
+        }
     }
 
 

@@ -1,17 +1,23 @@
 package com.example.habitti;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,9 +29,8 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collection;
-
 import java.util.Calendar;
+import java.util.Collection;
 
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
 import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
@@ -37,12 +42,19 @@ public class MainFragment extends Fragment {
     private SharedPreferences sharedPrefHabbits;
     private final String sharedPreferenceName = "shared preference";
 
+    SaveLoad saveLoad = SaveLoad.getInstance();
 
     int[] clothesImages;
     int[] hairsImages;
 
     ListView habbitsListView;
     View rootView;
+    int userDayStreak = 0;
+    Handler progressBarHandler;
+    //TextView userDayStreakText;
+    TextView level;
+    TextView userLoginStreak;
+    TextView userScores;
 
     @Nullable
     @Override
@@ -50,11 +62,24 @@ public class MainFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_main, container, false);
         dateCheck dateCheck = new dateCheck(getActivity());
 
+        level = (TextView) rootView.findViewById(R.id.levelText);
+        userLoginStreak = (TextView) rootView.findViewById(R.id.textViewUserLoginSTreak);
+        userScores = (TextView) rootView.findViewById(R.id.textViewUserScores);
+        //userDayStreakText = (TextView) rootView.findViewById(R.id.textViewUserDayStreak);
+        userScores.setText("Scores: " + GlobalModel.getInstance().getUserOverallScores());
+
+
         //Load saved preferences and put them on screen
         initializeCalendar();
         loadHabbitData();
         updateUI();
+        level.setText("Level : " + GlobalModel.getInstance().getUserLevel() + " XP:  " + GlobalModel.getInstance().getProgressbarProgress()
+                + " / " + GlobalModel.getInstance().getProgressbarMax());
+        userScores.setText("Total scores: " + GlobalModel.getInstance().getUserOverallScores());
+        userLoginStreak.setText("Login streak: 1");
 
+        // TOP BAR ICONS ARE VISIBLE:
+        setHasOptionsMenu(true);
 
         Button shopBtn = (Button) rootView.findViewById(R.id.ShopBtn);
         shopBtn.setOnClickListener(new View.OnClickListener() {
@@ -63,10 +88,14 @@ public class MainFragment extends Fragment {
                 Log.d("MAIN", "Shop onClick()");
                 Intent intent = new Intent(getActivity(), ShopPopUp.class);
                 getActivity().startActivity(intent);
+                //startActivity(new Intent(getActivity(), PopUp.class));
             }
         });
         return rootView;
     }
+
+
+
 
     private void initializeCalendar() {
         Calendar startDate = Calendar.getInstance();
@@ -89,15 +118,18 @@ public class MainFragment extends Fragment {
             }
         });
     }
+
     private void saveHabbitData() {
         sharedPrefHabbits = getActivity().getSharedPreferences(sharedPreferenceName, Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefHabbits.edit();
         Gson gson = new Gson();
         Double userScoresD = GlobalModel.getInstance().getUserOverallScores();
         String userScores = String.valueOf(userScoresD);
+        int userScoresProgress = GlobalModel.getInstance().getProgressbarProgress();
         String jsonHabbits = gson.toJson(GlobalModel.getInstance().getHabbitsList());
         editor.putString("Habbits list", jsonHabbits);
         editor.putString("User Scores", userScores);
+        editor.putInt("User Scores Progress", userScoresProgress);
         editor.apply();
         Log.d("Tag", "Saved");
     }
@@ -106,17 +138,21 @@ public class MainFragment extends Fragment {
         sharedPrefHabbits = getActivity().getSharedPreferences(sharedPreferenceName, Activity.MODE_PRIVATE);
         Gson gson = new Gson();
         String userScores = sharedPrefHabbits.getString("User scores", "0");
+        int userScoresProgress = sharedPrefHabbits.getInt("User Scores Progress", 0);
+        int userLevel = sharedPrefHabbits.getInt("User level", 1);
         double userScoresD = Double.parseDouble(userScores);
         String jsonHabbits = sharedPrefHabbits.getString("Habbits list", null);
-        //String jsonHabbitsView = sharedPrefHabbits.getString("Habbits list view", null);
         Type typeHabbits = new TypeToken<Collection<Habbit>>() {
         }.getType();
-        //Type typeHabbitsView = new TypeToken<Collection<HabbitsView>>() {}.getType();
         GlobalModel.getInstance().replaceListHabbits(gson.fromJson(jsonHabbits, typeHabbits));
+        GlobalModel.getInstance().setUserLevel(userLevel);
         GlobalModel.getInstance().setUserOverallScores(userScoresD);
+        GlobalModel.getInstance().setProgressbarProgress(userScoresProgress);
         //Go check if day has passed since last app start and give points accordingly
         if (MainActivity.firstCheckOfDay == true) {
             dateCheck.checkDate();
+            userDayStreak = dateCheck.loginDayStreak();
+            userLoginStreak.setText("Login day streak: " + userDayStreak);
             MainActivity.firstCheckOfDay = false;
         }
     }
@@ -131,24 +167,49 @@ public class MainFragment extends Fragment {
         } else {
             habbitsArrayAdapter = new HabbitsViewAdapter(getActivity(), GlobalModel.getInstance().getHabbitsView());
         }
+
+
+        Log.d("MAIN FRAGMENT", "updateUI");
+        habbitsArrayAdapter = new HabbitsViewAdapter(getActivity(), GlobalModel.getInstance().getHabbitsView());
         habbitsListView = (ListView) rootView.findViewById(R.id.listViewHabbits);
         habbitsListView.setAdapter(habbitsArrayAdapter);
         saveHabbitData();
 
+        habbitsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View view, int i, long l) {
+                HabitDetailsDialog detailsDialog = new HabitDetailsDialog(i);
+                detailsDialog.show(getFragmentManager(), "habit details");
+                return false;
+            }
+        });
 
+        HabbitsViewAdapter finalHabbitsArrayAdapter = habbitsArrayAdapter;
         habbitsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> AdapterView, View view, int i, long l) {
-                HabitDetailsDialog detailsDialog = new HabitDetailsDialog(i);
-                detailsDialog.show(getFragmentManager(), "habit details");
+                if (!GlobalModel.getInstance().getHabbitItem(i).getCheckedStatus()) {
+                GlobalModel.getInstance().getHabbitItem(i).setCheckedStatus(true);
+                GlobalModel.getInstance().getHabbitItem(i).addDailyScore();
+                finalHabbitsArrayAdapter.notifyDataSetChanged();
+                GlobalModel.getInstance().updateHabbitViewList();
+                GlobalModel.getInstance().getUserScoresFromHabbits();
+                userScores.setText("Total scores: " + GlobalModel.getInstance().getUserOverallScores());
+                level.setText("Level : " + GlobalModel.getInstance().getUserLevel() + " XP: " + GlobalModel.getInstance().getProgressbarProgress()
+                        + " / " + GlobalModel.getInstance().getProgressbarMax());
+
+                Log.d("Tag", "Progress: " + GlobalModel.getInstance().getProgressbarProgress());
+                Log.d("Tag", "Overall scores" + GlobalModel.getInstance().getUserOverallScores());
+            }
             }
         });
 
 
+        updateCostume();
+    }
+    public void updateCostume() {
         // GET NAME FROM SHARED PREFERENCE.XML:
-        //TextView textViewUserName = (TextView) rootView.findViewById(R.id.username);
-        //textViewUserName.setText(SaveLoad.getInstance().loadCharacterName(getActivity(), "LastUserName"));
-        sharedPrefHabbits = this.getActivity().getSharedPreferences("shared preference", MODE_PRIVATE);
+        sharedPrefHabbits = this.getActivity().getSharedPreferences("shared preference", Context.MODE_PRIVATE);
         TextView textViewUserName = (TextView) rootView.findViewById(R.id.username);
         if (sharedPrefHabbits.contains("LastUserName")) {
             textViewUserName.setText(sharedPrefHabbits.getString("LastUserName", ""));
@@ -180,16 +241,45 @@ public class MainFragment extends Fragment {
             imageViewCharacter.setImageResource(R.drawable.char_7);
         }
     }
+
+
+
     @Override
     public void onResume() {
         super.onResume();
         updateUI();
+        GlobalModel.getInstance().getUserScoresFromHabbits();
+        userScores.setText("Scores: " + GlobalModel.getInstance().getUserOverallScores());
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        saveHabbitData();
         //SaveLoad.getInstance().saveHabbitData(getActivity(), GlobalModel.getInstance().getHabbitsView(), "shared preference");
         Log.d("MAIN", "OnPause");
     }
+
+
+    // TOP BAR ICON:
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    // THEN ON CLICK "SHOP/REWARDS" ICON IN TOP BAR:
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        // OPEN THE SHOP/REWARDS POP UP WINDOW:
+        if (id == R.id.shopBtn) {
+            Intent intent = new Intent(getActivity(), ShopPopUp.class);
+            getActivity().startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

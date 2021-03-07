@@ -3,6 +3,7 @@ package com.example.habitti;
 
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.ProgressBar;
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -22,8 +23,11 @@ public class GlobalModel {
     private ArrayList<HabbitsView> habbitsView = null;
     private ArrayList<Habbit> habbitsTesting = null;
     private ArrayList<HabbitsView> habbitsViewsTesting = null;
-    private double userOverallScores = 0;
-    private int userLevel = 1;
+    private double userOverallScores;
+    private int userLevel;
+    private double levelCap;
+    private int levelCapProgress;
+    private int userOverallScoresProgress;
 
     public  static GlobalModel getInstance() {
         return ourInstance;
@@ -34,6 +38,10 @@ public class GlobalModel {
         habbitsView = new ArrayList<HabbitsView>();
         habbitsTesting = new ArrayList<Habbit>();
         habbitsViewsTesting = new ArrayList<HabbitsView>();
+        userOverallScores = 0;
+        userLevel = 1;
+        levelCap = 100;
+        levelCapProgress = 100;
     }
 
     public void addHabbit(Habbit habbit) {
@@ -50,7 +58,7 @@ public class GlobalModel {
     }
 
     public void addListView(Habbit habbit){
-        habbitsView.add(new HabbitsView(habbit.getImageId(), habbit.getHabbitName(), habbit.getHabitType(), "" + habbit.getOverallScore(), ""+habbit.getDayStreak(), habbit.getDateCreated(), habbit.getScoreMultiplier()));
+                habbitsView.add(new HabbitsView(habbit.getImageId(), habbit.getHabbitName(), habbit.getHabitType(), "" + habbit.getOverallScore(), ""+habbit.getDayStreak(), habbit.getDateCreated(), habbit.getScoreMultiplier(), habbit.getCheckedStatus()));
     }
 
     public HabbitsView getHabbitViewItem(int i) {
@@ -81,15 +89,8 @@ public class GlobalModel {
         }
     }
 
-    //Gets all the habbits and gives them more multiplier and daily score
-    public void dailyPointsAndMultipliers() {
-        int index = 0;
-        while (index < habbits.size()) {
-            getHabbitItem(index).addScoreMultiplier();
-            getHabbitItem(index).addDailyScore();
-            index++;
-            Log.d("Tag", "dailyPoints runned");
-        }
+    public void resetMultiplier(Habbit habbit) {
+        habbit.resetScoreMultiplier();
         updateHabbitViewList();
     }
 
@@ -105,7 +106,7 @@ public class GlobalModel {
         habbitsView.clear();
         while (index < habbits.size()) {
             habbitsView.add(new HabbitsView(getHabbitItem(index).getImageId(), getHabbitItem(index).getHabbitName(), getHabbitItem(index).getHabitType(), "" + getHabbitItem(index).getOverallScore(), ""+getHabbitItem(index).getDayStreak(),
-                    getHabbitItem(index).getDateCreated(), getHabbitItem(index).getScoreMultiplier()));
+                    getHabbitItem(index).getDateCreated(), getHabbitItem(index).getScoreMultiplier(), getHabbitItem(index).getCheckedStatus()));
             index++;
         }
     }
@@ -118,26 +119,50 @@ public class GlobalModel {
             index++;
         }
         this.setUserOverallScores(overallScoresDouble);
-        int overallScoresInt = (int) overallScoresDouble;
-        if (overallScoresInt / 100 > this.userLevel) {
-            this.userLevel = overallScoresInt / 100;
+        this.userOverallScoresProgress = (int) (overallScoresDouble);
+        this.userOverallScoresProgress = (int) userOverallScores;
+        if (userOverallScores >= levelCap) {
+            checkUserLevelUp();
         }
     }
 
+    public int getProgressbarMax() {
+        return this.levelCapProgress;
+    }
+
+    public int getProgressbarProgress() {
+        return this.userOverallScoresProgress;
+    }
+
+    public void setProgressbarProgress(int scores) {
+        this.userOverallScoresProgress = scores;
+    }
+
+    public void checkUserLevelUp() {
+            this.userLevel++;
+            this.levelCap = this.levelCap + this.levelCap + (this.levelCap * 0.05);
+            this.levelCapProgress = (int) levelCap;
+            this.levelCapProgress = (levelCapProgress - (int) userOverallScores);
+            this.userOverallScoresProgress = 0;
+        }
 
     public void setUserOverallScores(double scores) {
         this.userOverallScores = scores;
-    }
-
-    public double getUserOverallScores() {
-        return this.userOverallScores;
     }
 
     public void setHabitName(int index, String newHabitName){
         getHabbitItem(index).setHabitName(newHabitName);
     }
 
+    public double getUserOverallScores() {
+        return this.userOverallScores;
+    }
+
     public int getUserLevel() {
         return this.userLevel;
+    }
+
+    public void setUserLevel(int i) {
+        this.userLevel = i;
     }
 }

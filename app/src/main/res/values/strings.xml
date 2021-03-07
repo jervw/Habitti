@@ -32,4 +32,13 @@
         <item>Drink water</item>
         <item>Add custom habit</item>
     </string-array>
+
+    <string-array name="habbit_images">
+        <item>drawable.habit_1</item>
+        <item>drawable.habit_2</item>
+        <item>drawable.habit_3</item>
+        <item>drawable.habit_4</item>
+        <item>drawable.habit_5</item>
+        <item>drawable.habit_6</item>
+    </string-array>
 </resources>
