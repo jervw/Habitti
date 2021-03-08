@@ -29,10 +29,10 @@ import androidx.fragment.app.FragmentManager;
 
 public class AddHabitDialog extends AppCompatDialogFragment {
 
-    int imageId;
-    String spinnerSelectedImage;
-    int[] spinnerImages;
-    String[] spinnerTitles;
+    private int imageId;
+    private int[] spinnerImages;
+    private String spinnerSelectedImage;
+    private String[] spinnerTitles;
 
     @NonNull
     @Override
@@ -40,16 +40,21 @@ public class AddHabitDialog extends AppCompatDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder((getActivity()));
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.new_habit_dialog, null);
+
+        /**Attaching specific habit images and descriptions to arrays.*/
         spinnerImages = new int[]{R.drawable.habit_1, R.drawable.habit_2, R.drawable.habit_3, R.drawable.habit_4, R.drawable.habit_5, R.drawable.habit_6, R.drawable.habit_7, R.drawable.habit_8};
         spinnerTitles = new String[]{"No smoking", "Drink water", "No alcohol", "No sugar", "Eat healthy", "Exercise", "Good habit", "Bad habit"};
 
         TextView textView = (TextView) view.findViewById(R.id.habbitName);
         RadioGroup radio = (RadioGroup) view.findViewById(R.id.radioGroup);
-
         Spinner habitSpinner = (Spinner) view.findViewById(R.id.spinnerHabbits);
+
+        /**Using our custom spinner adapter to list images properly.*/
         CustomSpinnerAdapter customAdapter = new CustomSpinnerAdapter(getContext(), spinnerImages, spinnerTitles);
         habitSpinner.setAdapter(customAdapter);
 
+
+        /**Using our custom spinner adapter to list images properly.*/
         habitSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> spinnerHabbits, View view, int pos, long id) {

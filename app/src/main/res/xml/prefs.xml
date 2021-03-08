@@ -14,7 +14,7 @@
         app:summaryOn="Reminders are currently on"/>
 
     <Preference
-        app:key=""
+        app:key="tutorial"
         app:title="How to use"
         app:iconSpaceReserved="false"/>
 
