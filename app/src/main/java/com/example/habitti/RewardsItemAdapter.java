@@ -8,14 +8,14 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ShopItemAdapter extends BaseAdapter
+public class RewardsItemAdapter extends BaseAdapter
 {
     private String[] imageNames;
     private int[] imagesPhoto;
     private Context context;
     private LayoutInflater layoutInflater;
 
-    public ShopItemAdapter(String[] imageNames, int[] imagesPhoto, Context context) {
+    public RewardsItemAdapter(String[] imageNames, int[] imagesPhoto, Context context) {
         this.imageNames = imageNames;
         this.imagesPhoto = imagesPhoto;
         this.context = context;

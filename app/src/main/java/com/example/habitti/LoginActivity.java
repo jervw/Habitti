@@ -13,7 +13,15 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-
+/**
+ * <h1>LoginActivity</h1>
+ * LoginActivity program implements registration system in the app.
+ * A program allows a user to input his name and select a character's appearance and sex.
+ * Then it saves the user's data in the Shared Preferences. The program checks if the name
+ * was already saved before, and in this case, it skips login_activity and moves on to the main_fragment.
+ *
+ * @author Anna Raevskaia
+ */
 public class LoginActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPrefs;
@@ -47,7 +55,13 @@ public class LoginActivity extends AppCompatActivity {
 
     public static final String EXTRA_MESSAGE = "com.example.habitti";
 
-
+    /**
+     * The method calls checkIfNameNotEmpty() method, which checks if the user's name already existed in Shared Preferences.
+     * That method checks if the name was already created, and in this case starts the next activity.
+     * By clicking "next button" the program saves user's data in Shared Preferences and calls checkUserName() method.
+     * There is another buttons as well: for changing character's sex, clothes ans hairs.
+     * @param savedInstanceState is a reference to a Bundle object. It is passed into the onCreate method.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                 // SAVE USER DATA:
-                Save.getInstance().saveCharacterImages(LoginActivity.this, SingUpName.getText().toString(), UserNameKey, currentImageClothes, UserClothesKey,
+                SaveManager.getInstance().saveCharacterImages(LoginActivity.this, SingUpName.getText().toString(), UserNameKey, currentImageClothes, UserClothesKey,
                         currentImageHairs, UserHairsKey, currentCharacterSex, UserSexKey);
             }
         });
@@ -93,7 +107,6 @@ public class LoginActivity extends AppCompatActivity {
         // Default sex displayed (male)
         imageViewCharacter.setImageResource(R.drawable.char_7);
         currentCharacterSex = 0;
-
 
         btnChangeToFemale.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,7 +129,7 @@ public class LoginActivity extends AppCompatActivity {
         // CHARACTER CLOTHES BUTTON:
         imageViewClothes = (ImageView) findViewById(R.id.imageViewClothes);
         btnChangeClothes = (Button) findViewById(R.id.btnChangeClothes);
-        clothesImages = new int[]{R.drawable.char_13, R.drawable.char_2, R.drawable.char_15, R.drawable.char_10, R.drawable.char_14};
+        clothesImages = new int[] {R.drawable.char_13, R.drawable.char_14, R.drawable.char_2};
 
         btnChangeClothes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +157,11 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * This method checks the user's input text. In case if the input was empty, it writes "What is your name?" on the screen.
+     * The program sets dev mode boolean is true, if inputted text was "dev".
+     * Else if input is not empty or contain "dev", the program starts the next activity.
+     */
     // CHECKING FOR THE USER'S INPUT NAME:
     private void checkUserName() {
 
@@ -170,6 +188,10 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * The method checks if the user's name already existed in Shared Preferences.
+     * If name was already created, the program starts the next activity.
+     */
     // GO TO THE MAIN FRAGMENT, IF THE NAME WAS ALREADY CREATED:
     private void checkIfNameNotEmpty() {
 
@@ -186,6 +208,9 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * OnPause() method was created for checking
+     */
     @Override
     protected void onPause() {
         super.onPause();

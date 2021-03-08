@@ -3,13 +3,13 @@ package com.example.habitti;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class Save {
+public class SaveManager {
 
-    private static final Save instance = new Save();
+    private static final SaveManager instance = new SaveManager();
 
-    public static Save getInstance() {return instance;}
+    public static SaveManager getInstance() {return instance;}
 
-    private Save() {
+    private SaveManager() {
     }
 
     private static SharedPreferences getSharedPreferences(Context context) {
@@ -39,6 +39,8 @@ public class Save {
 
         editor.commit();
     }
+
+
 
 
 }

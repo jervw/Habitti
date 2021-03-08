@@ -1,71 +1,62 @@
 package com.example.habitti;
 
 
-import android.content.SharedPreferences;
-import android.util.Log;
-import android.widget.ProgressBar;
-
-import org.joda.time.DateTime;
-import org.joda.time.Days;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import static android.content.Context.MODE_PRIVATE;
-
 //Singleton-class
 public class GlobalModel {
     private static final GlobalModel ourInstance = new GlobalModel();
-    private ArrayList<Habbit> habbits = null;
-    private ArrayList<HabbitsView> habbitsView = null;
-    private ArrayList<Habbit> habbitsTesting = null;
-    private ArrayList<HabbitsView> habbitsViewsTesting = null;
+    private ArrayList<Habit> habbits = null;
+    private ArrayList<HabitsView> habbitsView = null;
+    private ArrayList<Habit> habbitsTesting = null;
+    private ArrayList<HabitsView> habbitsViewsTesting = null;
     private double userOverallScores;
     private int userLevel;
     private double levelCap;
     private int levelCapProgress;
     private int userOverallScoresProgress;
+    private int loginStreak;
 
     public  static GlobalModel getInstance() {
         return ourInstance;
     }
 
     private GlobalModel() {
-        habbits = new ArrayList<Habbit>();
-        habbitsView = new ArrayList<HabbitsView>();
-        habbitsTesting = new ArrayList<Habbit>();
-        habbitsViewsTesting = new ArrayList<HabbitsView>();
+        habbits = new ArrayList<Habit>();
+        habbitsView = new ArrayList<HabitsView>();
+        habbitsTesting = new ArrayList<Habit>();
+        habbitsViewsTesting = new ArrayList<HabitsView>();
         userOverallScores = 0;
         userLevel = 1;
         levelCap = 100;
         levelCapProgress = 100;
+        loginStreak = 0;
     }
 
-    public void addHabbit(Habbit habbit) {
+    public void addHabbit(Habit habbit) {
         habbits.add(habbit);
         addListView(habbit);
     }
 
-    public ArrayList<Habbit> getHabbitsList() {
+    public ArrayList<Habit> getHabitsList() {
         return this.habbits;
     }
 
-    public ArrayList<HabbitsView> getHabbitsView() {
+    public ArrayList<HabitsView> getHabbitsView() {
         return this.habbitsView;
     }
 
-    public void addListView(Habbit habbit){
-                habbitsView.add(new HabbitsView(habbit.getImageId(), habbit.getHabbitName(), habbit.getHabitType(), "" + habbit.getOverallScore(), ""+habbit.getDayStreak(), habbit.getDateCreated(), habbit.getScoreMultiplier(), habbit.getCheckedStatus()));
+    public void addListView(Habit habbit){
+                habbitsView.add(new HabitsView(habbit.getImageId(), habbit.getHabitName(), habbit.getHabitType(), "" + habbit.getOverallScore(), ""+habbit.getDayStreak(), habbit.getDateCreated(), habbit.getScoreMultiplier(), habbit.getCheckedStatus()));
     }
 
-    public HabbitsView getHabbitViewItem(int i) {
+    public HabitsView getHabbitViewItem(int i) {
         return habbitsView.get(i);
     }
 
-    public Habbit getHabbitItem(int i) {
+    public Habit getHabitItem(int i) {
         return habbits.get(i);
     }
 
@@ -74,13 +65,13 @@ public class GlobalModel {
         habbits.remove(i);
     }
 
-    public void replaceListHabbits(ArrayList<Habbit> habbit) {
+    public void replaceListHabbits(ArrayList<Habit> habbit) {
         if (habbit == null) {
 
         } else {
             habbits.clear();
             habbitsView.clear();
-        ArrayList<Habbit> habbits = habbit;
+        ArrayList<Habit> habbits = habbit;
         int index = 0;
         while (index < habbits.size() ) {
             addHabbit(habbits.get(index));
@@ -89,7 +80,7 @@ public class GlobalModel {
         }
     }
 
-    public void resetMultiplier(Habbit habbit) {
+    public void resetMultiplier(Habit habbit) {
         habbit.resetScoreMultiplier();
         updateHabbitViewList();
     }
@@ -105,17 +96,17 @@ public class GlobalModel {
         int index = 0;
         habbitsView.clear();
         while (index < habbits.size()) {
-            habbitsView.add(new HabbitsView(getHabbitItem(index).getImageId(), getHabbitItem(index).getHabbitName(), getHabbitItem(index).getHabitType(), "" + getHabbitItem(index).getOverallScore(), ""+getHabbitItem(index).getDayStreak(),
-                    getHabbitItem(index).getDateCreated(), getHabbitItem(index).getScoreMultiplier(), getHabbitItem(index).getCheckedStatus()));
+            habbitsView.add(new HabitsView(getHabitItem(index).getImageId(), getHabitItem(index).getHabitName(), getHabitItem(index).getHabitType(), "" + getHabitItem(index).getOverallScore(), ""+ getHabitItem(index).getDayStreak(),
+                    getHabitItem(index).getDateCreated(), getHabitItem(index).getScoreMultiplier(), getHabitItem(index).getCheckedStatus()));
             index++;
         }
     }
 
-    public void getUserScoresFromHabbits() {
+    public void getUserScoresFromHabits() {
         int index = 0;
         double overallScoresDouble = 0.0;
         while (index < habbits.size()) {
-            overallScoresDouble = overallScoresDouble + getHabbitItem(index).getOverallScore();
+            overallScoresDouble = overallScoresDouble + getHabitItem(index).getOverallScore();
             index++;
         }
         this.setUserOverallScores(overallScoresDouble);
@@ -163,7 +154,7 @@ public class GlobalModel {
     }
 
     public void setHabitName(int index, String newHabitName){
-        getHabbitItem(index).setHabitName(newHabitName);
+        getHabitItem(index).setHabitName(newHabitName);
     }
 
     public double getUserOverallScores() {
@@ -176,5 +167,13 @@ public class GlobalModel {
 
     public void setUserLevel(int i) {
         this.userLevel = i;
+    }
+
+    public void setLoginStreak(int i) {
+        this.loginStreak = i;
+    }
+
+    public int getLoginStreak() {
+        return this.loginStreak;
     }
 }

@@ -1,17 +1,13 @@
 package com.example.habitti;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -20,37 +16,50 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
-import java.util.HashMap;
-import java.util.List;
+/**
+ * <h1>Creating new habits</h1>
+ * The intention of AddHabitDialog is to take advantage of the Android Dialog system.
+ * the purpose is specifically to build a Dialog window, using the new_habit_dialog.xml file.
+ * AddHabitDialog methods cannot be used to display the dialog.
+ * @author Jere Vuola
+ */
 
 public class AddHabitDialog extends AppCompatDialogFragment {
 
-    int imageId;
-    String spinnerSelectedImage;
-    int[] spinnerImages;
-    String[] spinnerTitles;
+    private int imageId;
+    private int[] spinnerImages;
+    private String spinnerSelectedImage;
+    private String[] spinnerTitles;
 
+
+
+    /**
+     * Method onCreateDialog used to build the Dialog window
+     * @return configured AlertDialog builder
+     */
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder((getActivity()));
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.new_habit_dialog, null);
+
+        /**Attaching specific habit images and descriptions to arrays.*/
         spinnerImages = new int[]{R.drawable.habit_1, R.drawable.habit_2, R.drawable.habit_3, R.drawable.habit_4, R.drawable.habit_5, R.drawable.habit_6, R.drawable.habit_7, R.drawable.habit_8};
         spinnerTitles = new String[]{"No smoking", "Drink water", "No alcohol", "No sugar", "Eat healthy", "Exercise", "Good habit", "Bad habit"};
 
         TextView textView = (TextView) view.findViewById(R.id.habbitName);
         RadioGroup radio = (RadioGroup) view.findViewById(R.id.radioGroup);
-
-
         Spinner habitSpinner = (Spinner) view.findViewById(R.id.spinnerHabbits);
+
+        /**Using our custom spinner adapter to list images properly.*/
         CustomSpinnerAdapter customAdapter = new CustomSpinnerAdapter(getContext(), spinnerImages, spinnerTitles);
         habitSpinner.setAdapter(customAdapter);
 
+
+        /**Adding new habit image according selected image*/
         habitSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> spinnerHabbits, View view, int pos, long id) {
@@ -81,19 +90,17 @@ public class AddHabitDialog extends AppCompatDialogFragment {
                         imageId = R.drawable.habit_8;
                         break;
                 }
-
-
             }
 
-
-
+            /**onNothingSelected() is required method of spinner listener and cannot be removed*/
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
+            public void onNothingSelected(AdapterView<?> parent) {}});
 
-
-
+        /**builder.setView configures
+         * 1. Configuring dialog title text
+         * 2. Adds negative button listener with 'cancel' text, button only closes the dialog.
+         * 3. Adds positive button listener with 'add' text, button checks fields and refreshes current fragment*
+         * */
         builder.setView(view)
                 .setTitle("New habit")
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
@@ -111,14 +118,13 @@ public class AddHabitDialog extends AppCompatDialogFragment {
                                 if (nameCheck.equals("")) {
                                     nameCheck = customAdapter.getItemName(habitSpinner.getSelectedItemPosition());
                                 }
-                                GlobalModel.getInstance().addHabbit(new Habbit(nameCheck, selectedRadioButton.getText().toString(), imageId));
+                                GlobalModel.getInstance().addHabbit(new Habit(nameCheck, selectedRadioButton.getText().toString(), imageId));
                                 FragmentManager fm = getFragmentManager();
                                 MainFragment fragm = (MainFragment) fm.findFragmentById(R.id.fragment_container);
                                 fragm.updateUI();
                             }
                         }
                 );
-
         return builder.create();
     }
 }

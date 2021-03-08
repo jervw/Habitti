@@ -10,9 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Habitti">
         <activity android:name=".MainActivity"></activity>
-        <activity android:name=".HowToUse"
-            android:parentActivityName=".MainActivity">
-        </activity>
+        <activity android:name=".TutorialActivity"></activity>
         <activity android:name=".LoginActivity">
             <intent-filter>
 
@@ -21,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ShopPopUp"></activity>
+        <activity android:name=".RewardsActivity"></activity>
     </application>
 
 </manifest>
