@@ -25,7 +25,6 @@ import androidx.fragment.app.FragmentManager;
  * the purpose is specifically to build a Dialog window, using the new_habit_dialog.xml file.
  * AddHabitDialog methods cannot be used to display the dialog.
  * @author Jere Vuola
- * @author Santeri Hytönen
  */
 
 public class AddHabitDialog extends AppCompatDialogFragment {
