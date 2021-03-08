@@ -16,7 +16,7 @@ import org.joda.time.format.DateTimeFormatter;
 /**
  * <h1>Habit</h1>
  * Used to create a new Habit-object
- * author Santeri Hytönen
+ * @author Santeri Hytönen
  */
 public class Habit {
     private String habitName;
