@@ -1,7 +1,5 @@
 package com.example.habitti;
 
-import java.util.Date;
-
 public class HabitsView {
 
     private int ivHabbitImageId;

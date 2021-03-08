@@ -13,7 +13,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 /**
- * <h1>Shop / Rewards</h1>
+ * <h1>Rewards</h1>
  * ShopPopUp program implements rewards system in the app.
  *
  * @author Anna Raevskaia

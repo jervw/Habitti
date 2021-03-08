@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -34,6 +33,12 @@ public class AddHabitDialog extends AppCompatDialogFragment {
     private String spinnerSelectedImage;
     private String[] spinnerTitles;
 
+
+
+    /**
+     * Method onCreateDialog used to build the Dialog window
+     * @return configured AlertDialog builder
+     */
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -87,10 +92,15 @@ public class AddHabitDialog extends AppCompatDialogFragment {
                 }
             }
 
-            /**onNothingSelected is required method of spinner listener*/
+            /**onNothingSelected() is required method of spinner listener and cannot be removed*/
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}});
 
+        /**builder.setView configures
+         * 1. Configuring dialog title text
+         * 2. Adds negative button listener with 'cancel' text, button only closes the dialog.
+         * 3. Adds positive button listener with 'add' text, button checks fields and refreshes current fragment*
+         * */
         builder.setView(view)
                 .setTitle("New habit")
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {

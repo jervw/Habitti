@@ -1,4 +1,5 @@
 package com.example.habitti;
+
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;

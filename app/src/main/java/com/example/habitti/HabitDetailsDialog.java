@@ -16,6 +16,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.FragmentManager;
 
+/**
+ * <h1>Viewing habit details</h1>
+ * The intention of AddHabitDialog is to take advantage of the Android Dialog system.
+ * the purpose is specifically to build a Dialog window, using the new_habit_dialog.xml file.
+ * AddHabitDialog methods cannot be used to display the dialog.
+ * @author Jere Vuola
+ */
+
 public class HabitDetailsDialog extends AppCompatDialogFragment {
     private EditText detailsHabitName;
     private TextView detailsHabitType;
