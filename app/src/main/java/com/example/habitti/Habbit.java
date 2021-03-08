@@ -23,6 +23,14 @@ public class Habbit {
     private double scoreMultiplier = 1.0;
     private boolean checkedToday;
 
+    /**
+     * @author Santeri Hytönen
+     * Creates Habit-object
+     * @param name          the name for the habit
+     * @param habitType     the type of the habit
+     * @param imageId       id of the image for the habit
+     *
+     */
     public Habbit(String name, String habitType, int imageId) {
         this.habbitName = name;
         this.habitType = habitType;

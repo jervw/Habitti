@@ -49,6 +49,7 @@ public class GlobalModel {
         addListView(habbit);
     }
 
+
     public ArrayList<Habbit> getHabbitsList() {
         return this.habbits;
     }
