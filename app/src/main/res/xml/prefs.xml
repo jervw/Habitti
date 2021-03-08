@@ -19,7 +19,7 @@
         app:iconSpaceReserved="false"/>
 
     <Preference
-        app:key="@string/creditsButton"
+        app:key="creditsButton"
         app:title="Credits"
         app:iconSpaceReserved="false"
         app:summary="Wizards behind the app"/>

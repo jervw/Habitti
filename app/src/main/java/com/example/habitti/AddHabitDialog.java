@@ -54,7 +54,7 @@ public class AddHabitDialog extends AppCompatDialogFragment {
         habitSpinner.setAdapter(customAdapter);
 
 
-        /**Using our custom spinner adapter to list images properly.*/
+        /**Adding new habit image according selected image*/
         habitSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> spinnerHabbits, View view, int pos, long id) {
@@ -87,6 +87,7 @@ public class AddHabitDialog extends AppCompatDialogFragment {
                 }
             }
 
+            /**onNothingSelected is required method of spinner listener*/
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}});
 
