@@ -11,11 +11,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+/**
+ * <h1>Custom adapter for spinner</h1>
+ * Needed for making a custom spinner with only images
+ * @author Santeri Hytönen
+ */
 public class CustomSpinnerAdapter extends ArrayAdapter {
     String[] spinnerTitles;
     int[] spinnerImages;
     Context context;
 
+    /**
+     * Basic information for creating spinner
+     * @param context Set context for spinner
+     * @param images list of image ids
+     * @param titles list of names for images and default Habit names
+     */
     public CustomSpinnerAdapter(@NonNull Context context, int[] images, String[] titles) {
         super(context, R.layout.spinner_adapter_layout);
         this.spinnerImages = images;
@@ -23,21 +34,42 @@ public class CustomSpinnerAdapter extends ArrayAdapter {
         this.context = context;
     }
 
+    /**
+     * Get size of the images-list
+     * @return size of the images-list
+     */
     @Override
     public int getCount() {
         return spinnerImages.length;
     }
 
+    /**
+     * Used to set the dropDownView
+     * @param position current item position
+     * @param convertView convertView
+     * @param parent paret
+     * @return getView
+     */
     @Override
     public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         return getView(position, convertView, parent);
     }
 
+    /**
+     * Constructor for ViewHolder
+     */
     private static class ViewHolder {
         ImageView mHabbit;
         TextView mName;
     }
 
+    /**
+     * Used to setup the adapter
+     * @param position current item position
+     * @param convertView convertView
+     * @param parent current parent
+     * @return builded convertView
+     */
     @NonNull
     @Override
     public  View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -55,6 +87,11 @@ public class CustomSpinnerAdapter extends ArrayAdapter {
         return convertView;
     }
 
+    /**
+     * Used to get current item name
+     * @param position current position
+     * @return name of the item
+     */
     public String getItemName(int position) {
         return spinnerTitles[position];
     }
