@@ -67,7 +67,7 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        DateCheck dateCheck = new DateCheck(getActivity());
+        dateCheck dateCheck = new dateCheck(getActivity());
 
         level = (TextView) rootView.findViewById(R.id.levelText);
         userLoginStreak = (TextView) rootView.findViewById(R.id.textViewUserLoginStreak);
@@ -128,7 +128,7 @@ public class MainFragment extends Fragment {
         int userScoresCapProgress = GlobalModel.getInstance().getProgressbarMax();
         double levelCapD = GlobalModel.getInstance().getLevelCap();
         String levelCap = String.valueOf(levelCapD);
-        String jsonHabbits = gson.toJson(GlobalModel.getInstance().getHabbitsList());
+        String jsonHabbits = gson.toJson(GlobalModel.getInstance().getHabitsList());
         editor.putInt("User level", userLevel);
         editor.putInt("Progress cap", userScoresCapProgress);
         editor.putString("Habbits list", jsonHabbits);
@@ -156,7 +156,7 @@ public class MainFragment extends Fragment {
         double userScoresD = Double.parseDouble(userScores);
         int userScoresProgressCap = sharedPrefHabbits.getInt("Progress cap", 100);
         String jsonHabbits = sharedPrefHabbits.getString("Habbits list", null);
-        Type typeHabbits = new TypeToken<Collection<Habbit>>() {
+        Type typeHabbits = new TypeToken<Collection<Habit>>() {
         }.getType();
         GlobalModel.getInstance().replaceListHabbits(gson.fromJson(jsonHabbits, typeHabbits));
         GlobalModel.getInstance().setUserLevel(userLevel);
@@ -166,8 +166,8 @@ public class MainFragment extends Fragment {
         GlobalModel.getInstance().setLevelCap(levelCapD);
         //Go check if day has passed since last app start and give points accordingly
         if (MainActivity.firstCheckOfDay == true) {
-            DateCheck.checkDate();
-            userDayStreak = DateCheck.loginDayStreak();
+            dateCheck.checkDate();
+            userDayStreak = dateCheck.loginDayStreak();
             GlobalModel.getInstance().setLoginStreak(userDayStreak);
             userLoginStreak.setText("Login streak: " + userDayStreak);
             MainActivity.firstCheckOfDay = false;
@@ -222,8 +222,8 @@ public class MainFragment extends Fragment {
                 finalHabbitsArrayAdapter.notifyDataSetChanged();
                 GlobalModel.getInstance().updateHabbitViewList();
                 GlobalModel.getInstance().getUserScoresFromHabits();
-                GlobalModel.getInstance().setOneHabbitScoresToProgress(GlobalModel.getInstance().getHabbitItem(i));
-                GlobalModel.getInstance().getUserScoresFromHabbits();
+                GlobalModel.getInstance().setOneHabbitScoresToProgress(GlobalModel.getInstance().getHabitItem(i));
+                GlobalModel.getInstance().getUserScoresFromHabits();
                 userScores.setText("Total scores: " + GlobalModel.getInstance().getUserOverallScores());
                 level.setText("Level : " + GlobalModel.getInstance().getUserLevel() + " XP: " + GlobalModel.getInstance().getProgressbarProgress()
                         + " / " + GlobalModel.getInstance().getProgressbarMax());

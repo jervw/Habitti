@@ -124,8 +124,8 @@ public class GlobalModel {
         this.levelCapProgress = cap;
     }
 
-    public void setOneHabbitScoresToProgress(Habbit habbit) {
-        this.userOverallScoresProgress = this.userOverallScoresProgress + (int) habbit.getOverallScore();
+    public void setOneHabbitScoresToProgress(Habit habit) {
+        this.userOverallScoresProgress = this.userOverallScoresProgress + (int) habit.getOverallScore();
     }
 
     public int getProgressbarProgress() {
