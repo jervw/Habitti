@@ -17,6 +17,8 @@ public class SettingsFragment extends Fragment {
 
     private SharedPreferences sharedPrefHabbits;
     private final String sharedPreferenceName = "shared preference";
+    TextView level;
+    TextView loginStreak;
 
     int[] clothesImages;
     int[] hairsImages;
@@ -28,6 +30,9 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         rootView = inflater.inflate(R.layout.fragment_settings, container, false);
+        level = (TextView) rootView.findViewById(R.id.levelSettings);
+        loginStreak = (TextView) rootView.findViewById(R.id.loginStreakSettings);
+        level.setText("Level: " + GlobalModel.getInstance().getUserLevel());
         updateCharacterDetails();
         return rootView;
 
