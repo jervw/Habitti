@@ -54,7 +54,7 @@ public class RewardsActivity extends Activity {
      * Closes shop/rewards window and opens the main fragment, if closeBtn was clicked.
      * Close button also saves the user's data of images if the user's level doesn't equal 1.
      * This is for the reason, that 1. level characters can't change their appearance until they reach 2. level.
-     * @param savedInstanceState
+     * @param savedInstanceState is a reference to a Bundle object. It is passed into the onCreate method.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +86,7 @@ public class RewardsActivity extends Activity {
         characterLvl = GlobalModel.getInstance().getUserLevel();
 
         // SET TEST LEVEL:
-        characterLvl = 10;
+        //characterLvl = 10;
 
 
         // SET EMPTY TEXT, IF USER'S LEVEL IS SUITABLE:
