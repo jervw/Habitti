@@ -22,9 +22,9 @@ public class RewardsItemAdapter extends BaseAdapter
     private LayoutInflater layoutInflater;
 
     /**
-     * @param imageNames get text of images names
-     * @param imagesPictures get array of images
-     * @param context get the context
+     * @param imageNames        get text of images names
+     * @param imagesPictures    get array of images
+     * @param context           get the context
      */
     public RewardsItemAdapter(String[] imageNames, int[] imagesPictures, Context context) {
         this.imageNames = imageNames;
@@ -61,9 +61,9 @@ public class RewardsItemAdapter extends BaseAdapter
 
     /**
      * Fills the grid view with images and text.
-     * @param i get index
-     * @param view get view
-     * @param viewGroup get viewGroup
+     * @param i             get index
+     * @param view          get view
+     * @param viewGroup     get viewGroup
      * @return view
      */
     @Override
