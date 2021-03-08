@@ -11,7 +11,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 /**
- * <h1>DateCheck</h1>
+ * <h1>Date Check</h1>
  * Used to tell when day has passed to give points, multipliers and day streaks
  * @author Santeri Hytönen
  */
