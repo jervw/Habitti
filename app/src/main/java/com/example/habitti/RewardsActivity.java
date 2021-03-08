@@ -13,7 +13,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 /**
- * <h1>Shop / Rewards</h1>
+ * <h1>RewardsActivity</h1>
  * ShopPopUp program implements rewards system in the app.
  *
  * @author Anna Raevskaia
@@ -40,14 +40,14 @@ public class RewardsActivity extends Activity {
 
     int characterLvl;
 
-    int a = 0;
+    int index = 0;
 
 
     /**
-     * The OnCreate () method calls methods of the class in the right order for the program to work.
+     * The OnCreate() method calls methods of the class in the right order for the program to work.
      * Firstly it sets shop_pop_up_window layout in the full screen.
      * Then it calls updateUI() method, that sets the current character's appearance.
-     * Finds grid view by id, creates new ShopItemAdapter, and sets it to grid view.
+     * Finds grid view by id, creates new RewardsItemAdapter, and sets it to grid view.
      * Gets user's level from the singleton GlobalModel class. It's also possible to set your level to text program working.
      * Calls changeItemsText() method, that changes the default text of items to empty.
      * Change character's clothes, if the user was clicked an item in the grid view.
@@ -86,7 +86,7 @@ public class RewardsActivity extends Activity {
         characterLvl = GlobalModel.getInstance().getUserLevel();
 
         // SET TEST LEVEL:
-        //characterLvl = 10;
+        characterLvl = 10;
 
 
         // SET EMPTY TEXT, IF USER'S LEVEL IS SUITABLE:
@@ -99,7 +99,7 @@ public class RewardsActivity extends Activity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.d("SHOP", "On item clicked: " + "index = " + i + ", long = " + l);
 
-                a = i;
+                index = i;
 
                 selectedNameString = itemNames[i];
                 selectedImage = itemImages[i];
@@ -129,41 +129,43 @@ public class RewardsActivity extends Activity {
 
 
     /**
-     * This method checks that level user has and that item he was clicked. Program get index of clicked item in the grid view in the onCreate() method.
+     * This method checks that level user has and that item he was clicked.
+     * The program gets index of clicked item in the grid view in the onCreate() method.
+     * If the user's level and selected item match with any of the combinations - clothes
+     * can be changed - the program starts the change the clothes method.
      */
     // CLOTHES CHANGING BASED ON LEVEL AND INDEX (POSITION) OF ITEM IN GRID VIEW:
     private void changeClothes() {
-        if ((a == 0) && (characterLvl == 1)) {
+        if ((index == 0) && (characterLvl == 1)) {
             // DO NOTHING
-        } else if ((characterLvl == 2) && (a == 0 ) && (a != 1)) {
+        } else if ((characterLvl == 2) && (index == 0 ) && (index != 1)) {
             changeUserClothes();
-            Log.d("SHOP", "On item clicked (item for 2. lvl) " + selectedNameString + "index = " + a + ", level = " + characterLvl);
-        } else if ((characterLvl == 3) && (a == 0) || (a == 1) && (characterLvl == 3)) {
+            Log.d("SHOP", "On item clicked (item for 2. lvl) " + selectedNameString + "index = " + index + ", level = " + characterLvl);
+        } else if ((characterLvl == 3) && (index == 0) || (index == 1) && (characterLvl == 3)) {
             changeUserClothes();
-            Log.d("SHOP", "On item clicked (item for 3. lvl) " + selectedNameString + "index = " + a + ", level = " + characterLvl);
-        } else if ((a == 0) && (characterLvl == 4) || (a == 1) && (characterLvl == 4) || (a == 2) && (characterLvl == 4)) {
+            Log.d("SHOP", "On item clicked (item for 3. lvl) " + selectedNameString + "index = " + index + ", level = " + characterLvl);
+        } else if ((index == 0) && (characterLvl == 4) || (index == 1) && (characterLvl == 4) || (index == 2) && (characterLvl == 4)) {
             changeUserClothes();
-            Log.d("SHOP", "On item clicked (item for 4. lvl) " + selectedNameString + "index = " + a + ", level = " + characterLvl);
-        } else if ((a == 0) && (characterLvl == 6) || (a== 1) && (characterLvl == 6) || (a == 2) && (characterLvl == 6) || (a == 3) && (characterLvl == 6)) {
+            Log.d("SHOP", "On item clicked (item for 4. lvl) " + selectedNameString + "index = " + index + ", level = " + characterLvl);
+        } else if ((index == 0) && (characterLvl == 6) || (index == 1) && (characterLvl == 6) || (index == 2) && (characterLvl == 6) || (index == 3) && (characterLvl == 6)) {
             changeUserClothes();
-            Log.d("SHOP", "On item clicked (item for 4. lvl) " + selectedNameString + "index = " + a + ", level = " + characterLvl);
-        } else if ((a == 0) && (characterLvl == 8) || (a == 1) && (characterLvl == 8) || (a == 2) && (characterLvl == 8) || (a == 3) && (characterLvl == 8) || (a == 4) && (characterLvl == 8)) {
+            Log.d("SHOP", "On item clicked (item for 4. lvl) " + selectedNameString + "index = " + index + ", level = " + characterLvl);
+        } else if ((index == 0) && (characterLvl == 8) || (index == 1) && (characterLvl == 8) || (index == 2) && (characterLvl == 8) || (index == 3) && (characterLvl == 8) || (index == 4) && (characterLvl == 8)) {
             changeUserClothes();
-            Log.d("SHOP", "On item clicked (item for 4. lvl) " + selectedNameString + "index = " + a + ", level = " + characterLvl);
-        } else if ((a == 0) && (characterLvl == 10) || (a == 1) && (characterLvl == 10) || (a == 2) && (characterLvl == 10) || (a == 3) && (characterLvl == 10) || (a == 4) && (characterLvl == 10) || (a == 5) && (characterLvl == 10)) {
+            Log.d("SHOP", "On item clicked (item for 4. lvl) " + selectedNameString + "index = " + index + ", level = " + characterLvl);
+        } else if ((index == 0) && (characterLvl == 10) || (index == 1) && (characterLvl == 10) || (index == 2) && (characterLvl == 10) || (index == 3) && (characterLvl == 10) || (index == 4) && (characterLvl == 10) || (index == 5) && (characterLvl == 10)) {
             changeUserClothes();
-            Log.d("SHOP", "On item clicked (item for 4. lvl) " + selectedNameString + "index = " + a + ", level = " + characterLvl);
+            Log.d("SHOP", "On item clicked (item for 4. lvl) " + selectedNameString + "index = " + index + ", level = " + characterLvl);
         }
     }
 
 
     /**
-     * The method changes user's clothes images in the shop_pop_up_window activity.
-     *
+     * The method changes user's clothes images in the activity.
      */
     // CHANGE CLOTHES IMAGES:
     private void changeUserClothes() {
-        int selectedImage = itemImages[a];
+        int selectedImage = itemImages[index];
 
         ImageView imageViewCharacterClothes1 = (ImageView) findViewById(R.id.userClothesImage);
 
@@ -173,22 +175,8 @@ public class RewardsActivity extends Activity {
         selectedImage = selectedImage % clothesImages.length;
         imageViewCharacterClothes1.setImageResource(clothesImages[selectedImage]);
 
-
-        // SET A NEW INDEX FOR THE SELECTED ITEM, THAT BASED ON INT ARRAY OF CLOTHES IN MAIN FRAGMENT:
-        currentImagelothes1 = a;
-        if(currentImagelothes1 == 2) {
-            currentImagelothes1 = 1; // mag
-        } else if (currentImagelothes1 == 0) {
-            currentImagelothes1 = 0; // soldier
-        } else if (currentImagelothes1 == 1) {
-            currentImagelothes1 = 4; // sci fi soldier
-        } else if (currentImagelothes1 == 3) {
-            currentImagelothes1 = 3; // dress
-        } else if (currentImagelothes1 == 5) {
-            currentImagelothes1 = 5; // best
-        } else if (currentImagelothes1 == 4) {
-            currentImagelothes1 = 2; // mag with beard
-        }
+        // SET A INDEX FOR THE SELECTED ITEM:
+        currentImagelothes1 = index;
 
     }
 
@@ -244,7 +232,7 @@ public class RewardsActivity extends Activity {
         sharedPrefHabbits = getSharedPreferences("shared preference", Activity.MODE_PRIVATE);
 
         // GET CLOTHES FROM SHARED PREFERENCE.XML:
-        clothesImages = new int[] {R.drawable.char_13, R.drawable.char_2, R.drawable.char_15, R.drawable.char_10, R.drawable.char_14, R.drawable.char_16};
+        clothesImages = new int[] {R.drawable.char_13, R.drawable.char_14, R.drawable.char_2, R.drawable.char_10, R.drawable.char_16, R.drawable.char_15};
         ImageView imageViewCharacterClothes1 = (ImageView) findViewById(R.id.userClothesImage);
         if (sharedPrefHabbits.contains("LastUserClothes")) {
             imageViewCharacterClothes1.setImageResource(clothesImages[sharedPrefHabbits.getInt("LastUserClothes", -1)]);
