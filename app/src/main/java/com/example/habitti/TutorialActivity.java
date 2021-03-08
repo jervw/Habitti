@@ -5,14 +5,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+/**
+ * <h1>Tutorial view</h1>
+ * This class does nothing but add an xml file to the activity
+ * @author Santeri Hytönen
+ */
 public class TutorialActivity extends AppCompatActivity {
-
-    /**
-     * <h1>Tutorial view</h1>
-     * This class does nothing but add an xml file to the activity
-     * @author Santeri Hytönen
-     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
