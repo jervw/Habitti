@@ -116,7 +116,7 @@ public class LoginActivity extends AppCompatActivity {
         // CHARACTER CLOTHES BUTTON:
         imageViewClothes = (ImageView) findViewById(R.id.imageViewClothes);
         btnChangeClothes = (Button) findViewById(R.id.btnChangeClothes);
-        clothesImages = new int[]{R.drawable.char_13, R.drawable.char_2, R.drawable.char_15, R.drawable.char_10, R.drawable.char_14};
+        clothesImages = new int[] {R.drawable.char_13, R.drawable.char_14, R.drawable.char_2};
 
         btnChangeClothes.setOnClickListener(new View.OnClickListener() {
             @Override
