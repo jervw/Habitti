@@ -14,7 +14,7 @@ import android.widget.ImageView;
 
 /**
  * <h1>RewardsActivity</h1>
- * ShopPopUp program implements rewards system in the app.
+ * RewardsActivity program implements rewards system in the app.
  *
  * @author Anna Raevskaia
  */
@@ -223,7 +223,7 @@ public class RewardsActivity extends Activity {
 
 
     /**
-     *
+     * This method loads character's data from Shared Preferences.
      */
     // LOAD CHARACTER IMAGES THEN ACTIVITY STARTS:
     private void updateUI() {
