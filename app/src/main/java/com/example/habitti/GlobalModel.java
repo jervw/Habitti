@@ -17,6 +17,7 @@ public class GlobalModel {
     private double levelCap;
     private int levelCapProgress;
     private int userOverallScoresProgress;
+    private int loginStreak;
 
     public  static GlobalModel getInstance() {
         return ourInstance;
@@ -31,6 +32,7 @@ public class GlobalModel {
         userLevel = 1;
         levelCap = 100;
         levelCapProgress = 100;
+        loginStreak = 0;
     }
 
     public void addHabbit(Habit habbit) {
@@ -155,5 +157,13 @@ public class GlobalModel {
 
     public void setUserLevel(int i) {
         this.userLevel = i;
+    }
+
+    public void setLoginStreak(int i) {
+        this.loginStreak = i;
+    }
+
+    public int getLoginStreak() {
+        return this.loginStreak;
     }
 }

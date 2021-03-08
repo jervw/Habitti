@@ -44,7 +44,6 @@ public class MainFragment extends Fragment {
     ListView habbitsListView;
     View rootView;
     int userDayStreak = 0;
-    Handler progressBarHandler;
     //TextView userDayStreakText;
     TextView level;
     TextView userLoginStreak;
@@ -70,7 +69,7 @@ public class MainFragment extends Fragment {
         level.setText("Level : " + GlobalModel.getInstance().getUserLevel() + " XP:  " + GlobalModel.getInstance().getProgressbarProgress()
                 + " / " + GlobalModel.getInstance().getProgressbarMax());
         userScores.setText("Total scores: " + GlobalModel.getInstance().getUserOverallScores());
-        userLoginStreak.setText("Login streak: 1");
+        userLoginStreak.setText("Login streak: " + GlobalModel.getInstance().getLoginStreak());
 
         return rootView;
     }
@@ -133,7 +132,8 @@ public class MainFragment extends Fragment {
         if (MainActivity.firstCheckOfDay == true) {
             DateCheck.checkDate();
             userDayStreak = DateCheck.loginDayStreak();
-            userLoginStreak.setText("Login day streak: " + userDayStreak);
+            GlobalModel.getInstance().setLoginStreak(userDayStreak);
+            userLoginStreak.setText("Login streak: " + userDayStreak);
             MainActivity.firstCheckOfDay = false;
         }
     }

@@ -35,6 +35,7 @@ public class SettingsFragment extends Fragment {
         level = (TextView) rootView.findViewById(R.id.levelSettings);
         loginStreak = (TextView) rootView.findViewById(R.id.loginStreakSettings);
         level.setText("Level: " + GlobalModel.getInstance().getUserLevel());
+        loginStreak.setText("Login streak: " + GlobalModel.getInstance().getLoginStreak());
         updateCharacterDetails();
         return rootView;
 
