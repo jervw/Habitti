@@ -165,7 +165,7 @@ public class RewardsActivity extends Activity {
     private void changeUserClothes() {
         int selectedImage = itemImages[a];
 
-        ImageView imageViewCharacterClothes1 = (ImageView) findViewById(R.id.userClothesImage1);
+        ImageView imageViewCharacterClothes1 = (ImageView) findViewById(R.id.userClothesImage);
 
         clothesImages = new int[] {R.drawable.char_13, R.drawable.char_14, R.drawable.char_2, R.drawable.char_10, R.drawable.char_16, R.drawable.char_15};
 
@@ -245,20 +245,20 @@ public class RewardsActivity extends Activity {
 
         // GET CLOTHES FROM SHARED PREFERENCE.XML:
         clothesImages = new int[] {R.drawable.char_13, R.drawable.char_2, R.drawable.char_15, R.drawable.char_10, R.drawable.char_14, R.drawable.char_16};
-        ImageView imageViewCharacterClothes1 = (ImageView) findViewById(R.id.userClothesImage1);
+        ImageView imageViewCharacterClothes1 = (ImageView) findViewById(R.id.userClothesImage);
         if (sharedPrefHabbits.contains("LastUserClothes")) {
             imageViewCharacterClothes1.setImageResource(clothesImages[sharedPrefHabbits.getInt("LastUserClothes", -1)]);
         }
 
         // GET HAIRS FROM SHARED PREFERENCE.XML:
         hairsImages = new int[] {R.drawable.char_5, R.drawable.char_4, R.drawable.char_8, R.drawable.char_11, R.drawable.char_12, R.drawable.char_9};
-        ImageView imageViewCharacterHairs1 = (ImageView) findViewById(R.id.userHairsImage1);
+        ImageView imageViewCharacterHairs1 = (ImageView) findViewById(R.id.userHairsImage);
         if (sharedPrefHabbits.contains("LastUserHairs")) {
             imageViewCharacterHairs1.setImageResource(hairsImages[sharedPrefHabbits.getInt("LastUserHairs", -1)]);
         }
 
         // GET SEX FROM SHARED PREFERENCE.XML:
-        ImageView imageViewCharacter1 = (ImageView) findViewById(R.id.userCharacterImage1);
+        ImageView imageViewCharacter1 = (ImageView) findViewById(R.id.userCharacterImage);
         int i = 0;
         if (sharedPrefHabbits.contains("LastUserSex")) {
             i = sharedPrefHabbits.getInt("LastUserSex", -1);

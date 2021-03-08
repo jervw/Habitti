@@ -20,7 +20,7 @@
                 android:padding="10dp">
 
                 <ImageView
-                    android:id="@+id/userCharacterImage"
+                    android:id="@+id/userCharacterImage1"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:gravity="center"
@@ -29,7 +29,7 @@
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <ImageView
-                    android:id="@+id/userHairsImage"
+                    android:id="@+id/userHairsImage1"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:gravity="center"
@@ -38,7 +38,7 @@
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <ImageView
-                    android:id="@+id/userClothesImage"
+                    android:id="@+id/userClothesImage1"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:gravity="center"
@@ -49,7 +49,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/userNameSettings"
+                android:id="@+id/userNameSettings1"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
