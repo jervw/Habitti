@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".RewardsActivity"></activity>
+        <receiver android:name=".ReminderBroadcast"></receiver>
     </application>
 
 </manifest>

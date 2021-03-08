@@ -1,8 +1,10 @@
 package com.example.habitti;
 
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,6 +21,8 @@ import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.Calendar;
 
 /**
  * <h1>Main Activity</h1>
@@ -134,39 +138,34 @@ public class MainActivity extends AppCompatActivity {
      * Creates notification channel to make notifications possible
      * Only creates channel if device is under Android 8.0 (Oreo)
      * Notification channels are not required under 8.0
-     */
+     * App will notify every day at 18:00, if notifications are turned on*/
     private void createNotificationChannel() {
         notificationManager = NotificationManagerCompat.from(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Log.i("app", "channel create");
             NotificationChannel channel = new NotificationChannel(CHANNEL_1_ID, "Habit reminder", NotificationManager.IMPORTANCE_HIGH);
             channel.setDescription("Description");
-
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(channel);
+
         }
-    }
-
-    /**
-     * Sends notification with custom text parameters
-     * @param title
-     * @param message
-     * Notification priority is default and category set to reminders.
-     */
-    public void sendNotification(String title, String message){
-
         if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("notifications", false)){
-            Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
-                    .setSmallIcon(R.drawable.ic_baseline_sentiment_satisfied_alt_24)
-                    .setContentTitle(title)
-                    .setContentText(message)
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                    .setCategory(NotificationCompat.CATEGORY_REMINDER)
-                    .build();
 
-            notificationManager.notify(1, notification);
-            Log.i("app","notification sent");
+            Intent intent = new Intent(MainActivity.this,ReminderBroadcast.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this,0,intent,0);
+
+            AlarmManager alarmManager =(AlarmManager) getSystemService(ALARM_SERVICE);
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
+            calendar.set(Calendar.HOUR_OF_DAY, 18);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+
+            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         }
+
+
     }
 
     /*** App will not close when back button is pressed once.*/
@@ -178,4 +177,5 @@ public class MainActivity extends AppCompatActivity {
         }
         this.doubleBackToExitPressedOnce = false;
     }
+
 }

@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--New habit dialog layout. Author: Jere Vuola-->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-
     android:layout_height="match_parent"
     android:orientation="vertical">
 
@@ -13,20 +11,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginTop="20dp"
         android:weightSum="4">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_weight="3">
 
             <Spinner
                 android:id="@+id/spinnerHabbits"
                 android:layout_width="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:dropDownWidth="match_parent" />
         </LinearLayout>
 
@@ -38,9 +36,9 @@
 
             <EditText
                 android:id="@+id/habbitName"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:ems="10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="8"
                 android:inputType="textPersonName"
                 android:hint="@string/habit_name"/>
 
@@ -49,7 +47,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         android:orientation="horizontal">
 
         <RadioGroup

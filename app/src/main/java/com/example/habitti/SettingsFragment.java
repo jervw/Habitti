@@ -13,18 +13,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+/**
+ * <h1>Settings view</h1>
+ * Profile portion of this fragments displays user avatar, name and current login streak.
+ * This fragment also adds another fragment called PreferenceFragment which is used to store some preferences
+ * @author Jere Vuola
+ */
+
 public class SettingsFragment extends Fragment {
 
     private SharedPreferences sharedPrefHabbits;
-    private final String UserClothesKey = "LastUserClothes";
-    private final String UserHairsKey = "LastUserHairs";
-    TextView level;
-    TextView loginStreak;
 
-    int[] clothesImages;
-    int[] hairsImages;
+    private int[] clothesImages;
+    private int[] hairsImages;
 
-    View rootView;
+    private TextView level;
+    private TextView loginStreak;
+    private View rootView;
 
     @Nullable
     @Override
@@ -40,6 +45,7 @@ public class SettingsFragment extends Fragment {
 
     }
 
+    /*** Method to retrieve player's details from SharedPreferences and display it accordingly*/
     public void updateCharacterDetails() {
 
         // GET NAME FROM SHARED PREFERENCE.XML:
@@ -50,7 +56,6 @@ public class SettingsFragment extends Fragment {
         }
 
         // GET CLOTHES FROM SHARED PREFERENCE.XML:
-        //clothesImages = new int[] {R.drawable.char_13, R.drawable.char_2, R.drawable.char_15, R.drawable.char_10, R.drawable.char_14, R.drawable.char_16};
         clothesImages = new int[] {R.drawable.char_13, R.drawable.char_14, R.drawable.char_2, R.drawable.char_10, R.drawable.char_16, R.drawable.char_15};
         ImageView imageViewCharacterClothes1 = (ImageView) rootView.findViewById(R.id.userClothesImage1);
         if (sharedPrefHabbits.contains("LastUserClothes")) {
@@ -75,13 +80,5 @@ public class SettingsFragment extends Fragment {
         } else if (i == 0) {
             imageViewCharacter1.setImageResource(R.drawable.char_7);
         }
-
-
-        /*sharedPrefHabbits = this.getActivity().getSharedPreferences("shared preference", Context.MODE_PRIVATE);
-        TextView textViewLevel = (TextView) rootView.findViewById(R.id.levelSettings);
-        if (sharedPrefHabbits.contains("LastUserName")) {
-            textViewUserName1.setText(sharedPrefHabbits.getString("LastUserName", ""));
-        }*/
-
     }
 }

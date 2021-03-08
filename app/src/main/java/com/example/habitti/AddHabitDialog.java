@@ -38,6 +38,7 @@ public class AddHabitDialog extends AppCompatDialogFragment {
     /**
      * Method onCreateDialog used to build the Dialog window
      * @return configured AlertDialog builder
+     * @param savedInstanceState
      */
     @NonNull
     @Override
@@ -92,15 +93,16 @@ public class AddHabitDialog extends AppCompatDialogFragment {
                 }
             }
 
-            /**onNothingSelected() is required method of spinner listener and cannot be removed*/
+            /**onNothingSelected() is required method of spinner listener and cannot be removed
+             * @param parent*/
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}});
+
 
         /**builder.setView configures
          * 1. Configuring dialog title text
          * 2. Adds negative button listener with 'cancel' text, button only closes the dialog.
-         * 3. Adds positive button listener with 'add' text, button checks fields and refreshes current fragment*
-         * */
+         * 3. Adds positive button listener with 'add' text, button checks fields and refreshes current fragment** */
         builder.setView(view)
                 .setTitle("New habit")
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
