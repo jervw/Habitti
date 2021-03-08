@@ -104,30 +104,43 @@ public class MainFragment extends Fragment {
         SharedPreferences.Editor editor = sharedPrefHabbits.edit();
         Gson gson = new Gson();
         Double userScoresD = GlobalModel.getInstance().getUserOverallScores();
+        int userLevel = GlobalModel.getInstance().getUserLevel();
         String userScores = String.valueOf(userScoresD);
         int userScoresProgress = GlobalModel.getInstance().getProgressbarProgress();
+        int userScoresCapProgress = GlobalModel.getInstance().getProgressbarMax();
+        double levelCapD = GlobalModel.getInstance().getLevelCap();
+        String levelCap = String.valueOf(levelCapD);
         String jsonHabbits = gson.toJson(GlobalModel.getInstance().getHabbitsList());
+        editor.putInt("User level", userLevel);
+        editor.putInt("Progress cap", userScoresCapProgress);
         editor.putString("Habbits list", jsonHabbits);
         editor.putString("User Scores", userScores);
         editor.putInt("User Scores Progress", userScoresProgress);
+        editor.putString("Level cap", levelCap);
         editor.apply();
         Log.d("Tag", "Saved");
+        Log.d("Tag", "Level " + GlobalModel.getInstance().getUserLevel());
     }
 
     public void loadHabbitData() {
         sharedPrefHabbits = getActivity().getSharedPreferences(sharedPreferenceName, Activity.MODE_PRIVATE);
         Gson gson = new Gson();
-        String userScores = sharedPrefHabbits.getString("User scores", "0");
+        String userScores = sharedPrefHabbits.getString("User Scores", "0");
         int userScoresProgress = sharedPrefHabbits.getInt("User Scores Progress", 0);
         int userLevel = sharedPrefHabbits.getInt("User level", 1);
+        String levelCap = sharedPrefHabbits.getString("Level cap", "100");
+        double levelCapD = Double.parseDouble(levelCap);
         double userScoresD = Double.parseDouble(userScores);
+        int userScoresProgressCap = sharedPrefHabbits.getInt("Progress cap", 100);
         String jsonHabbits = sharedPrefHabbits.getString("Habbits list", null);
         Type typeHabbits = new TypeToken<Collection<Habbit>>() {
         }.getType();
         GlobalModel.getInstance().replaceListHabbits(gson.fromJson(jsonHabbits, typeHabbits));
         GlobalModel.getInstance().setUserLevel(userLevel);
+        GlobalModel.getInstance().setProgressbarMax(userScoresProgressCap);
         GlobalModel.getInstance().setUserOverallScores(userScoresD);
         GlobalModel.getInstance().setProgressbarProgress(userScoresProgress);
+        GlobalModel.getInstance().setLevelCap(levelCapD);
         //Go check if day has passed since last app start and give points accordingly
         if (MainActivity.firstCheckOfDay == true) {
             dateCheck.checkDate();
@@ -177,6 +190,7 @@ public class MainFragment extends Fragment {
                 GlobalModel.getInstance().getHabbitItem(i).addDailyScore();
                 finalHabbitsArrayAdapter.notifyDataSetChanged();
                 GlobalModel.getInstance().updateHabbitViewList();
+                GlobalModel.getInstance().setOneHabbitScoresToProgress(GlobalModel.getInstance().getHabbitItem(i));
                 GlobalModel.getInstance().getUserScoresFromHabbits();
                 userScores.setText("Total scores: " + GlobalModel.getInstance().getUserOverallScores());
                 level.setText("Level : " + GlobalModel.getInstance().getUserLevel() + " XP: " + GlobalModel.getInstance().getProgressbarProgress()
@@ -184,6 +198,7 @@ public class MainFragment extends Fragment {
 
                 Log.d("Tag", "Progress: " + GlobalModel.getInstance().getProgressbarProgress());
                 Log.d("Tag", "Overall scores" + GlobalModel.getInstance().getUserOverallScores());
+                Log.d("Tag", "Level " + GlobalModel.getInstance().getUserLevel());
             }
             }
         });
@@ -229,7 +244,14 @@ public class MainFragment extends Fragment {
     public void onResume() {
         super.onResume();
         updateUI();
-        GlobalModel.getInstance().getUserScoresFromHabbits();
+        Log.d("Tag", "Level " + GlobalModel.getInstance().getUserLevel());
+        Log.d("Tag", "Progress " + GlobalModel.getInstance().getProgressbarProgress());
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        updateUI();
     }
 
     @Override
@@ -238,5 +260,11 @@ public class MainFragment extends Fragment {
         saveHabbitData();
         //SaveLoad.getInstance().saveHabbitData(getActivity(), GlobalModel.getInstance().getHabbitsView(), "shared preference");
         Log.d("MAIN", "OnPause");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        saveHabbitData();
     }
 }

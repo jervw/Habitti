@@ -119,11 +119,7 @@ public class GlobalModel {
             index++;
         }
         this.setUserOverallScores(overallScoresDouble);
-        if (overallScoresDouble < levelCapProgress) {
-            this.userOverallScoresProgress = (int) overallScoresDouble;
-        } else {
-            this.userOverallScoresProgress = (int) (overallScoresDouble) - levelCapProgress;
-        }
+
         if (userOverallScores >= levelCap) {
             checkUserLevelUp();
         }
@@ -133,8 +129,22 @@ public class GlobalModel {
         return this.levelCapProgress;
     }
 
+    public void setProgressbarMax(int cap) {
+        this.levelCapProgress = cap;
+    }
+
+    public void setOneHabbitScoresToProgress(Habbit habbit) {
+        this.userOverallScoresProgress = this.userOverallScoresProgress + (int) habbit.getOverallScore();
+    }
+
     public int getProgressbarProgress() {
         return this.userOverallScoresProgress;
+    }
+    public double getLevelCap() {
+        return this.levelCap;
+    }
+    public void setLevelCap(double cap) {
+        this.levelCap = cap;
     }
 
     public void setProgressbarProgress(int scores) {
@@ -142,9 +152,9 @@ public class GlobalModel {
     }
 
     public void checkUserLevelUp() {
-            this.userLevel++;
-            this.levelCapProgress = (int) (levelCap * 1.05);
-            this.levelCap =this.levelCap + (this.levelCap * 1.05);
+            this.userLevel = this.userLevel + 1;
+            this.levelCapProgress = (int) (levelCap * 1.10);
+            this.levelCap =this.levelCap + (this.levelCap * 1.10);
             this.userOverallScoresProgress = 0;
         }
 
