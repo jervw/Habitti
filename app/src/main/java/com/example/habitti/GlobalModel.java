@@ -17,6 +17,7 @@ public class GlobalModel {
     private double levelCap;
     private int levelCapProgress;
     private int userOverallScoresProgress;
+    private int loginStreak;
 
     public  static GlobalModel getInstance() {
         return ourInstance;
@@ -31,6 +32,7 @@ public class GlobalModel {
         userLevel = 1;
         levelCap = 100;
         levelCapProgress = 100;
+        loginStreak = 0;
     }
 
     public void addHabbit(Habit habbit) {
@@ -38,7 +40,7 @@ public class GlobalModel {
         addListView(habbit);
     }
 
-    public ArrayList<Habit> getHabbitsList() {
+    public ArrayList<Habit> getHabitsList() {
         return this.habbits;
     }
 
@@ -47,14 +49,14 @@ public class GlobalModel {
     }
 
     public void addListView(Habit habbit){
-                habbitsView.add(new HabitsView(habbit.getImageId(), habbit.getHabbitName(), habbit.getHabitType(), "" + habbit.getOverallScore(), ""+habbit.getDayStreak(), habbit.getDateCreated(), habbit.getScoreMultiplier(), habbit.getCheckedStatus()));
+                habbitsView.add(new HabitsView(habbit.getImageId(), habbit.getHabitName(), habbit.getHabitType(), "" + habbit.getOverallScore(), ""+habbit.getDayStreak(), habbit.getDateCreated(), habbit.getScoreMultiplier(), habbit.getCheckedStatus()));
     }
 
     public HabitsView getHabbitViewItem(int i) {
         return habbitsView.get(i);
     }
 
-    public Habit getHabbitItem(int i) {
+    public Habit getHabitItem(int i) {
         return habbits.get(i);
     }
 
@@ -94,17 +96,17 @@ public class GlobalModel {
         int index = 0;
         habbitsView.clear();
         while (index < habbits.size()) {
-            habbitsView.add(new HabitsView(getHabbitItem(index).getImageId(), getHabbitItem(index).getHabbitName(), getHabbitItem(index).getHabitType(), "" + getHabbitItem(index).getOverallScore(), ""+getHabbitItem(index).getDayStreak(),
-                    getHabbitItem(index).getDateCreated(), getHabbitItem(index).getScoreMultiplier(), getHabbitItem(index).getCheckedStatus()));
+            habbitsView.add(new HabitsView(getHabitItem(index).getImageId(), getHabitItem(index).getHabitName(), getHabitItem(index).getHabitType(), "" + getHabitItem(index).getOverallScore(), ""+ getHabitItem(index).getDayStreak(),
+                    getHabitItem(index).getDateCreated(), getHabitItem(index).getScoreMultiplier(), getHabitItem(index).getCheckedStatus()));
             index++;
         }
     }
 
-    public void getUserScoresFromHabbits() {
+    public void getUserScoresFromHabits() {
         int index = 0;
         double overallScoresDouble = 0.0;
         while (index < habbits.size()) {
-            overallScoresDouble = overallScoresDouble + getHabbitItem(index).getOverallScore();
+            overallScoresDouble = overallScoresDouble + getHabitItem(index).getOverallScore();
             index++;
         }
         this.setUserOverallScores(overallScoresDouble);
@@ -142,7 +144,7 @@ public class GlobalModel {
     }
 
     public void setHabitName(int index, String newHabitName){
-        getHabbitItem(index).setHabitName(newHabitName);
+        getHabitItem(index).setHabitName(newHabitName);
     }
 
     public double getUserOverallScores() {
@@ -155,5 +157,13 @@ public class GlobalModel {
 
     public void setUserLevel(int i) {
         this.userLevel = i;
+    }
+
+    public void setLoginStreak(int i) {
+        this.loginStreak = i;
+    }
+
+    public int getLoginStreak() {
+        return this.loginStreak;
     }
 }

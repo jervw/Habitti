@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +28,10 @@ import java.util.Collection;
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
 import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
 
-
+/**
+ * <h1>MainFragment</h1>
+ * @
+ */
 public class MainFragment extends Fragment {
 
     private SharedPreferences sharedPrefHabbits;
@@ -43,7 +45,6 @@ public class MainFragment extends Fragment {
     ListView habbitsListView;
     View rootView;
     int userDayStreak = 0;
-    Handler progressBarHandler;
     //TextView userDayStreakText;
     TextView level;
     TextView userLoginStreak;
@@ -69,7 +70,7 @@ public class MainFragment extends Fragment {
         level.setText("Level : " + GlobalModel.getInstance().getUserLevel() + " XP:  " + GlobalModel.getInstance().getProgressbarProgress()
                 + " / " + GlobalModel.getInstance().getProgressbarMax());
         userScores.setText("Total scores: " + GlobalModel.getInstance().getUserOverallScores());
-        userLoginStreak.setText("Login streak: 1");
+        userLoginStreak.setText("Login streak: " + GlobalModel.getInstance().getLoginStreak());
 
         return rootView;
     }
@@ -106,7 +107,7 @@ public class MainFragment extends Fragment {
         Double userScoresD = GlobalModel.getInstance().getUserOverallScores();
         String userScores = String.valueOf(userScoresD);
         int userScoresProgress = GlobalModel.getInstance().getProgressbarProgress();
-        String jsonHabbits = gson.toJson(GlobalModel.getInstance().getHabbitsList());
+        String jsonHabbits = gson.toJson(GlobalModel.getInstance().getHabitsList());
         editor.putString("Habbits list", jsonHabbits);
         editor.putString("User Scores", userScores);
         editor.putInt("User Scores Progress", userScoresProgress);
@@ -132,7 +133,8 @@ public class MainFragment extends Fragment {
         if (MainActivity.firstCheckOfDay == true) {
             DateCheck.checkDate();
             userDayStreak = DateCheck.loginDayStreak();
-            userLoginStreak.setText("Login day streak: " + userDayStreak);
+            GlobalModel.getInstance().setLoginStreak(userDayStreak);
+            userLoginStreak.setText("Login streak: " + userDayStreak);
             MainActivity.firstCheckOfDay = false;
         }
     }
@@ -141,7 +143,7 @@ public class MainFragment extends Fragment {
         //Check if ArrayList from GlobalModel is set null by sharedPreferences
         //If yes, create new ArrayList. If no get that ArrayList from GlobalModel. Put that ArrayList to ArrayAdapter
         //Find listView by id and set ArrayAdapter to it. Then save current habbits from that ArrayList.
-        GlobalModel.getInstance().getUserScoresFromHabbits();
+        GlobalModel.getInstance().getUserScoresFromHabits();
         userScores.setText("Total scores: " + GlobalModel.getInstance().getUserOverallScores());
         level.setText("Level : " + GlobalModel.getInstance().getUserLevel() + " XP: " + GlobalModel.getInstance().getProgressbarProgress()
                 + " / " + GlobalModel.getInstance().getProgressbarMax());
@@ -172,12 +174,12 @@ public class MainFragment extends Fragment {
         habbitsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> AdapterView, View view, int i, long l) {
-                if (!GlobalModel.getInstance().getHabbitItem(i).getCheckedStatus()) {
-                GlobalModel.getInstance().getHabbitItem(i).setCheckedStatus(true);
-                GlobalModel.getInstance().getHabbitItem(i).addDailyScore();
+                if (!GlobalModel.getInstance().getHabitItem(i).getCheckedStatus()) {
+                GlobalModel.getInstance().getHabitItem(i).setCheckedStatus(true);
+                GlobalModel.getInstance().getHabitItem(i).addDailyScore();
                 finalHabbitsArrayAdapter.notifyDataSetChanged();
                 GlobalModel.getInstance().updateHabbitViewList();
-                GlobalModel.getInstance().getUserScoresFromHabbits();
+                GlobalModel.getInstance().getUserScoresFromHabits();
                 userScores.setText("Total scores: " + GlobalModel.getInstance().getUserOverallScores());
                 level.setText("Level : " + GlobalModel.getInstance().getUserLevel() + " XP: " + GlobalModel.getInstance().getProgressbarProgress()
                         + " / " + GlobalModel.getInstance().getProgressbarMax());
@@ -229,7 +231,7 @@ public class MainFragment extends Fragment {
     public void onResume() {
         super.onResume();
         updateUI();
-        GlobalModel.getInstance().getUserScoresFromHabbits();
+        GlobalModel.getInstance().getUserScoresFromHabits();
         userScores.setText("Scores: " + GlobalModel.getInstance().getUserOverallScores());
     }
 
