@@ -278,7 +278,7 @@ public class MainFragment extends Fragment {
     }
 
     /**
-     * on resume call updateUI, get user scores and display them
+     * on resume call call updateUI
      */
     @Override
     public void onResume() {
@@ -288,6 +288,9 @@ public class MainFragment extends Fragment {
         Log.d("Tag", "Progress " + GlobalModel.getInstance().getProgressbarProgress());
     }
 
+    /**
+     * on start call updateUI, get user scores and display them
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -306,6 +309,9 @@ public class MainFragment extends Fragment {
         Log.d("MAIN", "OnPause");
     }
 
+    /**
+     * on stop save data
+     */
     @Override
     public void onStop() {
         super.onStop();
