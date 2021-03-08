@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -65,7 +67,7 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        DateCheck dateCheck = new DateCheck(getActivity());
+        dateCheck dateCheck = new dateCheck(getActivity());
 
         level = (TextView) rootView.findViewById(R.id.levelText);
         userLoginStreak = (TextView) rootView.findViewById(R.id.textViewUserLoginStreak);
@@ -119,17 +121,23 @@ public class MainFragment extends Fragment {
         sharedPrefHabbits = getActivity().getSharedPreferences(sharedPreferenceName, Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefHabbits.edit();
         Gson gson = new Gson();
-        int userLevel = GlobalModel.getInstance().getUserLevel();
         Double userScoresD = GlobalModel.getInstance().getUserOverallScores();
+        int userLevel = GlobalModel.getInstance().getUserLevel();
         String userScores = String.valueOf(userScoresD);
         int userScoresProgress = GlobalModel.getInstance().getProgressbarProgress();
+        int userScoresCapProgress = GlobalModel.getInstance().getProgressbarMax();
+        double levelCapD = GlobalModel.getInstance().getLevelCap();
+        String levelCap = String.valueOf(levelCapD);
         String jsonHabbits = gson.toJson(GlobalModel.getInstance().getHabitsList());
-        editor.putInt("User Level", userLevel);
+        editor.putInt("User level", userLevel);
+        editor.putInt("Progress cap", userScoresCapProgress);
         editor.putString("Habbits list", jsonHabbits);
         editor.putString("User Scores", userScores);
         editor.putInt("User Scores Progress", userScoresProgress);
+        editor.putString("Level cap", levelCap);
         editor.apply();
         Log.d("Tag", "Saved");
+        Log.d("Tag", "Level " + GlobalModel.getInstance().getUserLevel());
     }
 
     /**
@@ -140,21 +148,26 @@ public class MainFragment extends Fragment {
     public void loadHabbitData() {
         sharedPrefHabbits = getActivity().getSharedPreferences(sharedPreferenceName, Activity.MODE_PRIVATE);
         Gson gson = new Gson();
-        String userScores = sharedPrefHabbits.getString("User scores", "0");
+        String userScores = sharedPrefHabbits.getString("User Scores", "0");
         int userScoresProgress = sharedPrefHabbits.getInt("User Scores Progress", 0);
         int userLevel = sharedPrefHabbits.getInt("User level", 1);
+        String levelCap = sharedPrefHabbits.getString("Level cap", "100");
+        double levelCapD = Double.parseDouble(levelCap);
         double userScoresD = Double.parseDouble(userScores);
+        int userScoresProgressCap = sharedPrefHabbits.getInt("Progress cap", 100);
         String jsonHabbits = sharedPrefHabbits.getString("Habbits list", null);
         Type typeHabbits = new TypeToken<Collection<Habit>>() {
         }.getType();
         GlobalModel.getInstance().replaceListHabbits(gson.fromJson(jsonHabbits, typeHabbits));
         GlobalModel.getInstance().setUserLevel(userLevel);
+        GlobalModel.getInstance().setProgressbarMax(userScoresProgressCap);
         GlobalModel.getInstance().setUserOverallScores(userScoresD);
         GlobalModel.getInstance().setProgressbarProgress(userScoresProgress);
+        GlobalModel.getInstance().setLevelCap(levelCapD);
         //Go check if day has passed since last app start and give points accordingly
         if (MainActivity.firstCheckOfDay == true) {
-            DateCheck.checkDate();
-            userDayStreak = DateCheck.loginDayStreak();
+            dateCheck.checkDate();
+            userDayStreak = dateCheck.loginDayStreak();
             GlobalModel.getInstance().setLoginStreak(userDayStreak);
             userLoginStreak.setText("Login streak: " + userDayStreak);
             MainActivity.firstCheckOfDay = false;
@@ -209,12 +222,15 @@ public class MainFragment extends Fragment {
                 finalHabbitsArrayAdapter.notifyDataSetChanged();
                 GlobalModel.getInstance().updateHabbitViewList();
                 GlobalModel.getInstance().getUserScoresFromHabits();
+                GlobalModel.getInstance().setOneHabbitScoresToProgress(GlobalModel.getInstance().getHabitItem(i));
+                GlobalModel.getInstance().getUserScoresFromHabits();
                 userScores.setText("Total scores: " + GlobalModel.getInstance().getUserOverallScores());
                 level.setText("Level : " + GlobalModel.getInstance().getUserLevel() + " XP: " + GlobalModel.getInstance().getProgressbarProgress()
                         + " / " + GlobalModel.getInstance().getProgressbarMax());
 
                 Log.d("Tag", "Progress: " + GlobalModel.getInstance().getProgressbarProgress());
                 Log.d("Tag", "Overall scores" + GlobalModel.getInstance().getUserOverallScores());
+                Log.d("Tag", "Level " + GlobalModel.getInstance().getUserLevel());
             }
             }
         });
@@ -262,11 +278,22 @@ public class MainFragment extends Fragment {
     }
 
     /**
-     * on resume call updateUI, get user scores and display them
+     * on resume call call updateUI
      */
     @Override
     public void onResume() {
         super.onResume();
+        updateUI();
+        Log.d("Tag", "Level " + GlobalModel.getInstance().getUserLevel());
+        Log.d("Tag", "Progress " + GlobalModel.getInstance().getProgressbarProgress());
+    }
+
+    /**
+     * on start call updateUI, get user scores and display them
+     */
+    @Override
+    public void onStart() {
+        super.onStart();
         updateUI();
         GlobalModel.getInstance().getUserScoresFromHabits();
         userScores.setText("Scores: " + GlobalModel.getInstance().getUserOverallScores());
@@ -280,5 +307,14 @@ public class MainFragment extends Fragment {
         super.onPause();
         saveHabbitData();
         Log.d("MAIN", "OnPause");
+    }
+
+    /**
+     * on stop save data
+     */
+    @Override
+    public void onStop() {
+        super.onStop();
+        saveHabbitData();
     }
 }
