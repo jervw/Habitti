@@ -209,7 +209,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * OnPause() method was created for checking
+     * OnPause() method was created for checking pause state in app.
      */
     @Override
     protected void onPause() {

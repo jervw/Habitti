@@ -14,7 +14,7 @@ import android.widget.ImageView;
 
 /**
  * <h1>RewardsActivity</h1>
- * ShopPopUp program implements rewards system in the app.
+ * RewardsActivity program implements rewards system in the app.
  *
  * @author Anna Raevskaia
  */
@@ -46,7 +46,7 @@ public class RewardsActivity extends Activity {
     /**
      * The OnCreate() method calls methods of the class in the right order for the program to work.
      * Firstly it sets shop_pop_up_window layout in the full screen.
-     * Then it calls updateUI() method, that sets the current character's appearance.
+     * Then it calls changeClothes() method, that sets the current character's appearance.
      * Finds grid view by id, creates new RewardsItemAdapter, and sets it to grid view.
      * Gets user's level from the singleton GlobalModel class. It's also possible to set your level to text program working.
      * Calls changeItemsText() method, that changes the default text of items to empty.
@@ -175,7 +175,7 @@ public class RewardsActivity extends Activity {
         selectedImage = selectedImage % clothesImages.length;
         imageViewCharacterClothes1.setImageResource(clothesImages[selectedImage]);
 
-        // SET A INDEX FOR THE SELECTED ITEM:
+        // SET A INDEX FOR THE SELECTED ITEM, NEEDED FOR SAVING:
         currentImagelothes1 = index;
 
     }
@@ -223,7 +223,7 @@ public class RewardsActivity extends Activity {
 
 
     /**
-     *
+     * This method loads character's data from Shared Preferences.
      */
     // LOAD CHARACTER IMAGES THEN ACTIVITY STARTS:
     private void updateUI() {

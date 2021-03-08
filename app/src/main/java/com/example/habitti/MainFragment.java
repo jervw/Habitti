@@ -30,7 +30,10 @@ import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
 
 /**
  * <h1>MainFragment</h1>
- * @
+ * @author Santeri Hytönen
+ * @author Anna Raevskaia
+ * @author Jere Vuola
+ * MainFragment is used as the main view for the user
  */
 public class MainFragment extends Fragment {
 
@@ -50,6 +53,14 @@ public class MainFragment extends Fragment {
     TextView userLoginStreak;
     TextView userScores;
 
+    /**
+     *
+     * Basic onCreate method
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -76,8 +87,9 @@ public class MainFragment extends Fragment {
     }
 
 
-
-
+    /**
+     * Used to setup the calendar
+     */
     private void initializeCalendar() {
         Calendar startDate = Calendar.getInstance();
         startDate.add(Calendar.MONTH, -1);
@@ -100,14 +112,19 @@ public class MainFragment extends Fragment {
         });
     }
 
+    /**
+     * Gets user scores, level progress, user level and Habit-list and stores them to sharedPreferences
+     */
     private void saveHabbitData() {
         sharedPrefHabbits = getActivity().getSharedPreferences(sharedPreferenceName, Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefHabbits.edit();
         Gson gson = new Gson();
+        int userLevel = GlobalModel.getInstance().getUserLevel();
         Double userScoresD = GlobalModel.getInstance().getUserOverallScores();
         String userScores = String.valueOf(userScoresD);
         int userScoresProgress = GlobalModel.getInstance().getProgressbarProgress();
         String jsonHabbits = gson.toJson(GlobalModel.getInstance().getHabitsList());
+        editor.putInt("User Level", userLevel);
         editor.putString("Habbits list", jsonHabbits);
         editor.putString("User Scores", userScores);
         editor.putInt("User Scores Progress", userScoresProgress);
@@ -115,6 +132,11 @@ public class MainFragment extends Fragment {
         Log.d("Tag", "Saved");
     }
 
+    /**
+     * Gets user scores, level progress, user level and Habit-list and stores them to sharedPreferences
+     * Also checks if firstCheckOfDay is true or false
+     * If its true user DateCheck to see if user login streak has kept
+     */
     public void loadHabbitData() {
         sharedPrefHabbits = getActivity().getSharedPreferences(sharedPreferenceName, Activity.MODE_PRIVATE);
         Gson gson = new Gson();
@@ -139,6 +161,13 @@ public class MainFragment extends Fragment {
         }
     }
 
+    /**
+     * Used to update the UI
+     * First get user scores, user level, current level progress and current progress max points and sets them to UI
+     * Next setups arrayAdapter and saves data
+     * Next set onItemClickListener and onItemLongClickListener for the listView items
+     * At last call updateCostume()
+     */
     public void updateUI() {
         //Check if ArrayList from GlobalModel is set null by sharedPreferences
         //If yes, create new ArrayList. If no get that ArrayList from GlobalModel. Put that ArrayList to ArrayAdapter
@@ -192,6 +221,10 @@ public class MainFragment extends Fragment {
 
         updateCostume();
     }
+
+    /**
+     *
+     */
     public void updateCostume() {
         // GET NAME FROM SHARED PREFERENCE.XML:
         sharedPrefHabbits = this.getActivity().getSharedPreferences("shared preference", Context.MODE_PRIVATE);
@@ -228,6 +261,9 @@ public class MainFragment extends Fragment {
         }
     }
 
+    /**
+     * on resume call updateUI, get user scores and display them
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -236,6 +272,9 @@ public class MainFragment extends Fragment {
         userScores.setText("Scores: " + GlobalModel.getInstance().getUserOverallScores());
     }
 
+    /**
+     * on pause save data
+     */
     @Override
     public void onPause() {
         super.onPause();
