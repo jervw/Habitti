@@ -234,7 +234,8 @@ public class MainFragment extends Fragment {
         }
 
         // GET CLOTHES FROM SHARED PREFERENCE.XML:
-        clothesImages = new int[] {R.drawable.char_13, R.drawable.char_2, R.drawable.char_15, R.drawable.char_10, R.drawable.char_14};
+        //clothesImages = new int[] {R.drawable.char_13, R.drawable.char_2, R.drawable.char_15, R.drawable.char_10, R.drawable.char_14};
+        clothesImages = new int[] {R.drawable.char_13, R.drawable.char_14, R.drawable.char_2, R.drawable.char_10, R.drawable.char_16, R.drawable.char_15};
         ImageView imageViewCharacterClothes = (ImageView) rootView.findViewById(R.id.userClothesImage);
         if (sharedPrefHabbits.contains("LastUserClothes")) {
             imageViewCharacterClothes.setImageResource(clothesImages[sharedPrefHabbits.getInt("LastUserClothes", -1)]);
