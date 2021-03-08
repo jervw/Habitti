@@ -15,6 +15,7 @@ import android.widget.ImageView;
 /**
  * <h1>Shop / Rewards</h1>
  * ShopPopUp program implements rewards system in the app.
+ *
  * @author Anna Raevskaia
  */
 public class RewardsActivity extends Activity {
@@ -28,7 +29,7 @@ public class RewardsActivity extends Activity {
 
     GridView gridview;
 
-    // CREATE A NEW ITEM IN THE SHOP:
+    // NAMES AND IMAGES FOR ITEMS IN THE SHOP:
     String[] itemNames = {"Locked 2 lvl", "Locked 3 lvl", "Locked 4 lvl", "Locked 6 lvl", "Locked8 lvl", "Locked 10 lvl"};
     int[] itemImages = {R.drawable.shop_item_1, R.drawable.shop_item_2, R.drawable.shop_item_3, R.drawable.shop_item_4, R.drawable.shop_item_6, R.drawable.shop_item_5};
 
@@ -39,17 +40,20 @@ public class RewardsActivity extends Activity {
 
     int characterLvl;
 
-    int a;
+    int a = 0;
 
 
     /**
-     * 1: Sets shop_pop_up_window layout.
-     * 2: Calls updateUI() method, that set current character's appearance.
-     * 3: Finds grid view by id, create new ShopItemAdapter and set it to grid view.
-     * 4: Gets user's level from the singleton GlobalModel class.
-     * 5: Calls changeItemsText() method, that change default text of items to empty.
-     * @see #changeItemsText().
-     * The button closeBtn closes shop/rewards window and opens the main fragment.
+     * The OnCreate () method calls methods of the class in the right order for the program to work.
+     * Firstly it sets shop_pop_up_window layout in the full screen.
+     * Then it calls updateUI() method, that sets the current character's appearance.
+     * Finds grid view by id, creates new ShopItemAdapter, and sets it to grid view.
+     * Gets user's level from the singleton GlobalModel class. It's also possible to set your level to text program working.
+     * Calls changeItemsText() method, that changes the default text of items to empty.
+     * Change character's clothes, if the user was clicked an item in the grid view.
+     * Closes shop/rewards window and opens the main fragment, if closeBtn was clicked.
+     * Close button also saves the user's data of images if the user's level doesn't equal 1.
+     * This is for the reason, that 1. level characters can't change their appearance until they reach 2. level.
      * @param savedInstanceState
      */
     @Override
@@ -125,7 +129,7 @@ public class RewardsActivity extends Activity {
 
 
     /**
-     *
+     * This method checks that level user has and that item he was clicked. Program get index of clicked item in the grid view in the onCreate() method.
      */
     // CLOTHES CHANGING BASED ON LEVEL AND INDEX (POSITION) OF ITEM IN GRID VIEW:
     private void changeClothes() {
@@ -191,7 +195,7 @@ public class RewardsActivity extends Activity {
 
     /**
      * If user's level is high enough, the program sets an empty text to text view in the item card.
-     * Else if user doesn't have needed level, in the card will written, that level is needed.
+     * Else if the user doesn't have the needed level, the program will write, that level is required for theirs.
      */
     // CHANGE TEXT TO EMPTY IN ITEMS CARDS:
     private void changeItemsText() {
@@ -228,6 +232,7 @@ public class RewardsActivity extends Activity {
             itemNames[5] = "";
         }
     }
+
 
     /**
      *
