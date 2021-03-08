@@ -12,8 +12,6 @@
         android:layout_width="409dp"
         android:layout_height="599dp"
         android:fillViewport="true"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,8 +22,7 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10sp"
-            android:layout_marginRight="10sp"
+            android:layout_margin="30dp"
             android:stretchColumns="1">
 
             <TableRow>

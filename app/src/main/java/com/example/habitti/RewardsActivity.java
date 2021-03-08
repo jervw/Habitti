@@ -30,7 +30,7 @@ public class RewardsActivity extends Activity {
     GridView gridview;
 
     // NAMES AND IMAGES FOR ITEMS IN THE SHOP:
-    String[] itemNames = {"Locked 2 lvl", "Locked 3 lvl", "Locked 4 lvl", "Locked 6 lvl", "Locked8 lvl", "Locked 10 lvl"};
+    String[] itemNames = {"Locked 2 lvl", "Locked 3 lvl", "Locked 4 lvl", "Locked 6 lvl", "Locked 8 lvl", "Locked 10 lvl"};
     int[] itemImages = {R.drawable.shop_item_1, R.drawable.shop_item_2, R.drawable.shop_item_3, R.drawable.shop_item_4, R.drawable.shop_item_6, R.drawable.shop_item_5};
 
     String selectedNameString;

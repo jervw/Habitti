@@ -67,7 +67,7 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        dateCheck dateCheck = new dateCheck(getActivity());
+        DateCheck dateCheck = new DateCheck(getActivity());
 
         level = (TextView) rootView.findViewById(R.id.levelText);
         userLoginStreak = (TextView) rootView.findViewById(R.id.textViewUserLoginStreak);
@@ -166,8 +166,8 @@ public class MainFragment extends Fragment {
         GlobalModel.getInstance().setLevelCap(levelCapD);
         //Go check if day has passed since last app start and give points accordingly
         if (MainActivity.firstCheckOfDay == true) {
-            dateCheck.checkDate();
-            userDayStreak = dateCheck.loginDayStreak();
+            DateCheck.checkDate();
+            userDayStreak = DateCheck.loginDayStreak();
             GlobalModel.getInstance().setLoginStreak(userDayStreak);
             userLoginStreak.setText("Login streak: " + userDayStreak);
             MainActivity.firstCheckOfDay = false;
